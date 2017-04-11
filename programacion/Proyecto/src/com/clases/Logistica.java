@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class Logistica extends Trabajador {
     
+    //asociacion con parte
     private List<Parte>parte = new ArrayList<>();
 
     public Logistica() {
@@ -34,4 +35,5 @@ public class Logistica extends Trabajador {
 		throw new UnsupportedOperationException();
 	}
     
+        
 }

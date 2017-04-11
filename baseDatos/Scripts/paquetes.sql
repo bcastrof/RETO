@@ -82,3 +82,37 @@ OPEN C FOR
 SELECT * FROM TRABAJADORES WHERE ID=IDN;
 CLOSE C;
 END EMPLEADO;
+
+--login
+
+create or replace procedure login
+(user USUARIOS.USUARIO%type, pass USUARIOS.PASSWORD%type)
+as
+
+p usuarios.password%type;
+d trabajadores.dni%type;
+cat TRABAJADORES.CATEGORIA%type;
+clave_no_valida EXCEPTION;
+
+begin
+
+select password into p
+from usuarios where usuario=user and PASSWORD=pass;
+select dni into d
+from trabajadores where id=(select TRABAJADORES_ID from usuarios where usuario=user and password=pass);
+
+if (p=d) then 
+raise clave_no_valida;
+else 
+select categoria into cat
+from trabajadores
+where ID=(select TRABAJADORES_ID from usuarios where usuario=user and password=pass);
+end if;
+
+EXCEPTION 
+WHEN clave_no_valida then 
+   raise clave_no_valida;
+WHEN no_data_found THEN
+   null;  
+    
+end login;

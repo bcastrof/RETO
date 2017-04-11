@@ -5,6 +5,9 @@
  */
 package com.clases;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author 7fprog03
@@ -31,6 +34,9 @@ public class Trabajador {
         
         //asociacion con centros 
         private Centro centro;
+        //asociacion con usuarios
+        private List<Usuario>usuario=new ArrayList<>();
+        
 
     public Trabajador() {
     }

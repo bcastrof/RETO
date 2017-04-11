@@ -14,11 +14,12 @@ import java.util.List;
  */
 public class Administracion extends Trabajador  {
 
-   private List<Parte>parte=new ArrayList<>();
-    
-    
-    
-    
+   //asociacion con parte para poder validarlo
+    private List<Parte>parte=new ArrayList<>();
+   
+  //asociacion con vehiculo para hacer operaciones CRUD
+    private List<Vehiculo>vehiculo = new ArrayList<>();
+   
     public Administracion() {
     }
 

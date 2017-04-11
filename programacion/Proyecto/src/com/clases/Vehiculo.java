@@ -17,6 +17,8 @@ public class Vehiculo {
     
     //asociacion con parte
     private Parte parte;
+   //asociacion con administracion
+    private Administracion administracion; 
 
     public Vehiculo() {
     }

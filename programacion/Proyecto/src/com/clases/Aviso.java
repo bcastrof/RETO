@@ -16,6 +16,8 @@ public class Aviso {
         //asociacion con parte
         private Parte parte;
 
+        
+        
     public Aviso() {
     }
 
@@ -41,5 +43,11 @@ public class Aviso {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-    
+
+    @Override
+    public String toString() {
+        return "Aviso{" + "idAviso=" + idAviso + 
+                ", descripcion=" + descripcion + '}';
+    }
+        
 }
