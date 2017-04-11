@@ -5,6 +5,10 @@
  */
 package com.ventanas;
 
+import com.clases.Categoria;
+import javax.swing.JPasswordField;
+import com.clases.Usuario;
+
 /**
  *
  * @author bcastrof
@@ -49,6 +53,11 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("Contraseña");
 
         conectar.setText("Conectar");
+        conectar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                conectarActionPerformed(evt);
+            }
+        });
 
         Salir.setText("Salir");
         Salir.setMaximumSize(new java.awt.Dimension(77, 23));
@@ -109,6 +118,19 @@ public class Login extends javax.swing.JFrame {
     private void userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_userActionPerformed
+
+    private void conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conectarActionPerformed
+        // TODO add your handling code here:
+        String usuario = user.getText();
+        String pass = new String (password.getPassword());
+        Usuario u = new Usuario(usuario, pass);
+        String categoria = u.loguearse();
+        
+        if (categoria.equalsIgnoreCase("administracion")) {
+            
+        }
+        
+    }//GEN-LAST:event_conectarActionPerformed
 
     /**
      * @param args the command line arguments

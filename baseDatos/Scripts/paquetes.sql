@@ -86,7 +86,7 @@ END EMPLEADO;
 --login
 
 create or replace procedure login
-(user USUARIOS.USUARIO%type, pass USUARIOS.PASSWORD%type)
+(user USUARIOS.USUARIO%type, pass USUARIOS.PASSWORD%type, cat out varchar2(50)
 as
 
 p usuarios.password%type;

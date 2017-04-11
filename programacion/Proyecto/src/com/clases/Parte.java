@@ -33,7 +33,7 @@ public class Parte {
         //asosiacion con logistica
         private Logistica logistica;
         //asociacion con administracion
-        private Administracion administracion;
+        // private Administracion administracion;
         //asociciacion con vehiculos
         private List<Vehiculo>vehiculo = new ArrayList<>();
         //asociacion con viajes 
