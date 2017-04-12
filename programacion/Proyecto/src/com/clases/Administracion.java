@@ -5,8 +5,15 @@
  */
 package com.clases;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import oracle.jdbc.OracleTypes;
 
 /**
  *
@@ -43,9 +50,40 @@ public class Administracion extends Trabajador  {
 		throw new UnsupportedOperationException();
 	}
 
-	public void gestionCentros() {
-		// TODO - implement Administracion.gestionCentros
-		throw new UnsupportedOperationException();
+
+        public void gestionCentros(int id, String nombre, String calle,
+                int numero,String ciudad,int codigoPostal,String provincia,
+                int telefono) {
+        Conexion.conectar();
+        
+        try {
+            Statement smt=Conexion.getConexion().prepareStatement("INSERT INTO libros VALUES (?,?,?,?,?,?,?,?)");
+          //  http://lineadecodigo.com/java/insertar-datos-con-jdbc/
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Administracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+          
+            Statement sentencia = Conexion.getConexion().createStatement();
+           /* id=0;
+            nombre=null;
+            calle=null;
+            numero=0;
+            ciudad=null;
+            codigoPostal=0;
+            provincia=null;
+            telefono=0;*/
+            
+            String sql="INSERT INTO centros VALUES ( "+id + " , '" + nombre + "', '"+ calle+ "', " + numero+ " , '" + ciudad+ "' , " + codigoPostal + ", " + provincia + " , " + telefono + ")";
+            int filas = sentencia.executeUpdate(sql);
+            sentencia.close();;
+            Conexion.desconectar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Administracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
 	}
 
 	public void gestionarTrabajadores() {

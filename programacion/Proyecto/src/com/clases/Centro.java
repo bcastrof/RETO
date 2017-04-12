@@ -5,8 +5,13 @@
  */
 package com.clases;
 
+import java.sql.CallableStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import oracle.jdbc.OracleTypes;
 /**
  *
  * @author 7fprog03
@@ -102,6 +107,20 @@ public class Centro {
     public void setTelefonos(int Telefonos) {
         this.Telefonos = Telefonos;
     }
+    
+    	public int autonumerico(){
+        int i=0;
+        try {
+            Conexion.conectar();
+            CallableStatement cs = Conexion.getConexion().prepareCall("{call INCREMENTCENTER(?)}");
+            cs.registerOutParameter(1, OracleTypes.INTEGER);
+            cs.execute(); 
+             i=cs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(Administracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return i;
+        }
 
     @Override
     public String toString() {

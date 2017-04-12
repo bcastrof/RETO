@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package com.ventanas;
-
+import com.clases.Centro;
+import com.clases.Administracion;
 /**
  *
  * @author bcastrof
@@ -79,6 +80,11 @@ public class AltaCentros extends javax.swing.JFrame {
 
         alta.setText("Alta");
         alta.setPreferredSize(new java.awt.Dimension(97, 23));
+        alta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                altaActionPerformed(evt);
+            }
+        });
         getContentPane().add(alta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
 
         limpiar.setText("Limpiar");
@@ -91,6 +97,20 @@ public class AltaCentros extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void altaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaActionPerformed
+        /*Centro c = new Centro ();
+        int id=6;
+        String name = nombre.getText();
+        String street = calle.getText();
+        int number = Integer.parseInt(numero.getText());
+        String city = ciudad.getText();
+        int postalCode = Integer.parseInt(codigoPostal.getText());
+        String province = provincia.getText();
+        int phone = Integer.parseInt(telefono.getText());*/
+        Administracion a = new Administracion();
+        a.gestionCentros(6,"lol","lol",7,"lol",7,"lol",7);
+    }//GEN-LAST:event_altaActionPerformed
 
     /**
      * @param args the command line arguments

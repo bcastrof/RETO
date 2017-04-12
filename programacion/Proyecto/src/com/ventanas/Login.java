@@ -5,7 +5,6 @@
  */
 package com.ventanas;
 
-import com.clases.Categoria;
 import javax.swing.JPasswordField;
 import com.clases.Usuario;
 
