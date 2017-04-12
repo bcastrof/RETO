@@ -57,7 +57,7 @@ public class Usuario {
           String cat=null;
         try {  
             Conexion.conectar();
-            CallableStatement cs = Conexion.getConexion().prepareCall("{call LOGIN(?,?,?)}");
+            CallableStatement cs = Conexion.getConexion().prepareCall("{call PLOGIN.VALIDACION(?,?,?)}");
             cs.setString(1, idUsuario);
             cs.setNString(2, password);
             cs.registerOutParameter(3, OracleTypes.VARCHAR);
