@@ -54,10 +54,10 @@ public class Usuario {
     }
     
     public String loguearse(){
-          String c=null;
+          String cat=null;
         try {  
             Conexion.conectar();
-            CallableStatement cs = Conexion.getConexion().prepareCall("{call login(?,?,?)}");
+            CallableStatement cs = Conexion.getConexion().prepareCall("{call LOGIN(?,?,?)}");
             cs.setString(1, idUsuario);
             cs.setNString(2, password);
             cs.registerOutParameter(3, OracleTypes.VARCHAR);
@@ -65,18 +65,18 @@ public class Usuario {
             String categoria =cs.getString(3);
            
             if(categoria.equalsIgnoreCase("administracion")){
-                c=categoria;
+                cat=categoria;
             }
             
             if(categoria.equalsIgnoreCase("logistica")){
-                c=categoria;
+                cat=categoria;
             }
             
             Conexion.desconectar();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"No se puede efectuar la conexión, hable con el administrador del sistema \n"+ex.getMessage());       
         }
-        return c;
+        return cat;
     }
     
 }

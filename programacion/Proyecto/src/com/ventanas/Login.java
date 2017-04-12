@@ -14,7 +14,8 @@ import com.clases.Usuario;
  * @author bcastrof
  */
 public class Login extends javax.swing.JFrame {
-
+   private Administracion administracion;
+   //private Logistica logistica;
     /**
      * Creates new form Login
      */
@@ -125,8 +126,11 @@ public class Login extends javax.swing.JFrame {
         String pass = new String (password.getPassword());
         Usuario u = new Usuario(usuario, pass);
         String categoria = u.loguearse();
-        
         if (categoria.equalsIgnoreCase("administracion")) {
+            administracion= new Administracion();
+            administracion.setVisible(true);
+           //todo hacer que la ventana login desaparezca
+        }else{
             
         }
         

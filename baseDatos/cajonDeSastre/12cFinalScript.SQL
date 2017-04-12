@@ -61,7 +61,6 @@ CREATE
   CREATE
   TABLE PARTES
   (
-   
     fecha             DATE,
     kmInicial         NUMBER (7) DEFAULT 0 NOT NULL,
     kmFinal           NUMBER (7) DEFAULT 0 NOT NULL,
