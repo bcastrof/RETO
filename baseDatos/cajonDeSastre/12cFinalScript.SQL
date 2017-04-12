@@ -105,8 +105,8 @@ CREATE
     movilEmpresa    NUMBER (15) NOT NULL ,
     movilPersonal   NUMBER (15) ,
     salario         NUMBER (9,2) ,
-    fechaNacimiento DATE ,
-    CENTROS_ID      NUMBER (7) NOT NULL
+    fechaNacimiento DATE 
+
   ) ;
 --ALTER TABLE TRABAJADORES ADD CONSTRAINT TRABAJADORES_PK PRIMARY KEY ( ID ) ;
 
