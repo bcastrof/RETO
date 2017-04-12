@@ -97,19 +97,20 @@ public class AltaCentros extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//ESTO FUNCIONA
     private void altaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaActionPerformed
-        /*Centro c = new Centro ();
-        int id=6;
+        
+       
         String name = nombre.getText();
         String street = calle.getText();
         int number = Integer.parseInt(numero.getText());
         String city = ciudad.getText();
         int postalCode = Integer.parseInt(codigoPostal.getText());
         String province = provincia.getText();
-        int phone = Integer.parseInt(telefono.getText());*/
-        Administracion a = new Administracion();
-        a.gestionCentros(6,"lol","lol",7,"lol",7,"lol",7);
+        int phone = Integer.parseInt(telefono.getText());
+        Centro c = new Centro (name, street, number, city, postalCode, province, phone);
+        c.gestionCentros();
+        
     }//GEN-LAST:event_altaActionPerformed
 
     /**

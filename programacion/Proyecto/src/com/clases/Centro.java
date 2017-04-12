@@ -5,20 +5,20 @@
  */
 package com.clases;
 
-import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import oracle.jdbc.OracleTypes;
 /**
  *
  * @author 7fprog03
  */
 public class Centro {
     
-    private int IDCent;
+       private int IDCent;
 	private String Nombre;
 	private String Calle;
 	private int Numero;
@@ -33,8 +33,8 @@ public class Centro {
     public Centro() {
     }
 
-    public Centro(int IDCent, String Nombre, String Calle, int Numero, String Ciudad, int CodigoPostal, String Provincia, int Telefonos) {
-        this.IDCent = IDCent;
+    public Centro(String Nombre, String Calle, int Numero, String Ciudad, int CodigoPostal, String Provincia, int Telefonos) {
+       
         this.Nombre = Nombre;
         this.Calle = Calle;
         this.Numero = Numero;
@@ -108,19 +108,31 @@ public class Centro {
         this.Telefonos = Telefonos;
     }
     
-    	public int autonumerico(){
-        int i=0;
+    //ESTO FUNCIONA
+    	public void gestionCentros() {
+        Conexion.conectar();
+        
         try {
-            Conexion.conectar();
-            CallableStatement cs = Conexion.getConexion().prepareCall("{call INCREMENTCENTER(?)}");
-            cs.registerOutParameter(1, OracleTypes.INTEGER);
-            cs.execute(); 
-             i=cs.getInt(1);
+            PreparedStatement smt=Conexion.getConexion().prepareStatement("insert into centros (nombre,calle,numero,ciudad,codigoPostal,provincia,telefono) values (?,?,?,?,?,?,?)");
+          
+           smt.setString(1, Nombre); 
+           smt.setString(2, Calle);
+           smt.setInt(3, Numero);
+           smt.setString(4, Ciudad);
+           smt.setInt(5,CodigoPostal);
+           smt.setString(6, Provincia);
+           smt.setInt(7, Telefonos); 
+           
+           smt.executeUpdate();
+	
+	   smt.close();
+	   smt.close();
         } catch (SQLException ex) {
             Logger.getLogger(Administracion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return i;
-        }
+  
+           
+	}
 
     @Override
     public String toString() {

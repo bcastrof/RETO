@@ -51,41 +51,21 @@ public class Administracion extends Trabajador  {
 	}
 
 
-        public void gestionCentros(int id, String nombre, String calle,
-                int numero,String ciudad,int codigoPostal,String provincia,
-                int telefono) {
+        /*public void gestionCentros() {
         Conexion.conectar();
         
         try {
-            Statement smt=Conexion.getConexion().prepareStatement("INSERT INTO libros VALUES (?,?,?,?,?,?,?,?)");
-          //  http://lineadecodigo.com/java/insertar-datos-con-jdbc/
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Administracion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
+            Statement smt=Conexion.getConexion().prepareStatement("insert into centros (nombre,calle,numero,ciudad,codigoPostal,provincia,telefono) values (?,?,?,?,?,?,?,?)");
           
-            Statement sentencia = Conexion.getConexion().createStatement();
-           /* id=0;
-            nombre=null;
-            calle=null;
-            numero=0;
-            ciudad=null;
-            codigoPostal=0;
-            provincia=null;
-            telefono=0;*/
+            smt. 
             
-            String sql="INSERT INTO centros VALUES ( "+id + " , '" + nombre + "', '"+ calle+ "', " + numero+ " , '" + ciudad+ "' , " + codigoPostal + ", " + provincia + " , " + telefono + ")";
-            int filas = sentencia.executeUpdate(sql);
-            sentencia.close();;
-            Conexion.desconectar();
         } catch (SQLException ex) {
             Logger.getLogger(Administracion.class.getName()).log(Level.SEVERE, null, ex);
         }
+  
            
 	}
-
+*/
 	public void gestionarTrabajadores() {
 		// TODO - implement Administracion.gestionarTrabajadores
 		throw new UnsupportedOperationException();
