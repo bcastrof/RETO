@@ -6,11 +6,14 @@
 package com.ventanas;
 import com.clases.Centro;
 import com.clases.Administracion;
+import javax.swing.JOptionPane;
 /**
  *
  * @author bcastrof
  */
 public class AltaCentros extends javax.swing.JFrame {
+
+  
 
     /**
      * Creates new form AltaCentros
@@ -89,6 +92,11 @@ public class AltaCentros extends javax.swing.JFrame {
 
         limpiar.setText("Limpiar");
         limpiar.setPreferredSize(new java.awt.Dimension(97, 23));
+        limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarActionPerformed(evt);
+            }
+        });
         getContentPane().add(limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, -1, -1));
 
         volver.setText("Volver");
@@ -99,8 +107,9 @@ public class AltaCentros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 //ESTO FUNCIONA
     private void altaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaActionPerformed
+     /*
+        //esto funciona en 12c
         
-       
         String name = nombre.getText();
         String street = calle.getText();
         int number = Integer.parseInt(numero.getText());
@@ -109,10 +118,56 @@ public class AltaCentros extends javax.swing.JFrame {
         String province = provincia.getText();
         int phone = Integer.parseInt(telefono.getText());
         Centro c = new Centro (name, street, number, city, postalCode, province, phone);
-        c.gestionCentros();
+        */
+     
+     //esto funciona en 11g
+        Centro c=new Centro();
+        int id = c.autoincremente();
+        String name = nombre.getText();
+        String street = calle.getText();
+        int number = Integer.parseInt(numero.getText());
+        String city = ciudad.getText();
+        int postalCode = Integer.parseInt(codigoPostal.getText());
+        String province = provincia.getText();
+        int phone = Integer.parseInt(telefono.getText());
+        Centro d = new Centro ();
+        d.setIDCent(id);
+        d.setNombre(name);
+        d.setCalle(street);
+        d.setNumero(number);
+        d.setCiudad(city);
+        d.setCodigoPostal(postalCode);
+        d.setProvincia(province);
+        d.setTelefonos(phone);
+       
+        //esta parte es comun para 12c y 11g solo hay que cambiar  
+        // d.gestionCentros1(); por c.gestionCentros();
+        boolean guardado = d.gestionCentros1();
         
+       if (guardado){
+           //todo intentar poner este mensaje mas guapo
+           JOptionPane.showMessageDialog(null, "Centro dado de alta correctamente", "Alta", JOptionPane.INFORMATION_MESSAGE);
+       }     
+       
+       limpiarFormulario();
     }//GEN-LAST:event_altaActionPerformed
 
+    private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+         limpiarFormulario();
+    }//GEN-LAST:event_limpiarActionPerformed
+
+    private void limpiarFormulario(){
+      
+       nombre.setText("");
+       calle.setText("");
+       numero.setText("");
+       ciudad.setText("");
+       codigoPostal.setText("");
+       provincia.setText("");
+       telefono.setText("");
+       
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -167,4 +222,6 @@ public class AltaCentros extends javax.swing.JFrame {
     private javax.swing.JTextField telefono;
     private javax.swing.JButton volver;
     // End of variables declaration//GEN-END:variables
+
+ 
 }

@@ -16,7 +16,7 @@ public class Trabajador {
     
     private int id;
 	private String dni;
-	private String nombre;
+	String nombre;
 	private String primerApellido;
 	private String segundoApellido;
 	private String categoria;
