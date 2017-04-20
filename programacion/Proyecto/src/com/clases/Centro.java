@@ -27,14 +27,15 @@ import oracle.jdbc.OracleTypes;
 public class Centro {
     
         private int IDCent;
-	private String Nombre;
+	private  String Nombre;
 	private String Calle;
 	private int Numero;
-	private String Ciudad;
+	private  String Ciudad;
 	private int CodigoPostal;
-	private String Provincia;
+	private  String Provincia;
 	private int Telefonos;
-
+        private static String name;
+        
         //asociacion con trabajadores
         private List <Trabajador> trabajador = new ArrayList<>();
         
@@ -218,6 +219,41 @@ public class Centro {
            } 
            return centro;
 }
+     public static List<Centro> filtrar (){
+       List <Centro> centro = new ArrayList<>();
+       Centro d = new Centro();   
+                  try {
+               Conexion.conectar();
+               CallableStatement cs = Conexion.getConexion().prepareCall("{call buscarcentro.ncp(?,?,?,?)}");
+                cs.setString(1, d.Nombre);
+                cs.setString(2, d.Ciudad);
+                cs.setString(3, d.Provincia);
+               cs.registerOutParameter(4, OracleTypes.CURSOR);
+               cs.execute();
+               
+               ResultSet rs= (ResultSet) cs.getObject(4);
+               
+               while (rs.next()) {
+                Centro c = new Centro();
+                c.setIDCent(rs.getInt("ID"));
+                c.setNombre(rs.getString("nombre"));
+                c.setCalle(rs.getString("calle"));
+                c.setNumero(rs.getInt("numero"));
+                c.setCiudad(rs.getString("ciudad"));
+                c.setCodigoPostal(rs.getInt("codigoPostal"));
+                c.setProvincia(rs.getString("provincia"));
+                c.setTelefonos(rs.getInt("telefono"));
+                centro.add(c);
+                   System.out.println(c);
+               }
+               
+               Conexion.desconectar();
+           } catch (SQLException ex) {
+               JOptionPane.showMessageDialog(null,"No se puede efectuar la conexión, hable con el administrador del sistema"+ex.getMessage());
+           }           
+     return centro;
+     }
+     
     @Override
     public String toString() {
         return "Centro{" + "IDCent=" + IDCent + 
