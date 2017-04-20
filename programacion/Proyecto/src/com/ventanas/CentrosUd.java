@@ -5,17 +5,29 @@
  */
 package com.ventanas;
 
+import com.clases.Centro;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author bcastrof
  */
 public class CentrosUD extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CentrosUD
-     */
+    private DefaultTableModel centros;
+    private List <Centro> centro;
     public CentrosUD() {
         initComponents();
+        
+        centros = (DefaultTableModel)jTable1.getModel();
+        centro = Centro.listarCentros();
+        for(Centro c:centro){
+            
+          centros.insertRow(centros.getRowCount(), new Object[]{c.getIDCent(),c.getNombre(),
+          c.getCalle(),c.getNumero(),c.getCiudad(),c.getCodigoPostal(),c.getProvincia(),c.getTelefonos()});
+          
+        }
     }
 
     /**

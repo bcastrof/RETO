@@ -26,7 +26,7 @@ import oracle.jdbc.OracleTypes;
  */
 public class Centro {
     
-       private int IDCent;
+        private int IDCent;
 	private String Nombre;
 	private String Calle;
 	private int Numero;
@@ -188,44 +188,36 @@ public class Centro {
         return id;
     }
         
-      /*  public static void verCentros() throws ClassNotFoundException, SQLException{	
-	
-	Class.forName("oracle.jdbc.driver.OracleDriver");
-	Connection conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "LOGISTICA", "deh74f5c");
-	
-	String sql="{call seleccionarCentros (?)}";
-        
-	CallableStatement llamada = conexion.prepareCall(sql);
-	
-	llamada.registerOutParameter("c", OracleTypes.CURSOR);
-	
-	llamada.executeUpdate();
-	
-	ResultSet rs = (ResultSet) llamada.getObject("c");
-	
-	
-	while (rs.next()) {
-	
-	BigDecimal resultado1 = rs.getBigDecimal(1);
-	String resultado2 = rs.getString(2);
-	String resultado3 = rs.getString(3);
-	BigDecimal resultado4 = rs.getBigDecimal(4);
-	String resultado5 = rs.getString(5);
-	BigDecimal resultado6 = rs.getBigDecimal(6);
-	String resultado7 = rs.getString(7);
-	BigDecimal resultado8 = rs.getBigDecimal(8);
-	
-        
-	model.addRow(new Object[]{resultado1,resultado2,resultado3,resultado4,resultado5,resultado6,resultado7,resultado8 });
-	
-	
-	}
-	
-	rs.close();
-	llamada.close();
-	conexion.close();
+     public static List <Centro> listarCentros(){
+    List <Centro> centro = new ArrayList<>();
+           try {
+               Conexion.conectar();
+               CallableStatement cs = Conexion.getConexion().prepareCall("{call seleccionarCentros(?)}");
+               cs.registerOutParameter(1, OracleTypes.CURSOR);
+               cs.execute();
+               
+               ResultSet rs= (ResultSet) cs.getObject(1);
+               
+               while (rs.next()) {
+                Centro c = new Centro();
+                c.setIDCent(rs.getInt("ID"));
+                c.setNombre(rs.getString("nombre"));
+                c.setCalle(rs.getString("calle"));
+                c.setNumero(rs.getInt("numero"));
+                c.setCiudad(rs.getString("ciudad"));
+                c.setCodigoPostal(rs.getInt("codigoPostal"));
+                c.setProvincia(rs.getString("provincia"));
+                c.setTelefonos(rs.getInt("telefono"));
+                centro.add(c);
+                   System.out.println(c);
+               }
+               
+               Conexion.desconectar();
+           } catch (SQLException ex) {
+               JOptionPane.showMessageDialog(null,"No se puede efectuar la conexión, hable con el administrador del sistema"+ex.getMessage());
+           } 
+           return centro;
 }
-*/
     @Override
     public String toString() {
         return "Centro{" + "IDCent=" + IDCent + 
