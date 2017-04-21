@@ -17,13 +17,9 @@ public class CentrosUD extends javax.swing.JFrame {
 
     private DefaultTableModel centros;
     private List <Centro> centro;
-    private int opcion;
-    private String name;
-    private String city;
-    private String province;
-   
-    
-    private void rellenartabla(){
+    public CentrosUD() {
+        initComponents();
+        
         centros = (DefaultTableModel)jTable1.getModel();
         centro = Centro.listarCentros();
         for(Centro c:centro){
@@ -31,12 +27,7 @@ public class CentrosUD extends javax.swing.JFrame {
           centros.insertRow(centros.getRowCount(), new Object[]{c.getIDCent(),c.getNombre(),
           c.getCalle(),c.getNumero(),c.getCiudad(),c.getCodigoPostal(),c.getProvincia(),c.getTelefonos()});
           
-        }      
-    } 
-    
-    public CentrosUD() {
-        initComponents();
-        rellenartabla();
+        }
     }
 
     /**
@@ -50,14 +41,6 @@ public class CentrosUD extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        fnombre = new javax.swing.JTextField();
-        fciudad = new javax.swing.JTextField();
-        fprovincia = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listado, Actualizacion y Eliminación de Centros");
@@ -67,7 +50,7 @@ public class CentrosUD extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOMBRE", "CALLE", "NUMERO", "CIUDAD", "CODIGO POSTAL", "PROVINCIA", "TELEFONO"
+                "ID", "NOMBRE", "CALLE", "NUMERO", "CIUDAD", "CODIGO POSTAL", "CIUDAD", "TELEFONO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -80,123 +63,21 @@ public class CentrosUD extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setText("Filtros");
-
-        jLabel2.setText("NOMBRE");
-
-        jLabel3.setText("CIUDAD");
-
-        jLabel4.setText("PROVINCIA");
-
-        fnombre.setPreferredSize(new java.awt.Dimension(6, 20));
-        fnombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fnombreActionPerformed(evt);
-            }
-        });
-
-        fciudad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fciudadActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("FILTRAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 819, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(385, 385, 385)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(jLabel2)
-                                .addGap(248, 248, 248)
-                                .addComponent(jLabel3)
-                                .addGap(39, 39, 39))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(fnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(fciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(11, 11, 11)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(119, 119, 119)
-                                .addComponent(fprovincia, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(143, 143, 143)
-                                .addComponent(jLabel4)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fprovincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addGap(0, 112, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void fnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fnombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fnombreActionPerformed
-
-    private void fciudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fciudadActionPerformed
-        
-    }//GEN-LAST:event_fciudadActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    name=fnombre.getText();
-        city=fciudad.getText();
-        province=fprovincia.getText(); 
-        
-        if((name.equalsIgnoreCase("") && city.equalsIgnoreCase("") && province.equalsIgnoreCase(""))){
-            Centro d = new Centro();
-            d.setNombre(name);
-            d.setCiudad(city);
-            d.setProvincia(province);
-            opcion=1;
-        centros.setRowCount(0);
-        centros = (DefaultTableModel)jTable1.getModel();
-       centro = Centro.filtrar();
-        for(Centro c:centro){
-            
-        centros.insertRow(centros.getRowCount(), new Object[]{c.getIDCent(),c.getNombre(),
-        c.getCalle(),c.getNumero(),c.getCiudad(),c.getCodigoPostal(),c.getProvincia(),c.getTelefonos()});
-          
-        }
-            
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,23 +115,7 @@ public class CentrosUD extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField fciudad;
-    private javax.swing.JTextField fnombre;
-    private javax.swing.JTextField fprovincia;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
-
-    private void limpiar (){
-        
-        fnombre.setText("");
-        fciudad.setText("");
-        fprovincia.setText("");
-    }
-
 }
