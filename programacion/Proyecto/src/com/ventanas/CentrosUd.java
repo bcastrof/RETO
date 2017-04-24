@@ -14,13 +14,9 @@ import javax.swing.table.DefaultTableModel;
  * @author bcastrof
  */
 public class CentrosUD extends javax.swing.JFrame {
-
-    private DefaultTableModel centros;
-    private List <Centro> centro;
-    public CentrosUD() {
-        initComponents();
-        
-        centros = (DefaultTableModel)jTable1.getModel();
+    
+    public void listaCentros(){
+         centros = (DefaultTableModel)jTable1.getModel();
         centro = Centro.listarCentros();
         for(Centro c:centro){
             
@@ -28,6 +24,13 @@ public class CentrosUD extends javax.swing.JFrame {
           c.getCalle(),c.getNumero(),c.getCiudad(),c.getCodigoPostal(),c.getProvincia(),c.getTelefonos()});
           
         }
+    }
+
+    private DefaultTableModel centros;
+    private List <Centro> centro;
+    public CentrosUD() {
+        initComponents();
+        listaCentros();
     }
 
     /**
