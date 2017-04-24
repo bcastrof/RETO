@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author bcastrof
  */
-public class CentrosUD extends javax.swing.JFrame {
+public class CentrosUd extends javax.swing.JFrame {
     static int opcion; 
     private static String name;
     private DefaultTableModel centros;
@@ -34,7 +34,7 @@ public class CentrosUD extends javax.swing.JFrame {
         centro = Centro.listarCentros();
         for(Centro c:centro){
             
-          centros.insertRow(centros.getRowCount(), new Object[]{c.getIDCent(),c.getNombre(),
+          centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(),c.getNombre(),
           c.getCalle(),c.getNumero(),c.getCiudad(),c.getCodigoPostal(),c.getProvincia(),c.getTelefonos()});
           
         }
@@ -43,17 +43,17 @@ public class CentrosUD extends javax.swing.JFrame {
     private void filtrarCentos(){
         centros.setRowCount(0);
         centros = (DefaultTableModel)jTable1.getModel();
-        Centro c = Centro.filtrarcentCentros(name);
+        centro = Centro.filtrarcentCentros(name);
        
-            
-          centros.insertRow(centros.getRowCount(), new Object[]{c.getIDCent(),c.getNombre(),
+           for(Centro c:centro){
+          centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(),c.getNombre(),
           c.getCalle(),c.getNumero(),c.getCiudad(),c.getCodigoPostal(),c.getProvincia(),c.getTelefonos()});
-            
+            }
         
         
     }
    
-    public CentrosUD() {
+    public CentrosUd() {
         initComponents();
         listarCentros();
     }
@@ -153,20 +153,21 @@ public class CentrosUD extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CentrosUD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CentrosUd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CentrosUD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CentrosUd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CentrosUD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CentrosUd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CentrosUD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CentrosUd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CentrosUD().setVisible(true);
+                new CentrosUd().setVisible(true);
             }
         });
     }

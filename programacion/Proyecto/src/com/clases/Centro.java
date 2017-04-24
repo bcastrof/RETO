@@ -7,18 +7,17 @@ package com.clases;
 
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
 import oracle.jdbc.OracleTypes;
 /**
  *
@@ -26,7 +25,8 @@ import oracle.jdbc.OracleTypes;
  */
 public class Centro {
     
-        private int IDCent;
+       // private int IDCent;
+        private BigDecimal IDcent;
 	private String Nombre;
 	private String Calle;
 	private int Numero;
@@ -43,8 +43,7 @@ public class Centro {
     public Centro() {
     }
 
-    public Centro(int IDCent, String Nombre, String Calle, int Numero, String Ciudad, int CodigoPostal, String Provincia, int Telefonos) {
-        this.IDCent = IDCent;
+    public Centro(String Nombre, String Calle, int Numero, String Ciudad, int CodigoPostal, String Provincia, int Telefonos) {
         this.Nombre = Nombre;
         this.Calle = Calle;
         this.Numero = Numero;
@@ -54,13 +53,14 @@ public class Centro {
         this.Telefonos = Telefonos;
     }
 
-   
-    public int getIDCent() {
-        return IDCent;
+
+
+    public BigDecimal getIDcent() {
+        return IDcent;
     }
 
-    public void setIDCent(int IDCent) {
-        this.IDCent = IDCent;
+    public void setIDcent(BigDecimal IDcent) {
+        this.IDcent = IDcent;
     }
 
     public String getNombre() {
@@ -120,7 +120,7 @@ public class Centro {
     }
     
     //ESTO FUNCIONA 12C
-    	public void gestionCentros() {
+    	public boolean gestionCentros() {
         Conexion.conectar();
         
         try {
@@ -136,9 +136,11 @@ public class Centro {
            smt.executeUpdate();
 	
 	   smt.close();
-	   smt.close();
+	  Conexion.desconectar();
+          return true;
         } catch (SQLException ex) {
             Logger.getLogger(Administracion.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
   
            
@@ -151,7 +153,7 @@ public class Centro {
         try {
            PreparedStatement smt=Conexion.getConexion().prepareStatement("insert into centros (id, nombre,calle,numero,ciudad,codigoPostal,provincia,telefono) values (?,?,?,?,?,?,?,?)");
           
-           smt.setInt(1, IDCent);
+           //smt.setInt(1, IDCent);
            smt.setString(2, Nombre); 
            smt.setString(3, Calle);
            smt.setInt(4, Numero);
@@ -193,7 +195,7 @@ public class Centro {
     List <Centro> centro = new ArrayList<>();
            try {
                Conexion.conectar();
-               CallableStatement cs = Conexion.getConexion().prepareCall("{call seleccionarCentros(?)}");
+               CallableStatement cs = Conexion.getConexion().prepareCall("{call complejos.CONSULTACENTROS(?)}");
                cs.registerOutParameter(1, OracleTypes.CURSOR);
                cs.execute();
                
@@ -201,7 +203,7 @@ public class Centro {
                
                while (rs.next()) {
                 Centro c = new Centro();
-                c.setIDCent(rs.getInt("ID"));
+                c.setIDcent(rs.getBigDecimal("ID"));
                 c.setNombre(rs.getString("nombre"));
                 c.setCalle(rs.getString("calle"));
                 c.setNumero(rs.getInt("numero"));
@@ -220,15 +222,13 @@ public class Centro {
            return centro;
 }
      
-     public static Centro filtrarcentCentros(String name){
-        Centro c = null;
+      public static List <Centro> filtrarcentCentros(String name){
+       List <Centro> c = new ArrayList<>();
       
          Conexion.conectar();
-         
-       
-                 
+                   
                  try {
-                CallableStatement cs = Conexion.getConexion().prepareCall("{call PRUEBA(?,?)}");
+                CallableStatement cs = Conexion.getConexion().prepareCall("{call COMPLEJOS.CONSULTACENTRO(?,?)}");
                 cs.setString(1, name);
                 cs.registerOutParameter(2, OracleTypes.CURSOR);
                 cs.execute();
@@ -236,16 +236,16 @@ public class Centro {
                 ResultSet rs = (ResultSet) cs.getObject(2);
                 
                 while (rs.next()){
-                
-                int id = rs.getInt("ID");
-                String nombre = rs.getString("nombre");
-                String calle = rs.getString("calle");
-                int numero = rs.getInt("numero");
-                String ciudad = rs.getString("ciudad");
-                int codigoPostal = rs.getInt("codigoPostal");
-                String provincia = rs.getString("provincia");
-                String telf = rs.getString("telefono");
-               c = new Centro(id, nombre, calle, numero, ciudad, codigoPostal, provincia, numero);
+                Centro d = new Centro();
+                d.setIDcent(rs.getBigDecimal("ID")); 
+                d.setNombre(rs.getString("nombre")); 
+                d.setCalle(rs.getString("calle"));
+                d.setNumero(rs.getInt("numero"));
+                d.setCiudad(rs.getString("ciudad"));
+                d.setCodigoPostal(rs.getInt("codigoPostal"));
+                d.setProvincia(rs.getString("provincia"));
+                d.setTelefonos(rs.getInt("telefono"));
+                c.add(d);
               
                 
                    System.out.println(c);
@@ -254,17 +254,14 @@ public class Centro {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null,"No se puede efectuar la conexión, hable con el administrador del sistema \n"+ex.getMessage());
             }
-                 
-         
-         
-            
+                    
      return c;
      
      }
      
     @Override
     public String toString() {
-        return "Centro{" + "IDCent=" + IDCent + 
+        return "Centro{" + "IDCent=" + IDcent + 
                 ", Nombre=" + Nombre + 
                 ", Calle=" + Calle + 
                 ", Numero=" + Numero + 
