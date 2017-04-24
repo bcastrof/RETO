@@ -14,23 +14,9 @@ import javax.swing.table.DefaultTableModel;
  * @author bcastrof
  */
 public class CentrosUD extends javax.swing.JFrame {
-    static int opcion; 
-    private static String name;
-    private DefaultTableModel centros;
-    private List <Centro> centro;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
     
-    
-    
-    private void listarCentros(){
-        centros = (DefaultTableModel)jTable1.getModel();
+    public void listaCentros(){
+         centros = (DefaultTableModel)jTable1.getModel();
         centro = Centro.listarCentros();
         for(Centro c:centro){
             
@@ -39,23 +25,12 @@ public class CentrosUD extends javax.swing.JFrame {
           
         }
     }
-    
-    private void filtrarCentos(){
-        centros.setRowCount(0);
-        centros = (DefaultTableModel)jTable1.getModel();
-        Centro c = Centro.filtrarcentCentros(name);
-       
-            
-          centros.insertRow(centros.getRowCount(), new Object[]{c.getIDCent(),c.getNombre(),
-          c.getCalle(),c.getNumero(),c.getCiudad(),c.getCodigoPostal(),c.getProvincia(),c.getTelefonos()});
-            
-        
-        
-    }
-   
+
+    private DefaultTableModel centros;
+    private List <Centro> centro;
     public CentrosUD() {
         initComponents();
-        listarCentros();
+        listaCentros();
     }
 
     /**
@@ -69,8 +44,6 @@ public class CentrosUD extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        bname = new javax.swing.JTextField();
-        filtrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listado, Actualizacion y Eliminación de Centros");
@@ -93,48 +66,21 @@ public class CentrosUD extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        filtrar.setText("filtrar");
-        filtrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filtrarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 819, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(bname, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(filtrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(filtrar))
-                .addGap(0, 71, Short.MAX_VALUE))
+                .addGap(0, 112, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-  
-    private void filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtrarActionPerformed
-        // TODO add your handling code here:
-        name=bname.getText();
-       
-      
-            filtrarCentos();
- 
-
-    }//GEN-LAST:event_filtrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,8 +118,6 @@ public class CentrosUD extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField bname;
-    private javax.swing.JButton filtrar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

@@ -43,8 +43,8 @@ public class Centro {
     public Centro() {
     }
 
-    public Centro(int IDCent, String Nombre, String Calle, int Numero, String Ciudad, int CodigoPostal, String Provincia, int Telefonos) {
-        this.IDCent = IDCent;
+    public Centro(String Nombre, String Calle, int Numero, String Ciudad, int CodigoPostal, String Provincia, int Telefonos) {
+       
         this.Nombre = Nombre;
         this.Calle = Calle;
         this.Numero = Numero;
@@ -54,7 +54,6 @@ public class Centro {
         this.Telefonos = Telefonos;
     }
 
-   
     public int getIDCent() {
         return IDCent;
     }
@@ -219,49 +218,6 @@ public class Centro {
            } 
            return centro;
 }
-     
-     public static Centro filtrarcentCentros(String name){
-        Centro c = null;
-      
-         Conexion.conectar();
-         
-       
-                 
-                 try {
-                CallableStatement cs = Conexion.getConexion().prepareCall("{call PRUEBA(?,?)}");
-                cs.setString(1, name);
-                cs.registerOutParameter(2, OracleTypes.CURSOR);
-                cs.execute();
-                
-                ResultSet rs = (ResultSet) cs.getObject(2);
-                
-                while (rs.next()){
-                
-                int id = rs.getInt("ID");
-                String nombre = rs.getString("nombre");
-                String calle = rs.getString("calle");
-                int numero = rs.getInt("numero");
-                String ciudad = rs.getString("ciudad");
-                int codigoPostal = rs.getInt("codigoPostal");
-                String provincia = rs.getString("provincia");
-                String telf = rs.getString("telefono");
-               c = new Centro(id, nombre, calle, numero, ciudad, codigoPostal, provincia, numero);
-              
-                
-                   System.out.println(c);
-                }
-                     Conexion.desconectar();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,"No se puede efectuar la conexión, hable con el administrador del sistema \n"+ex.getMessage());
-            }
-                 
-         
-         
-            
-     return c;
-     
-     }
-     
     @Override
     public String toString() {
         return "Centro{" + "IDCent=" + IDCent + 

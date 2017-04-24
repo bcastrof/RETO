@@ -73,12 +73,6 @@ public class AltaCentros extends javax.swing.JFrame {
 
         jLabel7.setText("Telefono");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 239, -1, -1));
-
-        nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreActionPerformed(evt);
-            }
-        });
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 17, 184, -1));
         getContentPane().add(calle, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 48, 184, -1));
         getContentPane().add(numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 84, 184, -1));
@@ -161,10 +155,6 @@ public class AltaCentros extends javax.swing.JFrame {
     private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
          limpiarFormulario();
     }//GEN-LAST:event_limpiarActionPerformed
-
-    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreActionPerformed
 
     private void limpiarFormulario(){
       
