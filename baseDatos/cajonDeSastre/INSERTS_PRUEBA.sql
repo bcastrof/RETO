@@ -1,10 +1,10 @@
 --inserts 12C
   
-INSERT INTO CENTROS VALUES ('prueba1','prueba1',1,'prueba1',1,'prueba1',1);
-INSERT INTO CENTROS VALUES ('prueba2','prueba2',2,'prueba2',2,'prueba2',2);
-INSERT INTO CENTROS VALUES ('prueba3','prueba3',3,'prueba3',3,'prueba3',3);
-INSERT INTO CENTROS VALUES ('prueba4','prueba4',4,'prueba4',4,'prueba1',4);
-INSERT INTO CENTROS VALUES ('prueba5','prueba5',5,'prueba5',5,'prueba5',5);
+INSERT INTO CENTROS (nombre, calle, numero, ciudad, codigoPostal, provincia, telefono) VALUES ('prueba1','prueba1',1,'prueba1',1,'prueba1',1);
+INSERT INTO CENTROS (nombre, calle, numero, ciudad, codigoPostal, provincia, telefono) VALUES ('prueba2','prueba2',2,'prueba2',2,'prueba2',2);
+INSERT INTO CENTROS (nombre, calle, numero, ciudad, codigoPostal, provincia, telefono) VALUES ('prueba3','prueba3',3,'prueba3',3,'prueba3',3);
+INSERT INTO CENTROS (nombre, calle, numero, ciudad, codigoPostal, provincia, telefono) VALUES ('prueba4','prueba4',4,'prueba4',4,'prueba1',4);
+INSERT INTO CENTROS (nombre, calle, numero, ciudad, codigoPostal, provincia, telefono) VALUES ('prueba5','prueba5',5,'prueba5',5,'prueba5',5);
 
 	
 INSERT INTO TRABAJADORES (dni,nombre,primerApellido,categoria,calle,numero,ciudad,codigoPostal,provincia,movilEmpresa,CENTROS_ID) values
