@@ -178,6 +178,7 @@ public class Centro {
             int idc;
             idc = cs.getInt(1);
             id = idc;
+            cs.close();
             Conexion.desconectar();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema" + ex.getMessage());
@@ -208,7 +209,7 @@ public class Centro {
                 centro.add(c);
                 System.out.println(c);
             }
-
+             rs.close();
             Conexion.desconectar();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema" + ex.getMessage());
@@ -243,6 +244,7 @@ public class Centro {
 
                 System.out.println(c);
             }
+            rs.close();
             Conexion.desconectar();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema \n" + ex.getMessage());
@@ -270,6 +272,7 @@ public class Centro {
             ps.setBigDecimal(8, id);
 
             ps.executeUpdate();
+            ps.close();
             Conexion.desconectar();
             return true;
         } catch (SQLException ex) {
@@ -284,6 +287,7 @@ public class Centro {
             PreparedStatement ps = Conexion.getConexion().prepareStatement("delete from centros where id=?");
             ps.setBigDecimal(1, id);
             ps.execute();
+            ps.close();
             Conexion.desconectar();
             return true;
         } catch (SQLException ex) {
