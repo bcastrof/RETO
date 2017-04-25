@@ -119,20 +119,13 @@ public class CentrosUd extends javax.swing.JFrame {
         });
 
         eliminar.setText("ELIMINAR");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("DETALLE/EDICIÓN");
-
-        uNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                uNombreActionPerformed(evt);
-            }
-        });
-
-        uNumero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                uNumeroActionPerformed(evt);
-            }
-        });
 
         modificar.setText("MODIFICAR");
         modificar.addActionListener(new java.awt.event.ActionListener() {
@@ -229,14 +222,6 @@ public class CentrosUd extends javax.swing.JFrame {
         listarCentros();
     }//GEN-LAST:event_listadoActionPerformed
 
-    private void uNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_uNombreActionPerformed
-
-    private void uNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uNumeroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_uNumeroActionPerformed
-
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // mapeo los campos de la fila seleccionada
         int index = jTable1.getSelectedRow();
@@ -264,9 +249,19 @@ public class CentrosUd extends javax.swing.JFrame {
         uTelefono.setText(telefono);
     }//GEN-LAST:event_jTable1MouseClicked
 
+    public void limpiarFormulario(){
+        uNombre.setText("");
+        uCalle.setText("");
+        uNumero.setText("");
+        uCiudad.setText("");
+        uCodigoPostal.setText("");
+        uProvincia.setText("");
+        uTelefono.setText("");
+    }
+    
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-        //recojo los valores transladados para pasarlos al metodo modificarCentro
-        
+    
+      //recojo los valores transladados para pasarlos al metodo modificarCentro
         String name = uNombre.getText();
         String street = uCalle.getText();
       // int number = Integer.parseInt(uNumero.getText());
@@ -275,7 +270,7 @@ public class CentrosUd extends javax.swing.JFrame {
       // int postalCode=Integer.parseInt(uCodigoPostal.getText());
         BigDecimal postalCode = new BigDecimal(uCodigoPostal.getText());
         String province = uProvincia.getText();
-      //  int phoneNumber=Integer.parseInt(uTelefono.getText());
+        //  int phoneNumber=Integer.parseInt(uTelefono.getText());
         BigDecimal phoneNumber=new BigDecimal(uTelefono.getText());
         
         //creo centro para pasar al metodo modificar.
@@ -286,7 +281,27 @@ public class CentrosUd extends javax.swing.JFrame {
         if (modifcar){
             JOptionPane.showMessageDialog(null, "Centro modificado correctamente", "Modificado", JOptionPane.INFORMATION_MESSAGE);
         }
+          //limpio tabla
+        centros.setRowCount(0);
+         //cargo lista actualizada
+        listarCentros();
+        //limpio formulario
+        limpiarFormulario();
     }//GEN-LAST:event_modificarActionPerformed
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        // TODO add your handling code here:
+        Centro.bajaCenro(idCent);
+        
+        //limpio formulario
+        limpiarFormulario();
+        
+        //limpio tabla 
+        centros.setRowCount(0);
+        
+        //cargo lista de nuevo
+        listarCentros();
+    }//GEN-LAST:event_eliminarActionPerformed
 
     /**
      * @param args the command line arguments

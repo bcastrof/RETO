@@ -208,6 +208,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="ELIMINAR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -215,9 +218,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="uNombre">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uNombreActionPerformed"/>
-      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="CentrosUd_uNombre"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="uCalle">
     </Component>
@@ -226,9 +229,6 @@
     <Component class="javax.swing.JTextField" name="uCodigoPostal">
     </Component>
     <Component class="javax.swing.JTextField" name="uNumero">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uNumeroActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="uProvincia">
     </Component>

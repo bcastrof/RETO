@@ -285,8 +285,22 @@ public class Centro {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null,"No se puede efectuar la conexión, hable con el administrador del sistema \n"+ex.getMessage());
                 return  false;
-            }       
+            }    
       }
+      
+       public static boolean bajaCenro (BigDecimal id){
+            try {
+                Conexion.conectar();
+                PreparedStatement ps = Conexion.getConexion().prepareStatement("delete from centros where id=?");
+                ps.setBigDecimal(1, id);
+                ps.execute();
+                Conexion.desconectar();          
+                return true;
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"No se puede efectuar la conexión, hable con el administrador del sistema \n"+ex.getMessage());
+                return false;
+            }
+           }
      
     @Override
     public String toString() {
