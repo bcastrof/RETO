@@ -16,35 +16,34 @@ import javax.swing.table.DefaultTableModel;
  * @author bcastrof
  */
 public class CentrosUd extends javax.swing.JFrame {
-    private static BigDecimal idCent; 
+
+    private static BigDecimal idCent;
     private static String name;
     private DefaultTableModel centros;
-    private List <Centro> centro;
+    private List<Centro> centro;
 
-    
-    
-    private void listarCentros(){
-        centros = (DefaultTableModel)jTable1.getModel();
+    private void listarCentros() {
+        centros = (DefaultTableModel) jTable1.getModel();
         centro = Centro.listarCentros();
-        for(Centro c:centro){
-            
-          centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(),c.getNombre(),
-          c.getCalle(),c.getNumero(),c.getCiudad(),c.getCodigoPostal(),c.getProvincia(),c.getTelefonos()});        
+        for (Centro c : centro) {
+
+            centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(), c.getNombre(),
+                c.getCalle(), c.getNumero(), c.getCiudad(), c.getCodigoPostal(), c.getProvincia(), c.getTelefonos()});
         }
-        
+
     }
-    
-    private void filtrarCentos(){
+
+    private void filtrarCentos() {
         centros.setRowCount(0);
-        centros = (DefaultTableModel)jTable1.getModel();
+        centros = (DefaultTableModel) jTable1.getModel();
         centro = Centro.filtrarcentCentros(name);
-       
-           for(Centro c:centro){
-          centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(),c.getNombre(),
-          c.getCalle(),c.getNumero(),c.getCiudad(),c.getCodigoPostal(),c.getProvincia(),c.getTelefonos()});
-           } 
+
+        for (Centro c : centro) {
+            centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(), c.getNombre(),
+                c.getCalle(), c.getNumero(), c.getCiudad(), c.getCodigoPostal(), c.getProvincia(), c.getTelefonos()});
+        }
     }
-    
+
     public CentrosUd() {
         initComponents();
         listarCentros();
@@ -206,14 +205,13 @@ public class CentrosUd extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-  
+
     private void filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtrarActionPerformed
         // TODO add your handling code here:
-        name=bname.getText();
-       
-      
-            filtrarCentos();
- 
+        name = bname.getText();
+
+        filtrarCentos();
+
 
     }//GEN-LAST:event_filtrarActionPerformed
 
@@ -226,20 +224,20 @@ public class CentrosUd extends javax.swing.JFrame {
         // mapeo los campos de la fila seleccionada
         int index = jTable1.getSelectedRow();
         centros = (DefaultTableModel) jTable1.getModel();
-        String nombre=centros.getValueAt(index, 1).toString();
-        String calle=centros.getValueAt(index, 2).toString();
-        String numero=centros.getValueAt(index, 3).toString();
-        String ciudad=centros.getValueAt(index, 4).toString();
-        String codigoPostal=centros.getValueAt(index, 5).toString();
-        String provincia=centros.getValueAt(index, 6).toString();
-        String telefono=centros.getValueAt(index, 7).toString();
-        
-       //ñapa para recoger el id y pasarlo a BigDecimal si alguien lo sabe hacer mas simple que lo haga
-        String cd =centros.getValueAt(index, 0).toString();
+        String nombre = centros.getValueAt(index, 1).toString();
+        String calle = centros.getValueAt(index, 2).toString();
+        String numero = centros.getValueAt(index, 3).toString();
+        String ciudad = centros.getValueAt(index, 4).toString();
+        String codigoPostal = centros.getValueAt(index, 5).toString();
+        String provincia = centros.getValueAt(index, 6).toString();
+        String telefono = centros.getValueAt(index, 7).toString();
+
+        //ñapa para recoger el id y pasarlo a BigDecimal si alguien lo sabe hacer mas simple que lo haga
+        String cd = centros.getValueAt(index, 0).toString();
         //int dc=Integer.parseInt(cd);
-        idCent= new BigDecimal (cd);
-        
-      //translado los valores del mapeo a los diferentes campos del formulario
+        idCent = new BigDecimal(cd);
+
+        //translado los valores del mapeo a los diferentes campos del formulario
         uNombre.setText(nombre);
         uCalle.setText(calle);
         uNumero.setText(numero);
@@ -249,7 +247,7 @@ public class CentrosUd extends javax.swing.JFrame {
         uTelefono.setText(telefono);
     }//GEN-LAST:event_jTable1MouseClicked
 
-    public void limpiarFormulario(){
+    public void limpiarFormulario() {
         uNombre.setText("");
         uCalle.setText("");
         uNumero.setText("");
@@ -258,32 +256,32 @@ public class CentrosUd extends javax.swing.JFrame {
         uProvincia.setText("");
         uTelefono.setText("");
     }
-    
+
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-    
-      //recojo los valores transladados para pasarlos al metodo modificarCentro
+
+        //recojo los valores transladados para pasarlos al metodo modificarCentro
         String name = uNombre.getText();
         String street = uCalle.getText();
-      // int number = Integer.parseInt(uNumero.getText());
+        // int number = Integer.parseInt(uNumero.getText());
         BigDecimal number = new BigDecimal(uNumero.getText());
         String city = uCiudad.getText();
-      // int postalCode=Integer.parseInt(uCodigoPostal.getText());
+        // int postalCode=Integer.parseInt(uCodigoPostal.getText());
         BigDecimal postalCode = new BigDecimal(uCodigoPostal.getText());
         String province = uProvincia.getText();
         //  int phoneNumber=Integer.parseInt(uTelefono.getText());
-        BigDecimal phoneNumber=new BigDecimal(uTelefono.getText());
-        
+        BigDecimal phoneNumber = new BigDecimal(uTelefono.getText());
+
         //creo centro para pasar al metodo modificar.
         Centro centro = new Centro(name, street, number, city, postalCode, province, phoneNumber);
-        
+
         boolean modifcar = centro.modificarCentro(idCent);
-        
-        if (modifcar){
+
+        if (modifcar) {
             JOptionPane.showMessageDialog(null, "Centro modificado correctamente", "Modificado", JOptionPane.INFORMATION_MESSAGE);
         }
-          //limpio tabla
+        //limpio tabla
         centros.setRowCount(0);
-         //cargo lista actualizada
+        //cargo lista actualizada
         listarCentros();
         //limpio formulario
         limpiarFormulario();
@@ -292,13 +290,13 @@ public class CentrosUd extends javax.swing.JFrame {
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         // TODO add your handling code here:
         Centro.bajaCenro(idCent);
-        
+
         //limpio formulario
         limpiarFormulario();
-        
+
         //limpio tabla 
         centros.setRowCount(0);
-        
+
         //cargo lista de nuevo
         listarCentros();
     }//GEN-LAST:event_eliminarActionPerformed

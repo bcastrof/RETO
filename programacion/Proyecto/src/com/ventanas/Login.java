@@ -5,7 +5,6 @@
  */
 package com.ventanas;
 
-import javax.swing.JPasswordField;
 import com.clases.Usuario;
 
 /**
@@ -13,8 +12,10 @@ import com.clases.Usuario;
  * @author bcastrof
  */
 public class Login extends javax.swing.JFrame {
-   private Administracion administracion;
-   //private Logistica logistica;
+
+    private Administracion administracion;
+    //private Logistica logistica;
+
     /**
      * Creates new form Login
      */
@@ -122,17 +123,17 @@ public class Login extends javax.swing.JFrame {
     private void conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conectarActionPerformed
         // TODO add your handling code here:
         String usuario = user.getText();
-        String pass = new String (password.getPassword());
+        String pass = new String(password.getPassword());
         Usuario u = new Usuario(usuario, pass);
         String categoria = u.loguearse();
         if (categoria.equalsIgnoreCase("administracion")) {
-            administracion= new Administracion();
+            administracion = new Administracion();
             administracion.setVisible(true);
-           //todo hacer que la ventana login desaparezca
-        }else{
-            
+            //todo hacer que la ventana login desaparezca
+        } else {
+
         }
-        
+
     }//GEN-LAST:event_conectarActionPerformed
 
     /**
