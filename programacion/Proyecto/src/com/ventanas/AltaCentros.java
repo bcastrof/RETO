@@ -6,6 +6,8 @@
 package com.ventanas;
 import com.clases.Centro;
 import com.clases.Administracion;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -118,11 +120,14 @@ public class AltaCentros extends javax.swing.JFrame {
         
         String name = nombre.getText();
         String street = calle.getText();
-        int number = Integer.parseInt(numero.getText());
+        // int number = Integer.parseInt(numero.getText());
+        BigDecimal number = new BigDecimal(numero.getText());
         String city = ciudad.getText();
-        int postalCode = Integer.parseInt(codigoPostal.getText());
+        // int postalCode = Integer.parseInt(codigoPostal.getText());
+        BigDecimal postalCode=new BigDecimal(codigoPostal.getText());
         String province = provincia.getText();
-        int phone = Integer.parseInt(telefono.getText());
+        // int phone = Integer.parseInt(telefono.getText());
+        BigDecimal phone = new BigDecimal(telefono.getText());
         Centro c = new Centro (name, street, number, city, postalCode, province, phone);
         
      /*

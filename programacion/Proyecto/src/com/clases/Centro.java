@@ -29,11 +29,11 @@ public class Centro {
         private BigDecimal IDcent;
 	private String Nombre;
 	private String Calle;
-	private int Numero;
+	private BigDecimal Numero;
 	private String Ciudad;
-	private int CodigoPostal;
+	private BigDecimal CodigoPostal;
 	private String Provincia;
-	private int Telefonos;
+	private BigDecimal Telefonos;
 
         //asociacion con trabajadores
         private List <Trabajador> trabajador = new ArrayList<>();
@@ -43,7 +43,7 @@ public class Centro {
     public Centro() {
     }
 
-    public Centro(String Nombre, String Calle, int Numero, String Ciudad, int CodigoPostal, String Provincia, int Telefonos) {
+    public Centro(String Nombre, String Calle, BigDecimal Numero, String Ciudad, BigDecimal CodigoPostal, String Provincia, BigDecimal Telefonos) {
         this.Nombre = Nombre;
         this.Calle = Calle;
         this.Numero = Numero;
@@ -52,6 +52,8 @@ public class Centro {
         this.Provincia = Provincia;
         this.Telefonos = Telefonos;
     }
+
+    
 
 
 
@@ -79,13 +81,14 @@ public class Centro {
         this.Calle = Calle;
     }
 
-    public int getNumero() {
+    public BigDecimal getNumero() {
         return Numero;
     }
 
-    public void setNumero(int Numero) {
+    public void setNumero(BigDecimal Numero) {
         this.Numero = Numero;
     }
+
 
     public String getCiudad() {
         return Ciudad;
@@ -95,11 +98,11 @@ public class Centro {
         this.Ciudad = Ciudad;
     }
 
-    public int getCodigoPostal() {
+    public BigDecimal getCodigoPostal() {
         return CodigoPostal;
     }
 
-    public void setCodigoPostal(int CodigoPostal) {
+    public void setCodigoPostal(BigDecimal CodigoPostal) {
         this.CodigoPostal = CodigoPostal;
     }
 
@@ -111,11 +114,11 @@ public class Centro {
         this.Provincia = Provincia;
     }
 
-    public int getTelefonos() {
+    public BigDecimal getTelefonos() {
         return Telefonos;
     }
 
-    public void setTelefonos(int Telefonos) {
+    public void setTelefonos(BigDecimal Telefonos) {
         this.Telefonos = Telefonos;
     }
     
@@ -127,11 +130,11 @@ public class Centro {
            PreparedStatement smt=Conexion.getConexion().prepareStatement("insert into centros (nombre,calle,numero,ciudad,codigoPostal,provincia,telefono) values (?,?,?,?,?,?,?)");
            smt.setString(1, Nombre); 
            smt.setString(2, Calle);
-           smt.setInt(3, Numero);
+           smt.setBigDecimal(3, Numero);
            smt.setString(4, Ciudad);
-           smt.setInt(5,CodigoPostal);
+           smt.setBigDecimal(5,CodigoPostal);
            smt.setString(6, Provincia);
-           smt.setInt(7, Telefonos); 
+           smt.setBigDecimal(7, Telefonos); 
            
            smt.executeUpdate();
 	
@@ -153,14 +156,14 @@ public class Centro {
         try {
            PreparedStatement smt=Conexion.getConexion().prepareStatement("insert into centros (id, nombre,calle,numero,ciudad,codigoPostal,provincia,telefono) values (?,?,?,?,?,?,?,?)");
           
-           //smt.setInt(1, IDCent);
+           smt.setBigDecimal(1, IDcent);
            smt.setString(2, Nombre); 
            smt.setString(3, Calle);
-           smt.setInt(4, Numero);
+           smt.setBigDecimal(4, Numero);
            smt.setString(5, Ciudad);
-           smt.setInt(6,CodigoPostal);
+           smt.setBigDecimal(6,CodigoPostal);
            smt.setString(7, Provincia);
-           smt.setInt(8, Telefonos); 
+           smt.setBigDecimal(8, Telefonos); 
 
            smt.executeUpdate();
            
@@ -206,11 +209,11 @@ public class Centro {
                 c.setIDcent(rs.getBigDecimal("ID"));
                 c.setNombre(rs.getString("nombre"));
                 c.setCalle(rs.getString("calle"));
-                c.setNumero(rs.getInt("numero"));
+                c.setNumero(rs.getBigDecimal("numero"));
                 c.setCiudad(rs.getString("ciudad"));
-                c.setCodigoPostal(rs.getInt("codigoPostal"));
+                c.setCodigoPostal(rs.getBigDecimal("codigoPostal"));
                 c.setProvincia(rs.getString("provincia"));
-                c.setTelefonos(rs.getInt("telefono"));
+                c.setTelefonos(rs.getBigDecimal("telefono"));
                 centro.add(c);
                    System.out.println(c);
                }
@@ -240,11 +243,11 @@ public class Centro {
                 d.setIDcent(rs.getBigDecimal("ID")); 
                 d.setNombre(rs.getString("nombre")); 
                 d.setCalle(rs.getString("calle"));
-                d.setNumero(rs.getInt("numero"));
+                d.setNumero(rs.getBigDecimal("numero"));
                 d.setCiudad(rs.getString("ciudad"));
-                d.setCodigoPostal(rs.getInt("codigoPostal"));
+                d.setCodigoPostal(rs.getBigDecimal("codigoPostal"));
                 d.setProvincia(rs.getString("provincia"));
-                d.setTelefonos(rs.getInt("telefono"));
+                d.setTelefonos(rs.getBigDecimal("telefono"));
                 c.add(d);
               
                 
@@ -258,6 +261,32 @@ public class Centro {
      return c;
      
      }
+      
+      public boolean modificarCentro(BigDecimal id) {
+          
+          Conexion.conectar();
+          
+            try {
+                PreparedStatement ps = Conexion.getConexion().prepareStatement("UPDATE CENTROS SET nombre=?,calle=?,"
+                            + "numero=?,ciudad=?,CODIGOPOSTAL=?,provincia=?,"
+                            + "telefono=? WHERE ID=?");                
+                  ps.setString(1, Nombre); 
+                  ps.setString(2, Calle);
+                  ps.setBigDecimal(3, Numero);
+                  ps.setString(4, Ciudad);
+                  ps.setBigDecimal(5,CodigoPostal);
+                  ps.setString(6, Provincia);
+                  ps.setBigDecimal(7, Telefonos); 
+                  ps.setBigDecimal(8, id);
+                  
+                  ps.executeUpdate();
+                  Conexion.desconectar();
+                  return  true;
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"No se puede efectuar la conexión, hable con el administrador del sistema \n"+ex.getMessage());
+                return  false;
+            }       
+      }
      
     @Override
     public String toString() {
