@@ -6,12 +6,15 @@
 package com.ventanas;
 
 import com.clases.Usuario;
+import java.math.BigDecimal;
 
 /**
  *
  * @author bcastrof
  */
-public class Login extends javax.swing.JFrame {
+public  class Login extends javax.swing.JFrame {
+    
+    
 
     private Administracion administracion;
     //private Logistica logistica;

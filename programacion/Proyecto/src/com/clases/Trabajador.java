@@ -42,7 +42,7 @@ public class Trabajador {
     //asociacion con centros 
     private Centro centro;
     //asociacion con usuarios
-    private List<Usuario> usuario = new ArrayList<>();
+    private Usuario usuario;
 
     public Trabajador() {
     }
@@ -298,10 +298,25 @@ public class Trabajador {
         }
         return trabajador;
     }
+    
 
     @Override
     public String toString() {
         return "Trabajador{" + "id=" + id + ", dni=" + dni + ", nombre=" + nombre + ", primerApellido=" + primerApellido + ", segundoApellido=" + segundoApellido + ", categoria=" + categoria + ", calle=" + calle + ", numero=" + numero + ", piso=" + piso + ", mano=" + mano + ", ciudad=" + ciudad + ", codigoPostal=" + codigoPostal + ", provincia=" + provincia + ", movilEmpresa=" + movilEmpresa + ", movilPersonal=" + movilPersonal + ", salario=" + salario + ", fechaNacimiento=" + fechaNacimiento + ", idCent=" + idCent + '}';
+    }
+
+    /**
+     * @return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }
