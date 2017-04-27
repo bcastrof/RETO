@@ -25,11 +25,18 @@ public class CentrosUd extends javax.swing.JFrame {
     private void listarCentros() {
         centros = (DefaultTableModel) jTable1.getModel();
         centro = Centro.listarCentros();
-        for (Centro c : centro) {
-
+          
+        //esto lo hacemos nosotros 
+        /*for (Centro c : centro) {
             centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(), c.getNombre(),
                 c.getCalle(), c.getNumero(), c.getCiudad(), c.getCodigoPostal(), c.getProvincia(), c.getTelefonos()});
-        }
+        }*/ 
+        
+        //esto es lo que el netbeans considera gonito
+        centro.forEach((c) -> {
+            centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(), c.getNombre(),
+                c.getCalle(), c.getNumero(), c.getCiudad(), c.getCodigoPostal(), c.getProvincia(), c.getTelefonos()});
+        });
 
     }
 
@@ -37,11 +44,17 @@ public class CentrosUd extends javax.swing.JFrame {
         centros.setRowCount(0);
         centros = (DefaultTableModel) jTable1.getModel();
         centro = Centro.filtrarcentCentros(name);
-
-        for (Centro c : centro) {
+        //esto lo hacemos nosotros      
+           /*for (Centro c : centro) {
             centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(), c.getNombre(),
                 c.getCalle(), c.getNumero(), c.getCiudad(), c.getCodigoPostal(), c.getProvincia(), c.getTelefonos()});
-        }
+        }*/
+       
+        //esto es lo que el netbeans considera gonito   
+        centro.forEach((c) -> {
+            centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(), c.getNombre(),
+                c.getCalle(), c.getNumero(), c.getCiudad(), c.getCodigoPostal(), c.getProvincia(), c.getTelefonos()});
+        });
     }
 
     public CentrosUd() {

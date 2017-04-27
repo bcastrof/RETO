@@ -5,40 +5,24 @@
  */
 package com.clases;
 
-import java.sql.CallableStatement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import oracle.jdbc.OracleTypes;
-
 /**
  *
  * @author 7fprog03
  */
 public class Administracion extends Trabajador  {
-
-      //asociacion con parte para poder validarlo
-     //private List<Parte>parte=new ArrayList<>();
-   
+    //asociacion con parte para poder validarlo
+    //private List<Parte>parte=new ArrayList<>();
     //asociacion con vehiculo para hacer operaciones CRUD
-   // private List<Vehiculo>vehiculo = new ArrayList<>();
-   
-    public Administracion() {
-    }
-
-    public Administracion(int id, String dni, String nombre, String primerApellido, String segundoApellido, String categoria, String calle, int numero, int piso, String mano, String ciudad, int codigoPostal, String provincia, int movilEmpresa, int movilPersonal, double salario, String fechaNacimiento) {
-        super(id, dni, nombre, primerApellido, segundoApellido, categoria, calle, numero, piso, mano, ciudad, codigoPostal, provincia, movilEmpresa, movilPersonal, salario, fechaNacimiento);
-    }
-   
+    // private List<Vehiculo>vehiculo = new ArrayList<>();
     
-    public void enviarAviso() {
-		// TODO - implement Administracion.enviarAviso
-		throw new UnsupportedOperationException();
+    public Administracion() {
 	}
+   
+
+    public void enviarAviso() {
+        // TODO - implement Administracion.enviarAviso
+        throw new UnsupportedOperationException();
+    }
 
 	public void gestionParte() {
 		// TODO - implement Administracion.gestionParte

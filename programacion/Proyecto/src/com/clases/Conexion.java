@@ -34,7 +34,7 @@ public class Conexion {
             conexion= DriverManager.getConnection(url, login, pass);
             conexion.setAutoCommit(true);
             */
-            
+           
             //conexion clase
             Class.forName("oracle.jdbc.driver.OracleDriver");
             String login="noc03";
