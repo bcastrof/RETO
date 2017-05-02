@@ -5,8 +5,11 @@
  */
 package com.ventanas;
 
+import com.clases.Trabajador;
 import com.clases.Usuario;
-import java.math.BigDecimal;
+//import com.clases.Administracion;
+
+
 
 /**
  *
@@ -128,13 +131,18 @@ public  class Login extends javax.swing.JFrame {
         String usuario = user.getText();
         String pass = new String(password.getPassword());
         Usuario u = new Usuario(usuario, pass);
-        String categoria = u.loguearse();
+        String categoria = u.loguearse(usuario, pass);
+      
+       
         if (categoria.equalsIgnoreCase("administracion")) {
             administracion = new Administracion();
             administracion.setVisible(true);
+             Trabajador trabajador = new com.clases.Administracion();
+             trabajador.setUsuario(u);
             //todo hacer que la ventana login desaparezca
         } else {
-
+             Trabajador trabajador = new com.clases.Logistica();
+             trabajador.setUsuario(u);
         }
 
     }//GEN-LAST:event_conectarActionPerformed

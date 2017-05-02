@@ -20,9 +20,9 @@ public class Usuario {
 
     private String idUsuario;
     private String password;
-    private BigDecimal idtrabajador;
+    
     //asosciacion con trabajador
-    private Trabajador trabajador;
+    private  Trabajador trabajador;
 
     public Usuario() {
     }
@@ -32,12 +32,12 @@ public class Usuario {
         this.password = password;
     }
 
-    public String loguearse() {
+    public  String loguearse(String idUsuario, String password) {
         String cat = null;
         try {
             
             Conexion.conectar();
-            CallableStatement cs = Conexion.getConexion().prepareCall("{call PLOGIN.VALIDACION(?,?,?,?,?,?)}");
+            CallableStatement cs = Conexion.getConexion().prepareCall("{call LOGIN(?,?,?,?,?,?)}");
             cs.setString(1, idUsuario);
             cs.setNString(2, password);
             cs.registerOutParameter(3, OracleTypes.VARCHAR);
@@ -46,10 +46,9 @@ public class Usuario {
             cs.registerOutParameter(6, OracleTypes.CURSOR);
             cs.execute();
             String categoria = cs.getString(3);
-            idUsuario = cs.getString(4);
-            idtrabajador= cs.getBigDecimal(5);
-           Usuario u = new Usuario(idUsuario, password);
-            trabajador.setUsuario(u);
+            String idU = cs.getString(4);
+            BigDecimal idtrabajador;idtrabajador= cs.getBigDecimal(5);
+           
             
             ResultSet rs = (ResultSet) cs.getObject(6);
             while (rs.next()) {
@@ -59,7 +58,7 @@ public class Usuario {
                 String Nombre=(rs.getString("nombre"));
                 String PrimerApellido=(rs.getString("primerApellido"));
                 String SegundoApellido=(rs.getString("segundoApellido"));
-                String Categoria=(rs.getString("categoria"));
+                categoria=(rs.getString("categoria"));
                 String Calle=(rs.getString("calle"));
                 BigDecimal Numero=(rs.getBigDecimal("numero"));
                 BigDecimal Piso=(rs.getBigDecimal("piso"));
@@ -73,20 +72,19 @@ public class Usuario {
                 String FechaNacimiento=(rs.getString("fechaNacimiento"));
                 BigDecimal IdCent=(rs.getBigDecimal("CENTROS_ID"));
                 
-                if (Categoria.equalsIgnoreCase("la que sea")){
-                     trabajador  = new Trabajador(id, dni, Nombre, PrimerApellido, 
-                SegundoApellido, Categoria, Calle, Numero, Piso, Mano, Ciudad, CodigoPostal, Provincia, MovilEmpresa, MovilPersonal, Salario, FechaNacimiento, IdCent);
-               
+                if (categoria.equalsIgnoreCase("logistica")){
+                     trabajador  = new Logistica(id, dni, Nombre, PrimerApellido, 
+                SegundoApellido, categoria, Calle, Numero, Piso, Mano, Ciudad, CodigoPostal, Provincia, MovilEmpresa, MovilPersonal, Salario, FechaNacimiento, IdCent);
+             
                 }else{
-                     trabajador  = new Trabajador(id, dni, Nombre, PrimerApellido, 
-                SegundoApellido, Categoria, Calle, Numero, Piso, Mano, Ciudad, CodigoPostal, Provincia, MovilEmpresa, MovilPersonal, Salario, FechaNacimiento, IdCent);
+                     trabajador  = new Administracion(id, dni, Nombre, PrimerApellido, 
+                SegundoApellido, categoria, Calle, Numero, Piso, Mano, Ciudad, CodigoPostal, Provincia, MovilEmpresa, MovilPersonal, Salario, FechaNacimiento, IdCent);
                
                 }
+              
                
-               
-            }
+            }     
             
-
             if (categoria.equalsIgnoreCase("administracion")) {
                 cat = categoria;
             }
@@ -94,12 +92,36 @@ public class Usuario {
             if (categoria.equalsIgnoreCase("logistica")) {
                 cat = categoria;
             }
-        System.out.println(idUsuario +" "+ idtrabajador);
+        System.out.println(idU+" "+categoria+" "+idtrabajador);
             Conexion.desconectar();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema \n" + ex.getMessage());
         }
         return cat;
        
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Trabajador getTrabajador() {
+        return trabajador;
+    }
+
+    public void setTrabajador(Trabajador trabajador) {
+        this.trabajador = trabajador;
     }
 }

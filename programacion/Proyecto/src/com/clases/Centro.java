@@ -168,16 +168,16 @@ public class Centro {
     }
 
     //auto incrementado para 11g
-    public int autoincremente() {
-        int id = -1;
+    public BigDecimal autoincremente() {
+        BigDecimal id= new BigDecimal(0);
         try {
             Conexion.conectar();
             CallableStatement cs = Conexion.getConexion().prepareCall("{call incrementCenter(?)}");
             cs.registerOutParameter(1, OracleTypes.INTEGER);
             cs.execute();
             int idc;
-            idc = cs.getInt(1);
-            id = idc;
+            //idc = cs.getInt(1);
+            id = cs.getBigDecimal(1);
             cs.close();
             Conexion.desconectar();
         } catch (SQLException ex) {
@@ -306,6 +306,10 @@ public class Centro {
                 + ", CodigoPostal=" + CodigoPostal
                 + ", Provincia=" + Provincia
                 + ", Telefonos=" + Telefonos + '}';
+    }
+    public void agregarTrabajador (Trabajador t){
+        trabajador.add(t);
+        t.setCentro(this);
     }
 
 }

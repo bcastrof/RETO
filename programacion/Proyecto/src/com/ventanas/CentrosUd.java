@@ -20,6 +20,7 @@ public class CentrosUd extends javax.swing.JFrame {
     private static BigDecimal idCent;
     private static String name;
     private DefaultTableModel centros;
+  
     private List<Centro> centro;
 
     private void listarCentros() {
@@ -45,9 +46,10 @@ public class CentrosUd extends javax.swing.JFrame {
         centros = (DefaultTableModel) jTable1.getModel();
         centro = Centro.filtrarcentCentros(name);
         //esto lo hacemos nosotros      
-           /*for (Centro c : centro) {
+           /* for(Centro c : centro) {
             centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(), c.getNombre(),
-                c.getCalle(), c.getNumero(), c.getCiudad(), c.getCodigoPostal(), c.getProvincia(), c.getTelefonos()});
+                c.getCalle(), c.getNumero(), c.getCiudad(), 
+                c.getCodigoPostal(), c.getProvincia(), c.getTelefonos()});
         }*/
        
         //esto es lo que el netbeans considera gonito   

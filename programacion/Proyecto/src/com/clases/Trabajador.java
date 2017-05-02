@@ -7,6 +7,7 @@ package com.clases;
 
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -247,6 +248,8 @@ public class Trabajador {
                 t.setIdCent(rs.getBigDecimal("CENTROS_ID"));
                 trabajadores.add(t);
                 System.out.println(t);
+                //String categoria = (rs.getString("categoria")); 
+              
             }
             rs.close();
             Conexion.desconectar();
@@ -299,6 +302,69 @@ public class Trabajador {
         return trabajador;
     }
     
+    public boolean altaTrabajador11g(){
+        Conexion.conectar();
+        try {
+            
+            String sql = ("insert into trabajadores"
+                    + "(ID, DNI, NOMBRE, PRIMERAPELLIDO, SEGUNDOAPELLIDO, CATEGORIA,"
+                    + "CALLE, NUMERO, PISO, MANO, CIUDAD, CODIGOPOSTAL, PROVINCIA,"
+                    + "MOVILEMPRESA, MOVILPERSONAL, SALARIO, FECHANACIMIENTO, CENTROS_ID)"
+                    + "values(?,?,?,?,?,?,"
+                    + "?,?,?,?,?,?,?,"
+                    + "?,?,?,?,?)");
+            PreparedStatement smt = Conexion.getConexion().prepareStatement(sql);
+            smt.setBigDecimal(1, id);
+            smt.setString(2, dni);
+            smt.setString(3, nombre);
+            smt.setString(4, primerApellido);
+            smt.setString(5, segundoApellido);
+            smt.setString(6, categoria);
+            
+            smt.setString(7, calle);
+            smt.setBigDecimal(8, numero);
+            smt.setBigDecimal(9, piso);
+            smt.setString(10, mano);
+            smt.setString(11, ciudad);
+            smt.setBigDecimal(12, codigoPostal);
+            smt.setString(13, provincia);
+            
+            smt.setBigDecimal(14, movilEmpresa);
+            smt.setBigDecimal(15, movilPersonal);
+            smt.setBigDecimal(16, salario);
+            smt.setString(17, fechaNacimiento);
+            smt.setBigDecimal(18, idCent);
+            
+            smt.executeUpdate();
+            smt.close();
+            Conexion.desconectar();
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema" + ex.getMessage());
+            return false;
+        }
+        
+    }
+    
+    //auto incrementado para 11g
+    public BigDecimal autoincremente() {
+        BigDecimal id= new BigDecimal(0);
+        try {
+            Conexion.conectar();
+            CallableStatement cs = Conexion.getConexion().prepareCall("{call incrementTrabajadores(?)}");
+            cs.registerOutParameter(1, OracleTypes.INTEGER);
+            cs.execute();
+            int idc;
+            //idc = cs.getInt(1);
+            id = cs.getBigDecimal(1);
+            cs.close();
+            Conexion.desconectar();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema" + ex.getMessage());
+        }
+        return id;
+    }
+    
 
     @Override
     public String toString() {
@@ -317,6 +383,18 @@ public class Trabajador {
      */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Centro getCentro() {
+        return centro;
+    }
+
+    public void setCentro(Centro centro) {
+        this.centro = centro;
+    }
+
+    void setCentro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
