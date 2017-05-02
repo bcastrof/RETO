@@ -131,15 +131,17 @@ public  class Login extends javax.swing.JFrame {
         String usuario = user.getText();
         String pass = new String(password.getPassword());
         Usuario u = new Usuario(usuario, pass);
+        
+        
         String categoria = u.loguearse(usuario, pass);
       
-       
+      
         if (categoria.equalsIgnoreCase("administracion")) {
             administracion = new Administracion();
             administracion.setVisible(true);
-             Trabajador trabajador = new com.clases.Administracion();
-             trabajador.setUsuario(u);
-            //todo hacer que la ventana login desaparezca
+            Trabajador trabajador = u.getTrabajador();
+            //trabajador.setUsuario(u);
+            System.out.println("");
         } else {
              Trabajador trabajador = new com.clases.Logistica();
              trabajador.setUsuario(u);

@@ -48,8 +48,8 @@ public class Trabajador {
     public Trabajador() {
     }
 
-    public Trabajador(BigDecimal id, String dni, String nombre, String primerApellido, String segundoApellido, String categoria, String calle, BigDecimal numero, BigDecimal piso, String mano, String ciudad, BigDecimal codigoPostal, String provincia, BigDecimal movilEmpresa, BigDecimal movilPersonal, BigDecimal salario, String fechaNacimiento, BigDecimal idCent) {
-        this.id = id;
+    public Trabajador(String dni, String nombre, String primerApellido, String segundoApellido, String categoria, String calle, BigDecimal numero, BigDecimal piso, String mano, String ciudad, BigDecimal codigoPostal, String provincia, BigDecimal movilEmpresa, BigDecimal movilPersonal, BigDecimal salario, String fechaNacimiento, BigDecimal idCent) {
+        
         this.dni = dni;
         this.nombre = nombre;
         this.primerApellido = primerApellido;
@@ -306,34 +306,33 @@ public class Trabajador {
         Conexion.conectar();
         try {
             
-            String sql = ("insert into trabajadores"
-                    + "(ID, DNI, NOMBRE, PRIMERAPELLIDO, SEGUNDOAPELLIDO, CATEGORIA,"
-                    + "CALLE, NUMERO, PISO, MANO, CIUDAD, CODIGOPOSTAL, PROVINCIA,"
-                    + "MOVILEMPRESA, MOVILPERSONAL, SALARIO, FECHANACIMIENTO, CENTROS_ID)"
-                    + "values(?,?,?,?,?,?,"
+            String sql = ("insert into trabajadores (dni, nombre, primerApellido, segundoApellido, categoria, calle, numero, piso, mano, ciudad, codigoPostal, provincia, movilEmpresa, movilPersonal, salario, fechaNacimiento, CENTROS_ID)"
+                    + "values(?,?,?,?,?,"
                     + "?,?,?,?,?,?,?,"
                     + "?,?,?,?,?)");
+            //String sql = ("insert into trabajadores (dni,nombre,primerApellido, segundoApellido, categoria, calle, numero, ciudad, codigoPostal, provincia, movilEmpresa, movilPersonal"
+                  // + "fechaNacimiento, CENTROS_ID values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             PreparedStatement smt = Conexion.getConexion().prepareStatement(sql);
-            smt.setBigDecimal(1, id);
-            smt.setString(2, dni);
-            smt.setString(3, nombre);
-            smt.setString(4, primerApellido);
-            smt.setString(5, segundoApellido);
-            smt.setString(6, categoria);
+           // smt.setBigDecimal(1, id);
+            smt.setString(1, dni);
+            smt.setString(2, nombre);
+            smt.setString(3, primerApellido);
+            smt.setString(4, segundoApellido);
+            smt.setString(5, categoria);
             
-            smt.setString(7, calle);
-            smt.setBigDecimal(8, numero);
-            smt.setBigDecimal(9, piso);
-            smt.setString(10, mano);
-            smt.setString(11, ciudad);
-            smt.setBigDecimal(12, codigoPostal);
-            smt.setString(13, provincia);
+            smt.setString(6, calle);
+            smt.setBigDecimal(7, numero);
+            smt.setBigDecimal(8, piso);
+            smt.setString(9, mano);
+            smt.setString(10, ciudad);
+            smt.setBigDecimal(11, codigoPostal);
+            smt.setString(12, provincia);
             
-            smt.setBigDecimal(14, movilEmpresa);
-            smt.setBigDecimal(15, movilPersonal);
-            smt.setBigDecimal(16, salario);
-            smt.setString(17, fechaNacimiento);
-            smt.setBigDecimal(18, idCent);
+            smt.setBigDecimal(13, movilEmpresa);
+            smt.setBigDecimal(14, movilPersonal);
+            smt.setBigDecimal(15, salario);
+            smt.setString(16, fechaNacimiento);
+            smt.setBigDecimal(17, idCent);
             
             smt.executeUpdate();
             smt.close();

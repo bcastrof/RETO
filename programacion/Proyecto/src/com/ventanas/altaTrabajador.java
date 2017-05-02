@@ -79,11 +79,6 @@ public class altaTrabajador extends javax.swing.JFrame {
         });
 
         uCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administración", "Logistica" }));
-        uCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                uCategoriaMouseClicked(evt);
-            }
-        });
 
         uSalario.setPreferredSize(new java.awt.Dimension(65, 20));
 
@@ -171,50 +166,34 @@ public class altaTrabajador extends javax.swing.JFrame {
 
     private void altaTrabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaTrabajadorActionPerformed
         // TODO add your handling code here:
-        Trabajador t = new Trabajador();
-        BigDecimal id = t.autoincremente();
         
+       
         
-        Trabajador s = new Trabajador();
-        s.setId(id);
-        String dci = uDni.getText();
-        s.setDni(dci);
-        String name = uNombre.getName();
-        s.setNombre(name);
-        String fSurname = uPrimerApellido.getText();
-        s.setPrimerApellido(fSurname);
-        String sSurname = uSegundoApellido.getName();
-        s.setSegundoApellido(sSurname);
-        
-        String cat = category;
-        s.setCategoria(category);
-        
-        String street = uCalle.getText(); 
-        s.setCalle(street);
-        BigDecimal number = new  BigDecimal(uNumero.getText());
-        s.setNumero(number);
-        BigDecimal flood = new BigDecimal(uPiso.getText());
-        s.setPiso(flood);
-        String hand = uMano.getText();
-        s.setMano(hand);
-        
-        String city = uCiudad.getText();
-        s.setCiudad(city);
-        BigDecimal postalCode = new BigDecimal(uCodigoPostal.getText());
-        s.setCodigoPostal(postalCode);
+      
+            
+        String dci = uDni.getText();        
+        String name = uNombre.getText();       
+        String fSurname = uPrimerApellido.getText();       
+        String sSurname = uSegundoApellido.getText();      
+        String ad = uCategoria.getSelectedItem().toString();
+        if(ad.equalsIgnoreCase("Administración")){
+            ad="administracion";
+        }else{
+            ad="logistica";
+        }
+        String street = uCalle.getText();      
+        BigDecimal number = new  BigDecimal(uNumero.getText());      
+        BigDecimal flood = new BigDecimal(uPiso.getText());     
+        String hand = uMano.getText();       
+        String city = uCiudad.getText();      
+        BigDecimal postalCode = new BigDecimal(uCodigoPostal.getText());       
         String province = uProvincia.getText();
-        s.setProvincia(province);
-
-        BigDecimal companyPhone = new BigDecimal(uMovilEmpresa.getText());
-        s.setMovilEmpresa(companyPhone);
-        BigDecimal personalNumber = new BigDecimal(uMovilPersonal.getText());
-        s.setMovilPersonal(personalNumber);
-        BigDecimal salary = new BigDecimal(uSalario.getText());
-        s.setSalario(salary);
-        String bornDate = uFechaNacimiento.getText();
-        s.setFechaNacimiento(bornDate);
+        BigDecimal companyPhone = new BigDecimal(uMovilEmpresa.getText());       
+        BigDecimal personalNumber = new BigDecimal(uMovilPersonal.getText());        
+        BigDecimal salary = new BigDecimal(uSalario.getText());        
+        String bornDate = uFechaNacimiento.getText();    
         BigDecimal idcenter = new BigDecimal (uIdCent.getText());
-        s.setIdCent(idcenter);
+        Trabajador t = new Trabajador(dci,name,fSurname,sSurname,ad,street,number,flood,hand,city,postalCode,province,companyPhone,personalNumber,salary,bornDate,idcenter);
         
         boolean guardado = t.altaTrabajador11g();
 
@@ -226,17 +205,6 @@ public class altaTrabajador extends javax.swing.JFrame {
         //limpiarFormulario();
      
     }//GEN-LAST:event_altaTrabajadorActionPerformed
-
-    private void uCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uCategoriaMouseClicked
-        // TODO add your handling code here:
-        int index = uCategoria.getSelectedIndex();
-        if(index == 1){
-            category="administracion";
-        }else{
-            category="logistica";
-        }
-           
-    }//GEN-LAST:event_uCategoriaMouseClicked
 
     /**
      * @param args the command line arguments

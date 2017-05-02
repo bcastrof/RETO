@@ -44,10 +44,11 @@ public class Usuario {
             cs.registerOutParameter(4, OracleTypes.VARCHAR);
             cs.registerOutParameter(5, OracleTypes.INTEGER);
             cs.registerOutParameter(6, OracleTypes.CURSOR);
+          
             cs.execute();
             String categoria = cs.getString(3);
             String idU = cs.getString(4);
-            BigDecimal idtrabajador;idtrabajador= cs.getBigDecimal(5);
+            BigDecimal idtrabajador= cs.getBigDecimal(5);
            
             
             ResultSet rs = (ResultSet) cs.getObject(6);
@@ -73,13 +74,13 @@ public class Usuario {
                 BigDecimal IdCent=(rs.getBigDecimal("CENTROS_ID"));
                 
                 if (categoria.equalsIgnoreCase("logistica")){
-                     trabajador  = new Logistica(id, dni, Nombre, PrimerApellido, 
+                    /* trabajador  = new Logistica(id, dni, Nombre, PrimerApellido, 
                 SegundoApellido, categoria, Calle, Numero, Piso, Mano, Ciudad, CodigoPostal, Provincia, MovilEmpresa, MovilPersonal, Salario, FechaNacimiento, IdCent);
-             
-                }else{
+             */
+                }else{/*
                      trabajador  = new Administracion(id, dni, Nombre, PrimerApellido, 
                 SegundoApellido, categoria, Calle, Numero, Piso, Mano, Ciudad, CodigoPostal, Provincia, MovilEmpresa, MovilPersonal, Salario, FechaNacimiento, IdCent);
-               
+               */
                 }
               
                
