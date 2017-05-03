@@ -191,6 +191,7 @@ public class altaTrabajador extends javax.swing.JFrame {
         }else{
             ad="logistica";
         }
+        //TODO HACER QUE ESTO QUEDE BONITO
         //esto funciona en 12c
         /*
         String dci = uDni.getText();        

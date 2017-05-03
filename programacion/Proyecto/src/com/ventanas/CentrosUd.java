@@ -224,10 +224,7 @@ public class CentrosUd extends javax.swing.JFrame {
     private void filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtrarActionPerformed
         // TODO add your handling code here:
         name = bname.getText();
-
         filtrarCentos();
-
-
     }//GEN-LAST:event_filtrarActionPerformed
 
     private void listadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listadoActionPerformed
@@ -239,27 +236,16 @@ public class CentrosUd extends javax.swing.JFrame {
         // mapeo los campos de la fila seleccionada
         int index = jTable1.getSelectedRow();
         centros = (DefaultTableModel) jTable1.getModel();
-        String nombre = centros.getValueAt(index, 1).toString();
-        String calle = centros.getValueAt(index, 2).toString();
-        String numero = centros.getValueAt(index, 3).toString();
-        String ciudad = centros.getValueAt(index, 4).toString();
-        String codigoPostal = centros.getValueAt(index, 5).toString();
-        String provincia = centros.getValueAt(index, 6).toString();
-        String telefono = centros.getValueAt(index, 7).toString();
+        idCent = new BigDecimal(centros.getValueAt(index, 0).toString());
 
-        //ñapa para recoger el id y pasarlo a BigDecimal si alguien lo sabe hacer mas simple que lo haga
-        String cd = centros.getValueAt(index, 0).toString();
-        //int dc=Integer.parseInt(cd);
-        idCent = new BigDecimal(cd);
-
-        //translado los valores del mapeo a los diferentes campos del formulario
-        uNombre.setText(nombre);
-        uCalle.setText(calle);
-        uNumero.setText(numero);
-        uCiudad.setText(ciudad);
-        uCodigoPostal.setText(codigoPostal);
-        uProvincia.setText(provincia);
-        uTelefono.setText(telefono);
+        //mapeo y translado de los valores a los diferentes campos del formulario
+        uNombre.setText(centros.getValueAt(index, 1).toString());
+        uCalle.setText(centros.getValueAt(index, 2).toString());
+        uNumero.setText(centros.getValueAt(index, 3).toString());
+        uCiudad.setText(centros.getValueAt(index, 4).toString());
+        uCodigoPostal.setText(centros.getValueAt(index, 5).toString());
+        uProvincia.setText(centros.getValueAt(index, 6).toString());
+        uTelefono.setText(centros.getValueAt(index, 7).toString());
     }//GEN-LAST:event_jTable1MouseClicked
 
     public void limpiarFormulario() {
@@ -274,20 +260,10 @@ public class CentrosUd extends javax.swing.JFrame {
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
 
-        //recojo los valores transladados para pasarlos al metodo modificarCentro
-        String name = uNombre.getText();
-        String street = uCalle.getText();
-        // int number = Integer.parseInt(uNumero.getText());
-        BigDecimal number = new BigDecimal(uNumero.getText());
-        String city = uCiudad.getText();
-        // int postalCode=Integer.parseInt(uCodigoPostal.getText());
-        BigDecimal postalCode = new BigDecimal(uCodigoPostal.getText());
-        String province = uProvincia.getText();
-        //  int phoneNumber=Integer.parseInt(uTelefono.getText());
-        BigDecimal phoneNumber = new BigDecimal(uTelefono.getText());
-
         //creo centro para pasar al metodo modificar.
-        Centro centro = new Centro(name, street, number, city, postalCode, province, phoneNumber);
+        Centro centro = new Centro(uNombre.getText(), uCalle.getText(), new BigDecimal(uNumero.getText()),
+                uCiudad.getText(), new BigDecimal(uCodigoPostal.getText()),
+                uProvincia.getText(), new BigDecimal(uTelefono.getText()));
 
         boolean modifcar = centro.modificarCentro(idCent);
 

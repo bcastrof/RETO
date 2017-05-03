@@ -384,8 +384,7 @@ public class Trabajador {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema" + ex.getMessage());
             return false;
-        }
-        
+        }      
     }
     
     //auto incrementado para 11g
@@ -407,6 +406,42 @@ public class Trabajador {
         return id;
     }
     
+    public boolean modificarTrabajador(BigDecimal id){
+        Conexion.conectar();
+        String sql= "UPDATE TRABAJADORES SET dni=?, nombre=?, primerApellido=?, segundoApellido=?, categoria=?, calle=?, numero=?,"
+                + "piso=?, mano=?, ciudad=?, codigoPostal=?, provincia=?, movilEmpresa=?, movilPersonal=?, salario=?,"
+                + "fechaNacimiento=?, CENTROS_ID=? where ID=?";
+        
+        try {
+            PreparedStatement ps = Conexion.getConexion().prepareStatement(sql);
+            ps.setString(1, dni);
+            ps.setString(2, nombre);
+            ps.setString(3, primerApellido);
+            ps.setString(4, segundoApellido);
+            ps.setString(5, categoria);
+            ps.setString(6, calle);
+            ps.setBigDecimal(7, numero);
+            ps.setBigDecimal(8, piso);
+            ps.setString(9, mano);
+            ps.setString(10, ciudad);
+            ps.setBigDecimal(11, codigoPostal);
+            ps.setString(12, provincia);
+            ps.setBigDecimal(13, movilEmpresa);
+            ps.setBigDecimal(14, movilPersonal);
+            ps.setBigDecimal(15,salario);
+            ps.setString(16, fechaNacimiento);
+            ps.setBigDecimal(17, idCent);
+            ps.setBigDecimal(18, id);
+            
+            ps.executeUpdate();
+            ps.close();
+            Conexion.desconectar();
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema \n" + ex.getMessage());
+            return false;
+        }  
+    }
 
     @Override
     public String toString() {

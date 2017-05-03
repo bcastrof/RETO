@@ -6,7 +6,9 @@
 package com.ventanas;
 
 import com.clases.Trabajador;
+import java.math.BigDecimal;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,30 +20,30 @@ public class TrabajadoresUd extends javax.swing.JFrame {
     private DefaultTableModel trabajadores;
     private List<Trabajador> trabajador;
     private static String docI;
-
+    private static BigDecimal id;
     //listar trabajadores
     private void listarTrabajadores() {
         trabajadores = (DefaultTableModel) jTable1.getModel();
         trabajador = Trabajador.listarTrabajadores();
 
-        for (Trabajador t : trabajador) {
+        trabajador.forEach((t) -> {
             trabajadores.insertRow(trabajadores.getRowCount(), new Object[]{t.getId(), t.getNombre(),
                 t.getPrimerApellido(),t.getDni(), t.getCategoria(),
                 t.getMovilEmpresa(),
                 t.getIdCent()});
-        }
+        });
     }
 
     private void filtrarTrabajador() {
         trabajadores.setRowCount(0);
         trabajadores = (DefaultTableModel) jTable1.getModel();
         trabajador = Trabajador.filtrarTrabajador(docI);
-        for (Trabajador t : trabajador) {
+        trabajador.forEach((t) -> {
             trabajadores.insertRow(trabajadores.getRowCount(), new Object[]{t.getId(), t.getNombre(),
-                t.getPrimerApellido(), t.getCategoria(),
+                t.getPrimerApellido(),t.getDni(), t.getCategoria(),
                 t.getMovilEmpresa(),
                 t.getIdCent()});
-        }
+        });
     }
 
     public TrabajadoresUd() {
@@ -80,6 +82,8 @@ public class TrabajadoresUd extends javax.swing.JFrame {
         uFechaNacimiento = new javax.swing.JTextField();
         uFiltro = new javax.swing.JTextField();
         bFiltrar = new javax.swing.JButton();
+        listado = new javax.swing.JButton();
+        modificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,16 +147,25 @@ public class TrabajadoresUd extends javax.swing.JFrame {
         uFechaNacimiento.setPreferredSize(new java.awt.Dimension(110, 20));
 
         uFiltro.setPreferredSize(new java.awt.Dimension(110, 20));
-        uFiltro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                uFiltroActionPerformed(evt);
-            }
-        });
 
         bFiltrar.setText("FILTRAR");
         bFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bFiltrarActionPerformed(evt);
+            }
+        });
+
+        listado.setText("LISTAR");
+        listado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listadoActionPerformed(evt);
+            }
+        });
+
+        modificar.setText("MODIFICAR");
+        modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarActionPerformed(evt);
             }
         });
 
@@ -166,18 +179,6 @@ public class TrabajadoresUd extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 983, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(uId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(uNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(uPrimerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(uSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(uDni, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(uFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(uCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -203,9 +204,28 @@ public class TrabajadoresUd extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(uIdcent, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(uFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(bFiltrar)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(uId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(uNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(uPrimerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(uFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(bFiltrar)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(listado)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(uSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(uDni, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(modificar)
+                                            .addComponent(uFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -217,7 +237,8 @@ public class TrabajadoresUd extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(uFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bFiltrar))
+                    .addComponent(bFiltrar)
+                    .addComponent(listado))
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(uId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -244,8 +265,9 @@ public class TrabajadoresUd extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(uCodigoPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(uProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(uMovilPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(147, Short.MAX_VALUE))
+                        .addComponent(uMovilPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(modificar)))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
 
         pack();
@@ -253,58 +275,81 @@ public class TrabajadoresUd extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int index = jTable1.getSelectedRow();
-
-        //creo variables para rellenado del formulario (lo pasais todo pero todo a String)
-        String idEmp = trabajador.get(index).getId().toString();
-        String docI = trabajador.get(index).getDni();
-        String name = trabajador.get(index).getNombre();
-        String firstS = trabajador.get(index).getPrimerApellido();
-        String secondS = trabajador.get(index).getSegundoApellido();
-        String category = trabajador.get(index).getCategoria();
-        String street = trabajador.get(index).getCalle();
-        String number = trabajador.get(index).getNumero().toString();
-        String floor = trabajador.get(index).getPiso().toString();
-        String hand = trabajador.get(index).getMano();
-        String city = trabajador.get(index).getCiudad();
-        String postalCode = trabajador.get(index).getCodigoPostal().toString();
-        String province = trabajador.get(index).getProvincia();
-        String phoneCompany = trabajador.get(index).getMovilEmpresa().toString();
-        String personalPhone = trabajador.get(index).getMovilPersonal().toString();
-        String salary = trabajador.get(index).getSalario().toString();
-        String bornDate = trabajador.get(index).getFechaNacimiento();
-        String idCompany = trabajador.get(index).getIdCent().toString();
-
-        //paso los valores a las cajas del formulario de detalle
-        uId.setText(idEmp);
-        uDni.setText(docI);
-        uNombre.setText(name);
-        uPrimerApellido.setText(firstS);
-        uSegundoApellido.setText(secondS);
-        uCategoria.setText(category);
-        uCalle.setText(street);
-        uNumero.setText(number);
-        uPiso.setText(floor);
-        uMano.setText(hand);
-        uCiudad.setText(city);
-        uCodigoPostal.setText(postalCode);
-        uProvincia.setText(province);
-        uMovilEmpresa.setText(phoneCompany);
-        uMovilPersonal.setText(personalPhone);
-        uSalario.setText(salary);
-        uFechaNacimiento.setText(bornDate);
-        uIdcent.setText(idCompany);
+        
+        
+        //mapeo y translado de los valores a los diferentes campos del formulario
+        uId.setText(trabajador.get(index).getId().toString());
+        uDni.setText(trabajador.get(index).getDni());
+        uNombre.setText(trabajador.get(index).getNombre());
+        uPrimerApellido.setText(trabajador.get(index).getPrimerApellido());
+        uSegundoApellido.setText(trabajador.get(index).getSegundoApellido());
+        uCategoria.setText(trabajador.get(index).getCategoria());
+        uCalle.setText(trabajador.get(index).getCalle());
+        uNumero.setText(trabajador.get(index).getNumero().toString());
+        uPiso.setText(trabajador.get(index).getPiso().toString());
+        uMano.setText(trabajador.get(index).getMano());
+        uCiudad.setText(trabajador.get(index).getCiudad());
+        uCodigoPostal.setText(trabajador.get(index).getCodigoPostal().toString());
+        uProvincia.setText(trabajador.get(index).getProvincia());
+        uMovilEmpresa.setText(trabajador.get(index).getMovilEmpresa().toString());
+        uMovilPersonal.setText(trabajador.get(index).getMovilPersonal().toString());
+        uSalario.setText(trabajador.get(index).getSalario().toString());
+        uFechaNacimiento.setText(trabajador.get(index).getFechaNacimiento());
+        uIdcent.setText(trabajador.get(index).getIdCent().toString());
+        id=new BigDecimal(uId.getText());
     }//GEN-LAST:event_jTable1MouseClicked
-
+      
     private void bFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFiltrarActionPerformed
         docI = uFiltro.getText();
-        
         filtrarTrabajador();
     }//GEN-LAST:event_bFiltrarActionPerformed
 
-    private void uFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uFiltroActionPerformed
+    private void listadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_uFiltroActionPerformed
+        trabajadores.setRowCount(0);
+        listarTrabajadores();
+    }//GEN-LAST:event_listadoActionPerformed
 
+    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+        Trabajador trabajadorM = new Trabajador(uDni.getText(), uNombre.getText(), uPrimerApellido.getText(), 
+                uSegundoApellido.getText(), uCategoria.getText(), uCalle.getText(), new BigDecimal(uNumero.getText()), 
+                new BigDecimal(uPiso.getText()), uMano.getText(), uCiudad.getText(),new BigDecimal(uCodigoPostal.getText()), 
+                uProvincia.getText(),new BigDecimal(uMovilEmpresa.getText()),new BigDecimal(uMovilPersonal.getText()), 
+                new BigDecimal(uSalario.getText()), uFechaNacimiento.getText(),new BigDecimal(uIdcent.getText()));
+        
+        boolean modificar = trabajadorM.modificarTrabajador(id);
+        if (modificar){
+            JOptionPane.showMessageDialog(null, "Trabajador modificado correctamente", "Modificado", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        //limpiar tabla
+        trabajadores.setRowCount(0);
+        
+        //listar
+        listarTrabajadores();
+        
+        //limpiar formulario
+        limpiarFormulario();
+        
+    }//GEN-LAST:event_modificarActionPerformed
+    public void limpiarFormulario(){
+        uDni.setText("");
+        uNombre.setText("");
+        uPrimerApellido.setText("");
+        uSegundoApellido.setText("");
+        uCalle.setText("");
+        uNumero.setText("");
+        uPiso.setText("");
+        uMano.setText("");
+        uCiudad.setText("");
+        uCodigoPostal.setText("");
+        uProvincia.setText("");
+        uMovilEmpresa.setText("");
+        uMovilPersonal.setText("");
+        uSalario.setText("");
+        uFechaNacimiento.setText("");
+        uIdcent.setText("");
+    }
     /**
      * @param args the command line arguments
      */
@@ -344,6 +389,8 @@ public class TrabajadoresUd extends javax.swing.JFrame {
     private javax.swing.JButton bFiltrar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton listado;
+    private javax.swing.JButton modificar;
     private javax.swing.JTextField uCalle;
     private javax.swing.JTextField uCategoria;
     private javax.swing.JTextField uCiudad;
