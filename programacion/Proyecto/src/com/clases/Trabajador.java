@@ -305,6 +305,7 @@ public class Trabajador {
     
     public boolean altaTrabajador12c(){
         Conexion.conectar();
+       
         try {
             
             String sql = ("insert into trabajadores (dni, nombre, primerApellido, segundoApellido, categoria, calle, numero, piso, mano, ciudad, codigoPostal, provincia, movilEmpresa, movilPersonal, salario, fechaNacimiento, CENTROS_ID)"
@@ -334,7 +335,7 @@ public class Trabajador {
             smt.setBigDecimal(15, salario);
             smt.setString(16, fechaNacimiento);
             smt.setBigDecimal(17, idCent);
-            
+           
             smt.executeUpdate();
             smt.close();
             Conexion.desconectar();
@@ -346,29 +347,12 @@ public class Trabajador {
     }
     
     public static Usuario altaUsuario(String dni, String nombre, String apellido){
-       BigDecimal idu=new BigDecimal(0);
-        //creo usuario 
-        String name=nombre.replaceAll(" ","");
-        String user = String.valueOf(name).concat(".").concat(apellido);
-        
-        //creo contraseña
-        String caracteres = "TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke1234567890";
-        StringBuilder pass = new StringBuilder();
-        Random rnd = new Random();
-
-        while(pass.length() < 8) {
-            int password = (int)(rnd.nextFloat() * (float)caracteres.length());
-            pass.append(caracteres.charAt(password));
-        }
-        String password1 = pass.toString();
-        //creo objeto usuario
-        Usuario u=new Usuario(user,password1);
-         
-         //inserto en base datos los datos del nuevo usuario
-         Conexion.conectar();
-         String ido="call idTrabajador(?,?)";
-         String insert = "insert into usuarios (usuario, password, TRABAJADORES_ID) values(?,?,?)";
+        String ido="call idTrabajador(?,?)";
+        String insert = "insert into usuarios (usuario, password, TRABAJADORES_ID) values(?,?,?)";
+        BigDecimal idu=null;
+         //recupero la id
         try {
+            Conexion.conectar();
             CallableStatement cs = Conexion.getConexion().prepareCall(ido);
             cs.setString(1, dni);
             cs.registerOutParameter(2, OracleTypes.INTEGER);
@@ -380,8 +364,25 @@ public class Trabajador {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede recuperar la id del trabajador" + ex.getMessage());
         }
-         
+        
+        //creo usuario 
+        String name=nombre.replaceAll(" ","");
+        String user = String.valueOf(name).concat(".").concat(apellido);
+     
+        //creo contraseña
+        String caracteres = "TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke1234567890";
+        StringBuilder pass = new StringBuilder();
+        Random rnd = new Random();
+
+        while(pass.length() < 8) {
+            int password = (int)(rnd.nextFloat() * (float)caracteres.length());
+            pass.append(caracteres.charAt(password));
+        }
+        String password1 = pass.toString();
+       
+         //inserto en base datos los datos del nuevo usuario
          try {
+            Conexion.conectar();
             PreparedStatement smt = Conexion.getConexion().prepareStatement(insert);
             smt.setString(1, user);
             smt.setString(2, password1);
@@ -392,8 +393,16 @@ public class Trabajador {
             Conexion.desconectar();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede insertar el usuario" + ex.getMessage());
-        }    
-        return u;
+        }
+         //creo objeto usuario
+        Usuario usuario =new Usuario(user,password1);
+        String pass1 = usuario.getPassword();
+        String user1 = usuario.getIdUsuario();
+        
+        
+        System.out.println("esto genera: "+pass+" esto tiene el obj: "+pass1);
+        return usuario;
+        
     }
     
     public boolean altaTrabajador11g(){
