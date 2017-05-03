@@ -219,6 +219,9 @@ public class altaTrabajador extends javax.swing.JFrame {
         t.setSegundoApellido(uSegundoApellido.getText());
         t.setCategoria(ad);
         t.setCalle(uCalle.getText());
+        if(uNumero.getText().equalsIgnoreCase("")){
+        t.setNumero(new BigDecimal(0));
+        }
         t.setNumero(new BigDecimal(uNumero.getText()));
         t.setPiso(new BigDecimal(uPiso.getText()));
         t.setMano(uMano.getText());
