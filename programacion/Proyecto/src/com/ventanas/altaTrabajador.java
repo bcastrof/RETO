@@ -239,6 +239,8 @@ public class altaTrabajador extends javax.swing.JFrame {
         t.setFechaNacimiento(uFechaNacimiento.getText());
         t.setIdCent(new BigDecimal(uIdCent.getText()));
         
+        
+        
         //parte comun a las dos versiones 
         //12c t.altaTrabajador12c();
         //11g t.altaTrabajador11g();
@@ -247,6 +249,8 @@ public class altaTrabajador extends javax.swing.JFrame {
             //todo intentar poner este mensaje mas guapo
             JOptionPane.showMessageDialog(null, "Trabajador dado de alta correctamente", "Alta", JOptionPane.INFORMATION_MESSAGE);
         }
+        Trabajador.altaUsuario(uDni.getText(), uNombre.getText(), uPrimerApellido.getText());
+        System.out.println("");
         limpiarFormulario();    
     }//GEN-LAST:event_altaTrabajadorActionPerformed
 

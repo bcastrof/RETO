@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -341,8 +342,58 @@ public class Trabajador {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema" + ex.getMessage());
             return false;
-        }
+        }     
+    }
+    
+    public static Usuario altaUsuario(String dni, String nombre, String apellido){
+       BigDecimal idu=new BigDecimal(0);
+        //creo usuario 
+        String name=nombre.replaceAll(" ","");
+        String user = String.valueOf(name).concat(".").concat(apellido);
         
+        //creo contraseña
+        String caracteres = "TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke1234567890";
+        StringBuilder pass = new StringBuilder();
+        Random rnd = new Random();
+
+        while(pass.length() < 8) {
+            int password = (int)(rnd.nextFloat() * (float)caracteres.length());
+            pass.append(caracteres.charAt(password));
+        }
+        String password1 = pass.toString();
+        //creo objeto usuario
+        Usuario u=new Usuario(user,password1);
+         
+         //inserto en base datos los datos del nuevo usuario
+         Conexion.conectar();
+         String ido="call idTrabajador(?,?)";
+         String insert = "insert into usuarios (usuario, password, TRABAJADORES_ID) values(?,?,?)";
+        try {
+            CallableStatement cs = Conexion.getConexion().prepareCall(ido);
+            cs.setString(1, dni);
+            cs.registerOutParameter(2, OracleTypes.INTEGER);
+            cs.execute();
+            
+            idu = cs.getBigDecimal(2);
+            System.out.println("");
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se puede recuperar la id del trabajador" + ex.getMessage());
+        }
+         
+         try {
+            PreparedStatement smt = Conexion.getConexion().prepareStatement(insert);
+            smt.setString(1, user);
+            smt.setString(2, password1);
+            smt.setBigDecimal(3, idu);
+            
+            smt.executeUpdate();
+            smt.close();
+            Conexion.desconectar();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se puede insertar el usuario" + ex.getMessage());
+        }    
+        return u;
     }
     
     public boolean altaTrabajador11g(){
