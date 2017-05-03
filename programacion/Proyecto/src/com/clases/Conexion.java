@@ -25,18 +25,18 @@ public class Conexion {
     
     public static void conectar() {
         try { 
-            //conexion fuera de clase
-          /*
+            //conexion curro
+          
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            String login="LOGISTICA"; // mirar esto
-            String pass="deh74f5c";  //mirar esto
-            String url="jdbc:oracle:thin:@localhost:1521:xe";   //mirar esto
+            String login="LOGISTICA";
+            String pass="deh74f5c";
+            String url="jdbc:oracle:thin:@localhost:1521:xe";
             conexion= DriverManager.getConnection(url, login, pass);
             conexion.setAutoCommit(true);
-            */
-           
+            
             //conexion clase
             
+           /*
             Class.forName("oracle.jdbc.driver.OracleDriver");
             String login="noc03";
             String pass="noc03";
@@ -44,7 +44,7 @@ public class Conexion {
             conexion= DriverManager.getConnection(url, login, pass);
             conexion.setAutoCommit(true);
             
-            
+            */
         } catch (SQLException  | ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un problema \n"+ex.getMessage()); 
         }

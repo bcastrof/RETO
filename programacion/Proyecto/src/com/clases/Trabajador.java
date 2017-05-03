@@ -302,7 +302,7 @@ public class Trabajador {
         return trabajador;
     }
     
-    public boolean altaTrabajador11g(){
+    public boolean altaTrabajador12c(){
         Conexion.conectar();
         try {
             
@@ -333,6 +333,49 @@ public class Trabajador {
             smt.setBigDecimal(15, salario);
             smt.setString(16, fechaNacimiento);
             smt.setBigDecimal(17, idCent);
+            
+            smt.executeUpdate();
+            smt.close();
+            Conexion.desconectar();
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema" + ex.getMessage());
+            return false;
+        }
+        
+    }
+    
+    public boolean altaTrabajador11g(){
+        Conexion.conectar();
+        try {
+            
+            String sql = ("insert into trabajadores (id, dni, nombre, primerApellido, segundoApellido, categoria, calle, numero, piso, mano, ciudad, codigoPostal, provincia, movilEmpresa, movilPersonal, salario, fechaNacimiento, CENTROS_ID)"
+                    + "values(?,?,?,?,?,?,"
+                    + "?,?,?,?,?,?,?,"
+                    + "?,?,?,?,?)");
+            //String sql = ("insert into trabajadores (dni,nombre,primerApellido, segundoApellido, categoria, calle, numero, ciudad, codigoPostal, provincia, movilEmpresa, movilPersonal"
+                  // + "fechaNacimiento, CENTROS_ID values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement smt = Conexion.getConexion().prepareStatement(sql);
+            smt.setBigDecimal(1, id);
+            smt.setString(2, dni);
+            smt.setString(3, nombre);
+            smt.setString(4, primerApellido);
+            smt.setString(5, segundoApellido);
+            smt.setString(6, categoria);
+            
+            smt.setString(7, calle);
+            smt.setBigDecimal(8, numero);
+            smt.setBigDecimal(9, piso);
+            smt.setString(10, mano);
+            smt.setString(11, ciudad);
+            smt.setBigDecimal(12, codigoPostal);
+            smt.setString(13, provincia);
+            
+            smt.setBigDecimal(14, movilEmpresa);
+            smt.setBigDecimal(15, movilPersonal);
+            smt.setBigDecimal(16, salario);
+            smt.setString(17, fechaNacimiento);
+            smt.setBigDecimal(18, idCent);
             
             smt.executeUpdate();
             smt.close();
