@@ -267,12 +267,12 @@ public class altaTrabajador extends javax.swing.JFrame {
         boolean guardado = t.altaTrabajador12c();
         if (guardado) {
             //todo intentar poner este mensaje mas guapo  
-            Trabajador.altaUsuario(uDni.getText(),uNombre.getText(), uPrimerApellido.getText());
+           
             JOptionPane.showMessageDialog(null, "Trabajador dado de alta correctamente", "Alta", JOptionPane.INFORMATION_MESSAGE);
             
         }
        // Trabajador.altaUsuario(uDni.getText(), uNombre.getText(), uPrimerApellido.getText());
-       
+        Trabajador.altaUsuario(uDni.getText(),uNombre.getText(), uPrimerApellido.getText());
        
         limpiarFormulario();    
     }//GEN-LAST:event_altaTrabajadorActionPerformed

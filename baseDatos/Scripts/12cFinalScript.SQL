@@ -71,6 +71,7 @@ CREATE
     incidencias       VARCHAR2 (1000) ,
     estado            VARCHAR2 (7) DEFAULT 'ABIERTO' CONSTRAINT PRT_STD_CHK CHECK (estado IN('ABIERTO','CERRADO')),
     validado          VARCHAR2 (2) DEFAULT 'NO' CONSTRAINT PRT_VLD_CHK CHECK (validado IN('NO','SI')),
+	horasExtra        number (4,2) default 0,
     TRABAJADORES_ID   NUMBER (7) NOT NULL,
    
     CONSTRAINT PARTES_PK PRIMARY KEY (TRABAJADORES_ID, fecha),
