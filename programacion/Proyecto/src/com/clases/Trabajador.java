@@ -375,7 +375,67 @@ public class Trabajador {
             trabajador =  new Logistica (id, dni, no, pa, sa, cat, ca, nu, pi, ma, ci, cd, pro, mve, mvp, sal, fe, idc);   
            }
             
-            System.out.println(trabajador);
+            
+            Conexion.desconectar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Trabajador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return trabajador;
+    }
+     
+          public  static  Trabajador filtrarTrabajador2(BigDecimal idt){
+        Trabajador trabajador=new Trabajador();
+        Conexion.conectar();
+        try {
+            CallableStatement cs = Conexion.getConexion().prepareCall("{call ifTrabajadorid(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+           
+            cs.setBigDecimal(1, idt); 
+            cs.registerOutParameter(2, OracleTypes.INTEGER); 
+            cs.registerOutParameter(3, OracleTypes.VARCHAR); 
+            cs.registerOutParameter(4, OracleTypes.VARCHAR); 
+            cs.registerOutParameter(5, OracleTypes.VARCHAR); 
+            cs.registerOutParameter(6, OracleTypes.VARCHAR); 
+            cs.registerOutParameter(7, OracleTypes.VARCHAR); 
+            cs.registerOutParameter(8, OracleTypes.VARCHAR); 
+            cs.registerOutParameter(9, OracleTypes.INTEGER); 
+            cs.registerOutParameter(10, OracleTypes.INTEGER); 
+            cs.registerOutParameter(11, OracleTypes.VARCHAR); 
+            cs.registerOutParameter(12, OracleTypes.VARCHAR); 
+            cs.registerOutParameter(13, OracleTypes.INTEGER); 
+            cs.registerOutParameter(14, OracleTypes.VARCHAR); 
+            cs.registerOutParameter(15, OracleTypes.INTEGER); 
+            cs.registerOutParameter(16, OracleTypes.INTEGER); 
+            cs.registerOutParameter(17, OracleTypes.INTEGER); 
+            cs.registerOutParameter(18, OracleTypes.VARCHAR); 
+            cs.registerOutParameter(19, OracleTypes.INTEGER); 
+           cs.execute();
+           BigDecimal id = cs.getBigDecimal(2);
+           String doc = cs.getString(3);
+           String no = cs.getString(4);
+           String pa = cs.getString(5);
+           String sa = cs.getString(6);
+           String cat=cs.getString(7);
+           String ca = cs.getString(8);
+           BigDecimal nu = cs.getBigDecimal(9);
+           BigDecimal pi = cs.getBigDecimal(10);
+           String ma = cs.getString(11); 
+           String ci = cs.getString(12);
+           BigDecimal cd = cs.getBigDecimal(13);
+           String pro = cs.getString(14);
+           BigDecimal mve = cs.getBigDecimal(15);
+           BigDecimal mvp = cs.getBigDecimal(16);
+           BigDecimal sal = cs.getBigDecimal(17);
+           String fe = cs.getString(18);
+           BigDecimal idc = cs.getBigDecimal(19);
+           cs.close();
+           
+           if(cat.equalsIgnoreCase("administracion")){
+             trabajador =  new Administracion(idt, doc, no, pa, sa, cat, ca, nu, pi, ma, ci, cd, pro, mve, mvp, sal, fe, idc);  
+           }else{
+            trabajador =  new Logistica (idt, doc, no, pa, sa, cat, ca, nu, pi, ma, ci, cd, pro, mve, mvp, sal, fe, idc);   
+           }
+            
+            
             Conexion.desconectar();
         } catch (SQLException ex) {
             Logger.getLogger(Trabajador.class.getName()).log(Level.SEVERE, null, ex);

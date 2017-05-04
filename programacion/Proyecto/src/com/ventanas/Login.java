@@ -7,7 +7,6 @@ package com.ventanas;
 
 import com.clases.Trabajador;
 import com.clases.Usuario;
-import java.math.BigDecimal;
 //import com.clases.Administracion;
 
 /**
@@ -19,6 +18,7 @@ public class Login extends javax.swing.JFrame {
     private Administracion administracion;
     //private Logistica logistica;
     private Trabajador trabajador;
+
     /**
      * Creates new form Login
      */
@@ -125,24 +125,21 @@ public class Login extends javax.swing.JFrame {
 
     private void conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conectarActionPerformed
         // TODO add your handling code here:
-        
         String usuario = user.getText();
         String pass = new String(password.getPassword());
-        Usuario u = new Usuario(usuario, pass);
- 
-        u.setTrabajador(trabajador);
-        trabajador.setUsuario(u);
+        Usuario u = Usuario.log(usuario, pass);
         
-        String categoria = u.loguearse(usuario, pass);
-        if (categoria.equalsIgnoreCase("administracion")) {
+        Trabajador t = Trabajador.filtrarTrabajador2(u.getIdt());
+        
+        u.setTrabajador(t);
+        t.setUsuario(u);
+        
+       String categoria =  Trabajador.filtrarTrabajador2(u.getIdt()).getCategoria();
+       
+       if(categoria.equalsIgnoreCase("administracion")){
             administracion = new Administracion();
             administracion.setVisible(true);
-
-            //trabajador.setUsuario(u);
-        } else {
-          
-        }
-
+       }
     }//GEN-LAST:event_conectarActionPerformed
 
     /**
