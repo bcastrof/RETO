@@ -193,43 +193,12 @@ public class altaTrabajador extends javax.swing.JFrame {
         } else {
             ad = "logistica";
         }
-        //TODO HACER QUE ESTO QUEDE BONITO
-        //esto funciona en 12c
-        /*
-        t.setDni(uDni.getText());
-        t.setNombre(uNombre.getText());
-        t.setPrimerApellido(uPrimerApellido.getText());
-        t.setSegundoApellido(uSegundoApellido.getText());
-        t.setCategoria(ad);
-        t.setCalle(uCalle.getText());
-        if(uNumero.getText().equalsIgnoreCase("")){
-        t.setNumero(new BigDecimal(0));
-        }
-        t.setNumero(new BigDecimal(uNumero.getText()));
-        t.setPiso(new BigDecimal(uPiso.getText()));
-        t.setMano(uMano.getText());
-        t.setCiudad(uCiudad.getText());
-        t.setCodigoPostal(new BigDecimal(uCodigoPostal.getText()));
-        t.setProvincia(uProvincia.getText());
-        t.setMovilEmpresa(new BigDecimal(uMovilEmpresa.getText()));
-        t.setMovilPersonal(new BigDecimal(uMovilPersonal.getText()));
-        t.setSalario(new BigDecimal(uSalario.getText()));
-        t.setFechaNacimiento(uFechaNacimiento.getText());
-        t.setIdCent(new BigDecimal(uIdCent.getText()));
-         */
- /*
-        if(ad.equalsIgnoreCase("administracion")){
-        t = new com.clases.Administracion (dci,name,fSurname,sSurname,ad,street,number,flood,hand,city,postalCode,province,companyPhone,personalNumber,salary,bornDate,idcenter);
-        }else{
-        t = new Logistica (dci,name,fSurname,sSurname,ad,street,number,flood,hand,city,postalCode,province,companyPhone,personalNumber,salary,bornDate,idcenter);
-        }  
-         */
 
-        BigDecimal id = Trabajador.autoincremente();
+        //BigDecimal id = Trabajador.autoincremente();
         // todo esto tiene que funcionar en las dos versiones el unico cambio que hay que hacer es en los dos constructores
         //quitar el id de trabajador 
         if (ad.equalsIgnoreCase("administracion")) {
-            Trabajador t = new com.clases.Administracion(id, uDni.getText(), uNombre.getText(), uPrimerApellido.getText(), uSegundoApellido.getText(), ad,
+            Trabajador t = new com.clases.Administracion(uDni.getText(), uNombre.getText(), uPrimerApellido.getText(), uSegundoApellido.getText(), ad,
                     uCalle.getText(), new BigDecimal(uNumero.getText()), new BigDecimal(uPiso.getText()),
                     uMano.getText(), uCiudad.getText(), new BigDecimal(uCodigoPostal.getText()), uProvincia.getText(),
                     new BigDecimal(uMovilEmpresa.getText()), new BigDecimal(uMovilPersonal.getText()), new BigDecimal(uSalario.getText()),
@@ -242,7 +211,7 @@ public class altaTrabajador extends javax.swing.JFrame {
             usuario.setTrabajador(t);
             String lolo=usuario.getPassword();
             System.out.println(lolo);
-            boolean guardado = t.altaTrabajador11g();
+            boolean guardado = t.altaTrabajador12c();
             boolean guardad = usuario.altaUsuario(uDni.getText(), user, password);
             if (guardad == guardado) {
                 //todo intentar poner este mensaje mas guapo             
@@ -250,7 +219,7 @@ public class altaTrabajador extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Usuario dado de alta correctamente\nUsuario: "+user+"\nContraseña: "+password, "Alta", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
-            Trabajador t = new Logistica(id, uDni.getText(), uNombre.getText(), uPrimerApellido.getText(), uSegundoApellido.getText(), ad,
+            Trabajador t = new Logistica(uDni.getText(), uNombre.getText(), uPrimerApellido.getText(), uSegundoApellido.getText(), ad,
                     uCalle.getText(), new BigDecimal(uNumero.getText()), new BigDecimal(uPiso.getText()),
                     uMano.getText(), uCiudad.getText(), new BigDecimal(uCodigoPostal.getText()), uProvincia.getText(),
                     new BigDecimal(uMovilEmpresa.getText()), new BigDecimal(uMovilPersonal.getText()), new BigDecimal(uSalario.getText()),
@@ -263,7 +232,7 @@ public class altaTrabajador extends javax.swing.JFrame {
             usuario.setTrabajador(t);
             String lolo=usuario.getPassword();
             System.out.println(lolo);
-            boolean guardado = t.altaTrabajador11g();
+            boolean guardado = t.altaTrabajador12c();
             boolean guardad = usuario.altaUsuario(uDni.getText(), user, password);
              if (guardad == guardado) {
                 //todo intentar poner este mensaje mas guapo             

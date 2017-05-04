@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import oracle.jdbc.OracleTypes;
 
@@ -33,6 +35,11 @@ public class Usuario {
     public Usuario(String idUsuario, String password) {
         this.idUsuario = idUsuario;
         this.password = password;
+    }
+
+    public Usuario(String idUsuario, BigDecimal idt) {
+        this.idUsuario = idUsuario;
+        this.idt = idt;
     }
 
   
@@ -60,7 +67,7 @@ public class Usuario {
             if (categoria.equalsIgnoreCase("logistica")) {
                 cat = categoria;
             }
-           
+           cs.close();
             Conexion.desconectar();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema \n" + ex.getMessage());
@@ -68,7 +75,35 @@ public class Usuario {
         return cat;
     }
     
-
+    
+    public static Usuario log(String idUsuario, String password){
+        Usuario usuario = new Usuario();
+        
+        Conexion.conectar();
+        
+        try {
+            CallableStatement cs = Conexion.getConexion().prepareCall("{call LOGIN(?,?,?,?)}");
+            cs.setString(1, idUsuario);
+            cs.setString(2, password);
+            cs.registerOutParameter(3, OracleTypes.VARCHAR);
+            cs.registerOutParameter(4, OracleTypes.INTEGER);
+            cs.execute();
+            
+            cs.getString(3);
+            cs.getBigDecimal(4);
+            
+            usuario = new Usuario (cs.getString(3), cs.getBigDecimal(4));
+            
+            cs.close();
+            Conexion.desconectar();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return usuario;
+    }
+    
     public static String user(String nombre, String apellido) {
 
         String name = nombre.replaceAll(" ", "");
