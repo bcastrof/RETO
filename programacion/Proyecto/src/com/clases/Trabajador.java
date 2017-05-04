@@ -70,6 +70,27 @@ public class Trabajador {
         this.idCent = idCent;
     }
 
+    public Trabajador(BigDecimal id, String dni, String nombre, String primerApellido, String segundoApellido, String categoria, String calle, BigDecimal numero, BigDecimal piso, String mano, String ciudad, BigDecimal codigoPostal, String provincia, BigDecimal movilEmpresa, BigDecimal movilPersonal, BigDecimal salario, String fechaNacimiento, BigDecimal idCent) {
+        this.id = id;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
+        this.categoria = categoria;
+        this.calle = calle;
+        this.numero = numero;
+        this.piso = piso;
+        this.mano = mano;
+        this.ciudad = ciudad;
+        this.codigoPostal = codigoPostal;
+        this.provincia = provincia;
+        this.movilEmpresa = movilEmpresa;
+        this.movilPersonal = movilPersonal;
+        this.salario = salario;
+        this.fechaNacimiento = fechaNacimiento;
+        this.idCent = idCent;
+    }
+
 
 
     public BigDecimal getId() {
@@ -346,65 +367,6 @@ public class Trabajador {
         }     
     }
     
-    public static Usuario altaUsuario(String dni, String nombre, String apellido){
-        String ido="call idTrabajador(?,?)";
-        String insert = "insert into usuarios (usuario, password, TRABAJADORES_ID) values(?,?,?)";
-        BigDecimal idu=null;
-         //recupero la id
-        try {
-            Conexion.conectar();
-            CallableStatement cs = Conexion.getConexion().prepareCall(ido);
-            cs.setString(1, dni);
-            cs.registerOutParameter(2, OracleTypes.INTEGER);
-            cs.execute();
-            
-            idu = cs.getBigDecimal(2);
-            System.out.println("");
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se puede recuperar la id del trabajador" + ex.getMessage());
-        }
-        
-        //creo usuario 
-        String name=nombre.replaceAll(" ","");
-        String user = String.valueOf(name).concat(".").concat(apellido);
-     
-        //creo contraseña
-        String caracteres = "TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke1234567890";
-        StringBuilder pass = new StringBuilder();
-        Random rnd = new Random();
-
-        while(pass.length() < 8) {
-            int password = (int)(rnd.nextFloat() * (float)caracteres.length());
-            pass.append(caracteres.charAt(password));
-        }
-        String password1 = pass.toString();
-       
-         //inserto en base datos los datos del nuevo usuario
-         try {
-            Conexion.conectar();
-            PreparedStatement smt = Conexion.getConexion().prepareStatement(insert);
-            smt.setString(1, user);
-            smt.setString(2, password1);
-            smt.setBigDecimal(3, idu);
-            
-            smt.executeUpdate();
-            smt.close();
-            Conexion.desconectar();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se puede insertar el usuario" + ex.getMessage());
-        }
-         //creo objeto usuario
-        Usuario usuario =new Usuario(user,password1);
-        String pass1 = usuario.getPassword();
-        String user1 = usuario.getIdUsuario();
-        
-        
-        System.out.println("esto genera: "+pass+" esto tiene el obj: "+pass1);
-        return usuario;
-        
-    }
-    
     public boolean altaTrabajador11g(){
         Conexion.conectar();
         try {
@@ -448,7 +410,7 @@ public class Trabajador {
     }
     
     //auto incrementado para 11g
-    public BigDecimal autoincremente() {
+    public static BigDecimal autoincremente() {
         BigDecimal id= new BigDecimal(0);
         try {
             Conexion.conectar();

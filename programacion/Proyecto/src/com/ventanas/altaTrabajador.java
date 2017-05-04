@@ -18,8 +18,8 @@ import javax.swing.JOptionPane;
  * @author BCASTROF
  */
 public class altaTrabajador extends javax.swing.JFrame {
-  
-    public void limpiarFormulario(){
+
+    public void limpiarFormulario() {
         uDni.setText("");
         uNombre.setText("");
         uPrimerApellido.setText("");
@@ -37,7 +37,7 @@ public class altaTrabajador extends javax.swing.JFrame {
         uFechaNacimiento.setText("");
         uIdCent.setText("");
     }
-    
+
     public altaTrabajador() {
         initComponents();
     }
@@ -185,34 +185,16 @@ public class altaTrabajador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void altaTrabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaTrabajadorActionPerformed
-        Trabajador t= new Trabajador();
+
         String ad = uCategoria.getSelectedItem().toString();
-        if(ad.equalsIgnoreCase("Administración")){
-            ad="administracion";
-        }else{
-            ad="logistica";
+        if (ad.equalsIgnoreCase("Administración")) {
+            ad = "administracion";
+        } else {
+            ad = "logistica";
         }
         //TODO HACER QUE ESTO QUEDE BONITO
         //esto funciona en 12c
         /*
-        String dci = uDni.getText();        
-        String name = uNombre.getText();       
-        String fSurname = uPrimerApellido.getText();       
-        String sSurname = uSegundoApellido.getText();      
-       
-        String street = uCalle.getText();      
-        BigDecimal number = new  BigDecimal(uNumero.getText());      
-        BigDecimal flood = new BigDecimal(uPiso.getText());     
-        String hand = uMano.getText();       
-        String city = uCiudad.getText();      
-        BigDecimal postalCode = new BigDecimal(uCodigoPostal.getText());       
-        String province = uProvincia.getText();
-        BigDecimal companyPhone = new BigDecimal(uMovilEmpresa.getText());       
-        BigDecimal personalNumber = new BigDecimal(uMovilPersonal.getText());        
-        BigDecimal salary = new BigDecimal(uSalario.getText());        
-        String bornDate = uFechaNacimiento.getText();    
-        BigDecimal idcenter = new BigDecimal (uIdCent.getText());
-        */
         t.setDni(uDni.getText());
         t.setNombre(uNombre.getText());
         t.setPrimerApellido(uPrimerApellido.getText());
@@ -233,16 +215,17 @@ public class altaTrabajador extends javax.swing.JFrame {
         t.setSalario(new BigDecimal(uSalario.getText()));
         t.setFechaNacimiento(uFechaNacimiento.getText());
         t.setIdCent(new BigDecimal(uIdCent.getText()));
-        
-        /*
+         */
+ /*
         if(ad.equalsIgnoreCase("administracion")){
         t = new com.clases.Administracion (dci,name,fSurname,sSurname,ad,street,number,flood,hand,city,postalCode,province,companyPhone,personalNumber,salary,bornDate,idcenter);
         }else{
         t = new Logistica (dci,name,fSurname,sSurname,ad,street,number,flood,hand,city,postalCode,province,companyPhone,personalNumber,salary,bornDate,idcenter);
         }  
-        */
+         */
+
+        BigDecimal id = Trabajador.autoincremente();
         /*
-        BigDecimal id = t.autoincremente();
         t.setId(id);
         t.setDni(uDni.getText());
         t.setNombre(uNombre.getText());
@@ -261,23 +244,37 @@ public class altaTrabajador extends javax.swing.JFrame {
         t.setSalario(new BigDecimal(uSalario.getText()));
         t.setFechaNacimiento(uFechaNacimiento.getText());
         t.setIdCent(new BigDecimal(uIdCent.getText()));
-        */
-        
-        
+         */
+        if (ad.equalsIgnoreCase("administracion")) {
+            Trabajador t = new com.clases.Administracion(id, uDni.getText(), uNombre.getText(), uPrimerApellido.getText(), uSegundoApellido.getText(), ad,
+                    uCalle.getText(), new BigDecimal(uNumero.getText()), new BigDecimal(uPiso.getText()),
+                    uMano.getText(), uCiudad.getText(), new BigDecimal(uCodigoPostal.getText()), uProvincia.getText(),
+                    new BigDecimal(uMovilEmpresa.getText()), new BigDecimal(uMovilPersonal.getText()), new BigDecimal(uSalario.getText()),
+                    uFechaNacimiento.getText(), new BigDecimal(uIdCent.getText()));
+
+            String user = Usuario.user(uNombre.getText(), uPrimerApellido.getText());
+            String password = Usuario.password();
+            Usuario usuario = new Usuario(user, password);
+            t.setUsuario(usuario);
+            usuario.setTrabajador(t);
+            String lolo=usuario.getPassword();
+            System.out.println(lolo);
+            boolean guardado = t.altaTrabajador11g();
+            boolean guardad = usuario.altaUsuario(uDni.getText(), user, password);
+            if (guardad == guardado) {
+                //todo intentar poner este mensaje mas guapo             
+                JOptionPane.showMessageDialog(null, "Trabajador dado de alta correctamente", "Alta", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            //t = new Logistica (dci,name,fSurname,sSurname,ad,street,number,flood,hand,city,postalCode,province,companyPhone,personalNumber,salary,bornDate,idcenter);
+        }
+
         //parte comun a las dos versiones 
         //12c t.altaTrabajador12c();
         //11g t.altaTrabajador11g();
-        boolean guardado = t.altaTrabajador12c();
-        if (guardado) {
-            //todo intentar poner este mensaje mas guapo  
-           
-            JOptionPane.showMessageDialog(null, "Trabajador dado de alta correctamente", "Alta", JOptionPane.INFORMATION_MESSAGE);
-            
-        }
-       // Trabajador.altaUsuario(uDni.getText(), uNombre.getText(), uPrimerApellido.getText());
-        Trabajador.altaUsuario(uDni.getText(),uNombre.getText(), uPrimerApellido.getText());
-       
-        limpiarFormulario();    
+        // Trabajador.altaUsuario(uDni.getText(), uNombre.getText(), uPrimerApellido.getText());
+        // Trabajador.altaUsuario(uDni.getText(),uNombre.getText(), uPrimerApellido.getText());
+        limpiarFormulario();
     }//GEN-LAST:event_altaTrabajadorActionPerformed
 
     /**
