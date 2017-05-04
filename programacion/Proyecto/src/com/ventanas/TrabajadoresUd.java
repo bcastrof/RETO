@@ -19,6 +19,7 @@ public class TrabajadoresUd extends javax.swing.JFrame {
 
     private DefaultTableModel trabajadores;
     private List<Trabajador> trabajador;
+    private Trabajador trabajador1;
     private static String docI;
     private static BigDecimal id;
     //listar trabajadores
@@ -38,12 +39,23 @@ public class TrabajadoresUd extends javax.swing.JFrame {
         trabajadores.setRowCount(0);
         trabajadores = (DefaultTableModel) jTable1.getModel();
         trabajador = Trabajador.filtrarTrabajador(docI);
+         
         trabajador.forEach((t) -> {
             trabajadores.insertRow(trabajadores.getRowCount(), new Object[]{t.getId(), t.getNombre(),
                 t.getPrimerApellido(),t.getDni(), t.getCategoria(),
                 t.getMovilEmpresa(),
                 t.getIdCent()});
         });
+    }
+    private void filtrarTrabajador1(){
+       
+        trabajadores.setRowCount(0);
+        trabajadores = (DefaultTableModel) jTable1.getModel();
+        trabajador1=Trabajador.filtrarTrabajador1(docI);
+        trabajadores.insertRow(trabajadores.getRowCount(), new Object[]{trabajador1.getId(), trabajador1.getNombre(),
+                trabajador1.getPrimerApellido(),trabajador1.getDni(), trabajador1.getCategoria(),
+                trabajador1.getMovilEmpresa(),
+                trabajador1.getIdCent()});
     }
 
     public TrabajadoresUd() {
@@ -275,8 +287,7 @@ public class TrabajadoresUd extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int index = jTable1.getSelectedRow();
-        
-        
+   
         //mapeo y translado de los valores a los diferentes campos del formulario
         uId.setText(trabajador.get(index).getId().toString());
         uDni.setText(trabajador.get(index).getDni());
@@ -301,7 +312,7 @@ public class TrabajadoresUd extends javax.swing.JFrame {
       
     private void bFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFiltrarActionPerformed
         docI = uFiltro.getText();
-        filtrarTrabajador();
+        filtrarTrabajador1();
     }//GEN-LAST:event_bFiltrarActionPerformed
 
     private void listadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listadoActionPerformed
