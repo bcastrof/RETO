@@ -5,8 +5,10 @@
  */
 package com.ventanas;
 
+import com.clases.Centro;
 import com.clases.Trabajador;
 import com.clases.Usuario;
+import java.math.BigDecimal;
 //import com.clases.Administracion;
 
 /**
@@ -127,12 +129,15 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         String usuario = user.getText();
         String pass = new String(password.getPassword());
-        Usuario u = Usuario.log(usuario, pass);
-        
+        Usuario u = Usuario.log(usuario, pass); 
         Trabajador t = Trabajador.filtrarTrabajador2(u.getIdt());
+        Centro c = t.getCentro();
+        //Centro.centro(Trabajador.filtrarTrabajador2(u.getIdt()).getIdCent());
         
         u.setTrabajador(t);
         t.setUsuario(u);
+        c.agregarTrabajador(t);
+        t.setCentro(c);
         
        String categoria =  Trabajador.filtrarTrabajador2(u.getIdt()).getCategoria();
        

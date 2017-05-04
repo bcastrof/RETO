@@ -604,6 +604,9 @@ public class Trabajador {
     }
 
     public Centro getCentro() {
+       if (centro ==null){
+         centro = Centro.centro(idCent);
+       }
         return centro;
     }
 

@@ -50,6 +50,18 @@ public class Centro {
         this.Telefonos = Telefonos;
     }
 
+    public Centro(BigDecimal IDcent, String Nombre, String Calle, BigDecimal Numero, String Ciudad, BigDecimal CodigoPostal, String Provincia, BigDecimal Telefonos) {
+        this.IDcent = IDcent;
+        this.Nombre = Nombre;
+        this.Calle = Calle;
+        this.Numero = Numero;
+        this.Ciudad = Ciudad;
+        this.CodigoPostal = CodigoPostal;
+        this.Provincia = Provincia;
+        this.Telefonos = Telefonos;
+    }
+    
+
     public BigDecimal getIDcent() {
         return IDcent;
     }
@@ -251,7 +263,43 @@ public class Centro {
         }
 
         return c;
-
+    }
+    
+    public static Centro centro(BigDecimal id){
+        Centro centro = new Centro();
+        
+        Conexion.conectar();
+        
+        try {
+            CallableStatement cs = Conexion.getConexion().prepareCall("{call centrosFi(?,?,?,?,?,?,?,?,?)}");
+            cs.setBigDecimal(1, id);
+            
+            cs.registerOutParameter(2, OracleTypes.INTEGER);
+            cs.registerOutParameter(3, OracleTypes.VARCHAR);
+            cs.registerOutParameter(4, OracleTypes.VARCHAR);
+            cs.registerOutParameter(5, OracleTypes.INTEGER);
+            cs.registerOutParameter(6, OracleTypes.VARCHAR);
+            cs.registerOutParameter(7, OracleTypes.INTEGER);
+            cs.registerOutParameter(8, OracleTypes.VARCHAR);
+            cs.registerOutParameter(9, OracleTypes.INTEGER);
+            cs.execute();
+            
+            BigDecimal idu = cs.getBigDecimal(2);
+            String nombre = cs.getString(3);
+            String calle = cs.getString(4);
+            BigDecimal nu = cs.getBigDecimal(5);
+            String pro = cs.getString(6);
+            BigDecimal cd = cs.getBigDecimal(7);
+            String no = cs.getString(8);
+            BigDecimal tel = cs.getBigDecimal(9);
+                
+          centro = new Centro(idu, nombre, calle, nu, pro, cd, no, tel);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Centro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return centro;
     }
 
     public boolean modificarCentro(BigDecimal id) {
@@ -311,5 +359,5 @@ public class Centro {
         trabajador.add(t);
         t.setCentro(this);
     }
-
+    
 }
