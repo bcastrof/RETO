@@ -185,7 +185,8 @@ public class altaTrabajador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void altaTrabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaTrabajadorActionPerformed
-
+         String user;
+         String password;
         String ad = uCategoria.getSelectedItem().toString();
         if (ad.equalsIgnoreCase("Administración")) {
             ad = "administracion";
@@ -225,26 +226,8 @@ public class altaTrabajador extends javax.swing.JFrame {
          */
 
         BigDecimal id = Trabajador.autoincremente();
-        /*
-        t.setId(id);
-        t.setDni(uDni.getText());
-        t.setNombre(uNombre.getText());
-        t.setPrimerApellido(uPrimerApellido.getText());
-        t.setSegundoApellido(uSegundoApellido.getText());
-        t.setCategoria(ad);
-        t.setCalle(uCalle.getText());
-        t.setNumero(new BigDecimal(uNumero.getText()));
-        t.setPiso(new BigDecimal(uPiso.getText()));
-        t.setMano(uMano.getText());
-        t.setCiudad(uCiudad.getText());
-        t.setCodigoPostal(new BigDecimal(uCodigoPostal.getText()));
-        t.setProvincia(uProvincia.getText());
-        t.setMovilEmpresa(new BigDecimal(uMovilEmpresa.getText()));
-        t.setMovilPersonal(new BigDecimal(uMovilPersonal.getText()));
-        t.setSalario(new BigDecimal(uSalario.getText()));
-        t.setFechaNacimiento(uFechaNacimiento.getText());
-        t.setIdCent(new BigDecimal(uIdCent.getText()));
-         */
+        // todo esto tiene que funcionar en las dos versiones el unico cambio que hay que hacer es en los dos constructores
+        //quitar el id de trabajador 
         if (ad.equalsIgnoreCase("administracion")) {
             Trabajador t = new com.clases.Administracion(id, uDni.getText(), uNombre.getText(), uPrimerApellido.getText(), uSegundoApellido.getText(), ad,
                     uCalle.getText(), new BigDecimal(uNumero.getText()), new BigDecimal(uPiso.getText()),
@@ -252,8 +235,8 @@ public class altaTrabajador extends javax.swing.JFrame {
                     new BigDecimal(uMovilEmpresa.getText()), new BigDecimal(uMovilPersonal.getText()), new BigDecimal(uSalario.getText()),
                     uFechaNacimiento.getText(), new BigDecimal(uIdCent.getText()));
 
-            String user = Usuario.user(uNombre.getText(), uPrimerApellido.getText());
-            String password = Usuario.password();
+            user = Usuario.user(uNombre.getText(), uPrimerApellido.getText());
+            password = Usuario.password();
             Usuario usuario = new Usuario(user, password);
             t.setUsuario(usuario);
             usuario.setTrabajador(t);
@@ -264,16 +247,30 @@ public class altaTrabajador extends javax.swing.JFrame {
             if (guardad == guardado) {
                 //todo intentar poner este mensaje mas guapo             
                 JOptionPane.showMessageDialog(null, "Trabajador dado de alta correctamente", "Alta", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Usuario dado de alta correctamente\nUsuario: "+user+"\nContraseña: "+password, "Alta", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
-            //t = new Logistica (dci,name,fSurname,sSurname,ad,street,number,flood,hand,city,postalCode,province,companyPhone,personalNumber,salary,bornDate,idcenter);
-        }
+            Trabajador t = new Logistica(id, uDni.getText(), uNombre.getText(), uPrimerApellido.getText(), uSegundoApellido.getText(), ad,
+                    uCalle.getText(), new BigDecimal(uNumero.getText()), new BigDecimal(uPiso.getText()),
+                    uMano.getText(), uCiudad.getText(), new BigDecimal(uCodigoPostal.getText()), uProvincia.getText(),
+                    new BigDecimal(uMovilEmpresa.getText()), new BigDecimal(uMovilPersonal.getText()), new BigDecimal(uSalario.getText()),
+                    uFechaNacimiento.getText(), new BigDecimal(uIdCent.getText()));
 
-        //parte comun a las dos versiones 
-        //12c t.altaTrabajador12c();
-        //11g t.altaTrabajador11g();
-        // Trabajador.altaUsuario(uDni.getText(), uNombre.getText(), uPrimerApellido.getText());
-        // Trabajador.altaUsuario(uDni.getText(),uNombre.getText(), uPrimerApellido.getText());
+            user = Usuario.user(uNombre.getText(), uPrimerApellido.getText());
+            password = Usuario.password();
+            Usuario usuario = new Usuario(user, password);
+            t.setUsuario(usuario);
+            usuario.setTrabajador(t);
+            String lolo=usuario.getPassword();
+            System.out.println(lolo);
+            boolean guardado = t.altaTrabajador11g();
+            boolean guardad = usuario.altaUsuario(uDni.getText(), user, password);
+             if (guardad == guardado) {
+                //todo intentar poner este mensaje mas guapo             
+                JOptionPane.showMessageDialog(null, "Trabajador dado de alta correctamente", "Alta", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Usuario dado de alta correctamente\nUsuario: "+user+"\nContraseña: "+password, "Alta", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
         limpiarFormulario();
     }//GEN-LAST:event_altaTrabajadorActionPerformed
 
