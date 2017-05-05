@@ -8,8 +8,7 @@ package com.ventanas;
 import com.clases.Centro;
 import com.clases.Trabajador;
 import com.clases.Usuario;
-import java.math.BigDecimal;
-//import com.clases.Administracion;
+
 
 /**
  *
@@ -18,8 +17,9 @@ import java.math.BigDecimal;
 public class Login extends javax.swing.JFrame {
 
     private Administracion administracion;
+   
     //private Logistica logistica;
-    private Trabajador trabajador;
+     private Trabajador trabajador;
 
     /**
      * Creates new form Login
@@ -144,6 +144,8 @@ public class Login extends javax.swing.JFrame {
        if(categoria.equalsIgnoreCase("administracion")){
             administracion = new Administracion();
             administracion.setVisible(true);
+       }else{
+           
        }
     }//GEN-LAST:event_conectarActionPerformed
 
