@@ -92,3 +92,6 @@ begin
 select SQVIAJES.nextval into id
 from dual;
 end incrementViajes;
+
+insert into partes values ('05/05/2017', 0,0,0,0,0,0,'ninguna','ABIERTO','NO',0,1);
+INSERT INTO VIAJES VALUES (SQVIAJES.NEXTVAL, '10:00','10:30',1,'05/05/2017');
