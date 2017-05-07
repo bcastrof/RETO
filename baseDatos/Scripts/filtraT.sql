@@ -1,3 +1,5 @@
+--para el login para que con el id busque la categoria
+
 create or replace PROCEDURE ifTrabajadorid
 (idi in TRABAJADORES.ID%type,
 ido out TRABAJADORES.ID%type,
@@ -31,6 +33,7 @@ where ID=idi;
 
 end ifTrabajadorid;
 
+--para filtrar en la tabla por dni un solo trabajador
 create or replace PROCEDURE ifTrabajador 
 (doc in TRABAJADORES.DNI%type,
 ido out TRABAJADORES.ID%type,
@@ -64,7 +67,33 @@ where DNI=doc;
 
 end ifTrabajador;
 
+--recuperar la id del trabajador para el login
+create or replace procedure idTrabajador
+(doc in trabajadores.dni%type, idi out trabajadores.id%type)
+as
+begin
+select id into idi
+from trabajadores
+where dni = doc;
+end idTrabajador;
 
+--listar trabajadores en tabla
+create or replace procedure listartrabajadores 
+(c out SYS_REFCURSOR)
+as
+begin
+open c for
+select * from trabajadores;
+if (C%rowcount=0)then
+raise NO_DATA_FOUND;
+end if;
+exception 
+WHEN NO_DATA_FOUND THEN
+   RAISE_APPLICATION_ERROR(-20002,'NO SE ENCUENTRAN REGISTROS.');
+end listartrabajadores;
+
+
+--para filtrar en tabla un solo centro
 create or replace procedure centrosFi
 (idu in CENTROS.ID%type,
 ido out CENTROS.ID%type,

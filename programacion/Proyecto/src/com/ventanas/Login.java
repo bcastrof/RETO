@@ -5,10 +5,12 @@
  */
 package com.ventanas;
 
+import com.clases.Aviso;
 import com.clases.Centro;
 import com.clases.Trabajador;
 import com.clases.Usuario;
-
+import java.math.BigDecimal;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,10 +18,14 @@ import com.clases.Usuario;
  */
 public class Login extends javax.swing.JFrame {
 
+    // para cargar la ventana de administracion
     private Administracion administracion;
-   
-    //private Logistica logistica;
-     private Trabajador trabajador;
+    //para cargar la venta de logistica
+    private Logistica logistica;
+    //para cargar la ventana de avisos
+    private Avisos aviso;
+    //para cargar la venta del parte
+    private Parte parte;
 
     /**
      * Creates new form Login
@@ -129,25 +135,51 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         String usuario = user.getText();
         String pass = new String(password.getPassword());
-        Usuario u = Usuario.log(usuario, pass); 
+        Usuario u = Usuario.log(usuario, pass);
         Trabajador t = Trabajador.filtrarTrabajador2(u.getIdt());
         Centro c = t.getCentro();
+
         //Centro.centro(Trabajador.filtrarTrabajador2(u.getIdt()).getIdCent());
-        
         u.setTrabajador(t);
         t.setUsuario(u);
         c.agregarTrabajador(t);
         t.setCentro(c);
-        
-       String categoria =  Trabajador.filtrarTrabajador2(u.getIdt()).getCategoria();
-       
-       if(categoria.equalsIgnoreCase("administracion")){
+
+        String categoria = Trabajador.filtrarTrabajador2(u.getIdt()).getCategoria();
+
+        if (categoria.equalsIgnoreCase("administracion")) {
             administracion = new Administracion();
             administracion.setVisible(true);
-       }else{
-           
-       }
+        }
+
+        if (categoria.equalsIgnoreCase("logistica")) {
+            Trabajador.filtrarTrabajador2(u.getIdt());
+            Aviso a = Aviso.aviso(u.getIdt());
+            if (a != null) {
+                String avis = Aviso.aviso(u.getIdt()).getDescripcion();
+                a = Aviso.aviso(u.getIdt());
+                JOptionPane.showMessageDialog(null, "Aviso: \n " + avis, "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                a.confirmarAviso(Aviso.aviso(u.getIdt()).getIdAviso());
+                     
+            } else if (a!=null)  {//parte distinto a null y la fecha != a ka del parte
+                parte = new Parte();
+                parte.setVisible(true);
+            }else if(a!=null){ //parte distinto a null y la fechas == abro viajes
+                
+            }else{
+                logistica=new Logistica();
+                logistica.setVisible(true);
+            }
+
+        }
     }//GEN-LAST:event_conectarActionPerformed
+
+    public static BigDecimal id(BigDecimal i) {
+
+        BigDecimal idT = i;
+
+        return idT;
+    }
 
     /**
      * @param args the command line arguments

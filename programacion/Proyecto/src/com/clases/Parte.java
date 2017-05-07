@@ -5,6 +5,7 @@
  */
 package com.clases;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,6 @@ import java.util.List;
 public class Parte {
         
         private int idTrabajador;
-        private int idVehiculo;
         private String fecha;
 	private int kmInicial;
 	private int kmFinal;
@@ -24,7 +24,8 @@ public class Parte {
 	private double gastoCombustible;
 	private double gastoVarios;
 	private String incidencias;
-	private String notasAdministrativas;
+	private BigDecimal horasExtras;
+        private String notasAdministrativas;
 	private boolean estado;
         private boolean validado;
         
@@ -41,10 +42,9 @@ public class Parte {
 
         public Parte() {
     }
-     
-        public Parte(int idTrabajador, int idVehiculo, String fecha, int kmInicial, int kmFinal, double gastoPeaje, double gastoDietas, double gastoCombustible, double gastoVarios, String incidencias, String notasAdministrativas, boolean estado, boolean validado) {
+
+    public Parte(int idTrabajador, String fecha, int kmInicial, int kmFinal, double gastoPeaje, double gastoDietas, double gastoCombustible, double gastoVarios, String incidencias, BigDecimal horasExtras, String notasAdministrativas, boolean estado, boolean validado) {
         this.idTrabajador = idTrabajador;
-        this.idVehiculo = idVehiculo;
         this.fecha = fecha;
         this.kmInicial = kmInicial;
         this.kmFinal = kmFinal;
@@ -53,10 +53,13 @@ public class Parte {
         this.gastoCombustible = gastoCombustible;
         this.gastoVarios = gastoVarios;
         this.incidencias = incidencias;
+        this.horasExtras = horasExtras;
         this.notasAdministrativas = notasAdministrativas;
         this.estado = estado;
         this.validado = validado;
     }
+     
+ 
 
     public int getIdTrabajador() {
         return idTrabajador;
@@ -64,14 +67,6 @@ public class Parte {
 
     public void setIdTrabajador(int idTrabajador) {
         this.idTrabajador = idTrabajador;
-    }
-
-    public int getIdVehiculo() {
-        return idVehiculo;
-    }
-
-    public void setIdVehiculo(int idVehiculo) {
-        this.idVehiculo = idVehiculo;
     }
 
     public String getFecha() {
@@ -138,6 +133,15 @@ public class Parte {
         this.incidencias = incidencias;
     }
 
+    public BigDecimal getHorasExtras() {
+        return horasExtras;
+    }
+
+    public void setHorasExtras(BigDecimal horasExtras) {
+        this.horasExtras = horasExtras;
+    }
+    
+
     public String getNotasAdministrativas() {
         return notasAdministrativas;
     }
@@ -164,20 +168,11 @@ public class Parte {
 
     @Override
     public String toString() {
-        return "Parte{" + "idTrabajador=" + idTrabajador + 
-                ", idVehiculo=" + idVehiculo + 
-                ", fecha=" + fecha + 
-                ", kmInicial=" + kmInicial + 
-                ", kmFinal=" + kmFinal + 
-                ", gastoPeaje=" + gastoPeaje + 
-                ", gastoDietas=" + gastoDietas + 
-                ", gastoCombustible=" + gastoCombustible + 
-                ", gastoVarios=" + gastoVarios + 
-                ", incidencias=" + incidencias + 
-                ", notasAdministrativas=" + notasAdministrativas + 
-                ", estado=" + estado + 
-                ", validado=" + validado + '}';
+        return "Parte{" + "idTrabajador=" + idTrabajador + ", fecha=" + fecha + ", kmInicial=" + kmInicial + ", kmFinal=" + kmFinal + ", gastoPeaje=" + gastoPeaje + ", gastoDietas=" + gastoDietas + ", gastoCombustible=" + gastoCombustible + ", gastoVarios=" + gastoVarios + ", incidencias=" + incidencias + ", horasExtras=" + horasExtras + ", notasAdministrativas=" + notasAdministrativas + ", estado=" + estado + ", validado=" + validado + '}';
     }
+
+   
+ 
         
     
 }
