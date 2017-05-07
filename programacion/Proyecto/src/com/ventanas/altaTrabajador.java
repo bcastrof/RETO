@@ -38,6 +38,7 @@ public class altaTrabajador extends javax.swing.JFrame {
         uFechaNacimiento.setText("");
         uIdCent.setText("");
         jDateChooser1.setCalendar(null);
+        
     }
 
     public altaTrabajador() {

@@ -9,7 +9,10 @@ import com.clases.Aviso;
 import com.clases.Centro;
 import com.clases.Trabajador;
 import com.clases.Usuario;
+import com.clases.Parte;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,13 +28,19 @@ public class Login extends javax.swing.JFrame {
     //para cargar la ventana de avisos
     private Avisos aviso;
     //para cargar la venta del parte
-    private Parte parte;
+    private vFinJornada finJornada;
+    //para cargar ventana viajes
+    private Viajes viajes;
+
+    //variable id trabjador para pasar a parte.
+    public static BigDecimal idt;
 
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+
     }
 
     /**
@@ -132,9 +141,13 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_userActionPerformed
 
     private void conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conectarActionPerformed
-        // TODO add your handling code here:
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date dia = new Date();
+        String fecha = dateFormat.format(dia);
+       
         String usuario = user.getText();
         String pass = new String(password.getPassword());
+        
         Usuario u = Usuario.log(usuario, pass);
         Trabajador t = Trabajador.filtrarTrabajador2(u.getIdt());
         Centro c = t.getCentro();
@@ -142,10 +155,11 @@ public class Login extends javax.swing.JFrame {
         //Centro.centro(Trabajador.filtrarTrabajador2(u.getIdt()).getIdCent());
         u.setTrabajador(t);
         t.setUsuario(u);
-        c.agregarTrabajador(t);
-        t.setCentro(c);
+        // c.agregarTrabajador(t);
+        //t.setCentro(c);
 
         String categoria = Trabajador.filtrarTrabajador2(u.getIdt()).getCategoria();
+        idt = Trabajador.filtrarTrabajador2(u.getIdt()).getId();
 
         if (categoria.equalsIgnoreCase("administracion")) {
             administracion = new Administracion();
@@ -160,15 +174,30 @@ public class Login extends javax.swing.JFrame {
                 a = Aviso.aviso(u.getIdt());
                 JOptionPane.showMessageDialog(null, "Aviso: \n " + avis, "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 a.confirmarAviso(Aviso.aviso(u.getIdt()).getIdAviso());
-                     
-            } else if (a!=null)  {//parte distinto a null y la fecha != a ka del parte
-                parte = new Parte();
-                parte.setVisible(true);
-            }else if(a!=null){ //parte distinto a null y la fechas == abro viajes
+
+                finJornada = new vFinJornada();
+                finJornada.setVisible(true);
+
+            }
+
+            //construyo objeto parte
+            Parte p = Parte.parte(idt);
+            String fechaParte = Parte.parte(idt).getFecha();
+            
+            if (p != null && !fechaParte.equalsIgnoreCase(fecha)) {//parte distinto a null y la fecha != a ka del parte
+
+                finJornada = new vFinJornada();
+                finJornada.setVisible(true);
+
+            } else if (p != null && fechaParte.equalsIgnoreCase(fecha)) { //parte distinto a null y la fechas == abro viajes
                 
-            }else{
-                logistica=new Logistica();
+                viajes=new Viajes();
+                viajes.setVisible(true);
+                
+            } else {
+                logistica = new Logistica();
                 logistica.setVisible(true);
+                System.out.println(fecha);
             }
 
         }

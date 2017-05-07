@@ -113,3 +113,30 @@ from centros
 where id = idu;
 
 end centrosFi;
+
+--para recuperar un parte
+create or replace procedure recuperarParte
+(idt in TRABAJADORES.ID%type, 
+fe out PARTES.FECHA%type,
+kmi out PARTES.KMINICIAL%type,
+kmf out PARTES.KMFINAL%type,
+gp out PARTES.GASTOSPEAJE%type,
+gd out PARTES.GASTOSDIETAS%type,
+gc out PARTES.GASTOSCOMBUSTIBLE%type,
+og out PARTES.OTROSGASTOS%type,
+inc out PARTES.INCIDENCIAS%type,
+es out PARTES.ESTADO%type,
+va out PARTES.VALIDADO%type,
+hor out PARTES.HORASEXTRAS%type,
+idto  out PARTES.TRABAJADORES_ID%type,
+nota out PARTES.NOTASADMINISTRATIVAS%type
+)
+as
+begin
+
+select fecha, kminicial, kmfinal, nvl(gastospeaje,0), nvl(gastosdietas,0), nvl(gastoscombustible,0), nvl(otrosgastos,0), nvl(incidencias,'No'),estado, validado, nvl(horasextras,0), trabajadores_id,nvl(notasadministrativas,'No')
+into fe,kmi,kmf,gp,gd,gc,og,inc,es,va,hor,idto,nota
+from partes
+where TRABAJADORES_ID=idt and estado='ABIERTO';
+
+end recuperarParte;

@@ -6,8 +6,16 @@
 package com.clases;
 
 import java.math.BigDecimal;
+import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import oracle.jdbc.OracleTypes;
+
 
 /**
  *
@@ -15,36 +23,47 @@ import java.util.List;
  */
 public class Parte {
         
-        private int idTrabajador;
         private String fecha;
-	private int kmInicial;
-	private int kmFinal;
-	private double gastoPeaje;
-	private double gastoDietas;
-	private double gastoCombustible;
-	private double gastoVarios;
+	private BigDecimal kmInicial;
+	private BigDecimal kmFinal;
+	private BigDecimal gastoPeaje;
+	private BigDecimal gastoDietas;
+	private BigDecimal gastoCombustible;
+	private BigDecimal gastoVarios;
 	private String incidencias;
-	private BigDecimal horasExtras;
-        private String notasAdministrativas;
-	private boolean estado;
-        private boolean validado;
-        
+	private String estado;
+        private String validado;
+        private BigDecimal horasExtras;
+        private BigDecimal idTrabajador;
+        private String notasAdministrativas;  
         //asociacion con aviso
         private Aviso aviso;
+        
         //asosiacion con logistica
         private Logistica logistica;
-        //asociacion con administracion
-        // private Administracion administracion;
-        //asociciacion con vehiculos
-        private List<Vehiculo>vehiculo = new ArrayList<>();
+        
+         //asociacion con administracion
+        //private Administracion administracion;
+  
         //asociacion con viajes 
         private List<Viaje>viaje=new ArrayList<>();
 
-        public Parte() {
+    public Parte() {
     }
 
-    public Parte(int idTrabajador, String fecha, int kmInicial, int kmFinal, double gastoPeaje, double gastoDietas, double gastoCombustible, double gastoVarios, String incidencias, BigDecimal horasExtras, String notasAdministrativas, boolean estado, boolean validado) {
-        this.idTrabajador = idTrabajador;
+    public Parte(BigDecimal kmInicial, BigDecimal kmFinal, BigDecimal gastoPeaje, BigDecimal gastoDietas, BigDecimal gastoCombustible, BigDecimal gastoVarios, String incidencias) {
+        this.kmInicial = kmInicial;
+        this.kmFinal = kmFinal;
+        this.gastoPeaje = gastoPeaje;
+        this.gastoDietas = gastoDietas;
+        this.gastoCombustible = gastoCombustible;
+        this.gastoVarios = gastoVarios;
+        this.incidencias = incidencias;
+    }
+
+    
+    
+    public Parte(String fecha, BigDecimal kmInicial, BigDecimal kmFinal, BigDecimal gastoPeaje, BigDecimal gastoDietas, BigDecimal gastoCombustible, BigDecimal gastoVarios, String incidencias, String estado, String validado, BigDecimal horasExtras, BigDecimal idTrabajador, String notasAdministrativas) {
         this.fecha = fecha;
         this.kmInicial = kmInicial;
         this.kmFinal = kmFinal;
@@ -53,21 +72,101 @@ public class Parte {
         this.gastoCombustible = gastoCombustible;
         this.gastoVarios = gastoVarios;
         this.incidencias = incidencias;
-        this.horasExtras = horasExtras;
-        this.notasAdministrativas = notasAdministrativas;
         this.estado = estado;
         this.validado = validado;
-    }
-     
- 
-
-    public int getIdTrabajador() {
-        return idTrabajador;
+        this.horasExtras = horasExtras;
+        this.idTrabajador = idTrabajador;
+        this.notasAdministrativas = notasAdministrativas;
     }
 
-    public void setIdTrabajador(int idTrabajador) {
+    public Parte(String fecha, BigDecimal idTrabajador) {
+        this.fecha = fecha;
         this.idTrabajador = idTrabajador;
     }
+    
+
+    public Parte(BigDecimal idTrabajador) {
+        this.idTrabajador = idTrabajador;
+    }
+    
+  
+    //metodo para recuperar un parte de un trabajador
+    
+    public static Parte parte(BigDecimal idt){
+        
+        Conexion.conectar();
+        
+            try {
+                CallableStatement cs = Conexion.getConexion().prepareCall("call recuperarParte(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                
+                cs.setBigDecimal(1, idt);
+                
+                cs.registerOutParameter(2, OracleTypes.VARCHAR);
+                cs.registerOutParameter(3, OracleTypes.INTEGER);
+                cs.registerOutParameter(4, OracleTypes.INTEGER);
+                cs.registerOutParameter(5, OracleTypes.INTEGER);
+                cs.registerOutParameter(6, OracleTypes.INTEGER);
+                cs.registerOutParameter(7, OracleTypes.INTEGER);
+                cs.registerOutParameter(8, OracleTypes.INTEGER);
+                cs.registerOutParameter(9, OracleTypes.VARCHAR);
+                cs.registerOutParameter(10, OracleTypes.VARCHAR);
+                cs.registerOutParameter(11, OracleTypes.VARCHAR);
+                cs.registerOutParameter(12, OracleTypes.INTEGER);
+                cs.registerOutParameter(13, OracleTypes.INTEGER);
+                cs.registerOutParameter(14, OracleTypes.VARCHAR);
+                cs.execute();
+                
+                String fecha = cs.getString(2);
+                BigDecimal kmi = cs.getBigDecimal(3);
+                BigDecimal kmf = cs.getBigDecimal(4);
+                BigDecimal gp = cs.getBigDecimal(5);
+                BigDecimal gd = cs.getBigDecimal(6);
+                BigDecimal gc = cs.getBigDecimal(7);
+                BigDecimal og = cs.getBigDecimal(8);
+                String in=cs.getString(9);
+                String es = cs.getString(10);
+                String va = cs.getString(11);
+                BigDecimal ho = cs.getBigDecimal(12);
+                BigDecimal ift = cs.getBigDecimal(13);
+                String no = cs.getString(14);
+                cs.close();
+                
+               Parte p = new Parte(fecha, kmi, kmf, gp, gd, gc, og, in, es, va, ho, ift, no);
+                Conexion.desconectar();
+                
+                return p;
+               
+            } catch (SQLException ex) {
+                Logger.getLogger(Parte.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        
+        return null;//este va al final del try catch
+    }
+    
+    public boolean iniciarParte(){
+        Conexion.conectar();
+        
+        String sql = "insert into parte (fecha, trabajadores_id) values (?,?)";
+        
+            try {
+                PreparedStatement smt = Conexion.getConexion().prepareStatement(sql);
+                
+                smt.setString(1, fecha);
+                smt.setBigDecimal(2, idTrabajador);
+                
+                smt.executeUpdate();
+                smt.close();
+                Conexion.desconectar();
+                return true;
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema" + ex.getMessage());
+            }
+        
+        return false;
+    }
+    
+    
 
     public String getFecha() {
         return fecha;
@@ -77,51 +176,51 @@ public class Parte {
         this.fecha = fecha;
     }
 
-    public int getKmInicial() {
+    public BigDecimal getKmInicial() {
         return kmInicial;
     }
 
-    public void setKmInicial(int kmInicial) {
+    public void setKmInicial(BigDecimal kmInicial) {
         this.kmInicial = kmInicial;
     }
 
-    public int getKmFinal() {
+    public BigDecimal getKmFinal() {
         return kmFinal;
     }
 
-    public void setKmFinal(int kmFinal) {
+    public void setKmFinal(BigDecimal kmFinal) {
         this.kmFinal = kmFinal;
     }
 
-    public double getGastoPeaje() {
+    public BigDecimal getGastoPeaje() {
         return gastoPeaje;
     }
 
-    public void setGastoPeaje(double gastoPeaje) {
+    public void setGastoPeaje(BigDecimal gastoPeaje) {
         this.gastoPeaje = gastoPeaje;
     }
 
-    public double getGastoDietas() {
+    public BigDecimal getGastoDietas() {
         return gastoDietas;
     }
 
-    public void setGastoDietas(double gastoDietas) {
+    public void setGastoDietas(BigDecimal gastoDietas) {
         this.gastoDietas = gastoDietas;
     }
 
-    public double getGastoCombustible() {
+    public BigDecimal getGastoCombustible() {
         return gastoCombustible;
     }
 
-    public void setGastoCombustible(double gastoCombustible) {
+    public void setGastoCombustible(BigDecimal gastoCombustible) {
         this.gastoCombustible = gastoCombustible;
     }
 
-    public double getGastoVarios() {
+    public BigDecimal getGastoVarios() {
         return gastoVarios;
     }
 
-    public void setGastoVarios(double gastoVarios) {
+    public void setGastoVarios(BigDecimal gastoVarios) {
         this.gastoVarios = gastoVarios;
     }
 
@@ -133,6 +232,22 @@ public class Parte {
         this.incidencias = incidencias;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getValidado() {
+        return validado;
+    }
+
+    public void setValidado(String validado) {
+        this.validado = validado;
+    }
+
     public BigDecimal getHorasExtras() {
         return horasExtras;
     }
@@ -140,7 +255,14 @@ public class Parte {
     public void setHorasExtras(BigDecimal horasExtras) {
         this.horasExtras = horasExtras;
     }
-    
+
+    public BigDecimal getIdTrabajador() {
+        return idTrabajador;
+    }
+
+    public void setIdTrabajador(BigDecimal idTrabajador) {
+        this.idTrabajador = idTrabajador;
+    }
 
     public String getNotasAdministrativas() {
         return notasAdministrativas;
@@ -149,30 +271,5 @@ public class Parte {
     public void setNotasAdministrativas(String notasAdministrativas) {
         this.notasAdministrativas = notasAdministrativas;
     }
-
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
-    public boolean isValidado() {
-        return validado;
-    }
-
-    public void setValidado(boolean validado) {
-        this.validado = validado;
-    }
-
-    @Override
-    public String toString() {
-        return "Parte{" + "idTrabajador=" + idTrabajador + ", fecha=" + fecha + ", kmInicial=" + kmInicial + ", kmFinal=" + kmFinal + ", gastoPeaje=" + gastoPeaje + ", gastoDietas=" + gastoDietas + ", gastoCombustible=" + gastoCombustible + ", gastoVarios=" + gastoVarios + ", incidencias=" + incidencias + ", horasExtras=" + horasExtras + ", notasAdministrativas=" + notasAdministrativas + ", estado=" + estado + ", validado=" + validado + '}';
-    }
-
    
- 
-        
-    
 }

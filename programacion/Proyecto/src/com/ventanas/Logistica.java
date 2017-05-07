@@ -14,8 +14,10 @@ public class Logistica extends javax.swing.JFrame {
     /**
      * Creates new form Logistica
      */
+    
     public Logistica() {
         initComponents();
+       
     }
 
     /**

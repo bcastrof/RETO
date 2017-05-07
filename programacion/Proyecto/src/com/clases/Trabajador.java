@@ -12,11 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import jdk.nashorn.internal.runtime.Debug;
 import oracle.jdbc.OracleTypes;
 /**
  *
@@ -49,6 +47,11 @@ public class Trabajador {
 
     public Trabajador() {
     }
+
+    public Trabajador(BigDecimal id) {
+        this.id = id;
+    }
+    
 
     public Trabajador(String dni, String nombre, String primerApellido, String segundoApellido, String categoria, String calle, BigDecimal numero, BigDecimal piso, String mano, String ciudad, BigDecimal codigoPostal, String provincia, BigDecimal movilEmpresa, BigDecimal movilPersonal, BigDecimal salario, String fechaNacimiento, BigDecimal idCent) {
         
