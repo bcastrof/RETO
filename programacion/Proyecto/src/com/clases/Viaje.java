@@ -11,34 +11,11 @@ package com.clases;
  */
 public class Viaje {
     
-    private double horaInicio;
-    private double horaFin;
-    
+    private String horaInicio;
+    private String horaFin;
+     
     //asociacion con parte
     private Parte parte;
 
-    public Viaje() {
-    }
-
-    public Viaje(double horaInicio, double horaFin) {
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
-    }
     
-    public double getHoraInicio() {
-        return horaInicio;
-    }
-
-    public void setHoraInicio(double horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-
-    public double getHoraFin() {
-        return horaFin;
-    }
-
-    public void setHoraFin(double horaFin) {
-        this.horaFin = horaFin;
-    }
-      
 }

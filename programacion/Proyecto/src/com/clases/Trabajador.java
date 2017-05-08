@@ -386,7 +386,7 @@ public class Trabajador {
         return trabajador;
     }
      
-          public  static  Trabajador filtrarTrabajador2(BigDecimal idt){
+        public  static  Trabajador filtrarTrabajador2(BigDecimal idt){
         Trabajador trabajador=new Trabajador();
         Conexion.conectar();
         try {

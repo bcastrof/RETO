@@ -8,31 +8,38 @@ package com.ventanas;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import javax.swing.SpinnerDateModel;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+
 /**
  *
  * @author BE
  */
 public class Viajes extends javax.swing.JFrame {
 
-     public static BigDecimal id = Login.idt;
-     private Object JSpinner3;
-     private SpinnerDateModel sm;
-     private SpinnerDateModel sm3;
+    public static BigDecimal id = Login.idt;
+    // private Object JSpinner3;
+    // private SpinnerDateModel sm;
+    // private SpinnerDateModel sm3;
+
     /**
      * Creates new form Viajes
      */
     public Viajes() {
         initComponents();
-       /* { DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date(); 
-        jLabel3.setText(dateFormat.format(date));}*/
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        Date date = new Date(); 
-        String horaini = dateFormat.format(sm.getDate());
-        String horafin = dateFormat.format(sm3.getDate());
+        {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = new Date();
+            // Date fecha = new Date();
+            jLabel3.setText(dateFormat.format(date));
+            //SpinnerDateModel sm = new SpinnerDateModel(date, null,null, Calendar.HOUR_OF_DAY);
+            //jSpinner1 = new javax.swing.JSpinner(sm);
+            //SpinnerDateModel sm1 = new SpinnerDateModel(fecha, null,null, Calendar.HOUR_OF_DAY);
+            //jSpinner2 = new javax.swing.JSpinner(sm1);
+        }
+
     }
 
     /**
@@ -46,8 +53,6 @@ public class Viajes extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jSpinner2 = new javax.swing.JSpinner();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,7 +62,7 @@ public class Viajes extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
-        jButton1.setText("jButton1");
+        jButton1.setText("AÑADIR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -73,18 +78,11 @@ public class Viajes extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(jSpinner2))
-                        .addGap(104, 104, 104))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addContainerGap())))
+                .addComponent(jButton1)
+                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,22 +91,17 @@ public class Viajes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGap(130, 130, 130)
                 .addComponent(jButton1)
-                .addGap(74, 74, 74))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        
        
+      
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -150,7 +143,5 @@ public class Viajes extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
     // End of variables declaration//GEN-END:variables
 }

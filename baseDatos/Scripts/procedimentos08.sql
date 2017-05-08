@@ -42,7 +42,7 @@ select fecha, kminicial, kmfinal, nvl(gastospeaje,0), nvl(gastosdietas,0), nvl(g
 into fe,kmi,kmf,gp,gd,gc,og,inc,es,va,hor,idto,nota
 from partes
 where TRABAJADORES_ID=idt and estado='ABIERTO';
-
+end recuperarParte;
 
 
 create or replace procedure notificacion
@@ -61,7 +61,7 @@ when to_many_rows then
 RAISE_APPLICATION_ERROR(-20002,'hay más de un registro por favor hable con Administración');
 end notificacion;
 
-end recuperarParte;
+
 
 
 

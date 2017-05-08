@@ -163,9 +163,7 @@ public class Login extends javax.swing.JFrame {
         if (categoria.equalsIgnoreCase("administracion")) {
             administracion = new Administracion();
             administracion.setVisible(true);
-        }
-
-        if (categoria.equalsIgnoreCase("logistica")) {
+        }else if (categoria.equalsIgnoreCase("logistica")) {
             Trabajador.filtrarTrabajador2(u.getIdt());
             Aviso a = Aviso.aviso(u.getIdt());
             //construyo objeto parte

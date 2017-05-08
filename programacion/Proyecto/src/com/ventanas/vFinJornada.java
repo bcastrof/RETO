@@ -26,8 +26,9 @@ private static BigDecimal id;
      */
     public vFinJornada() {
         initComponents();
-        Trabajador t = Trabajador.filtrarTrabajador2(idT);
-        Logistica l = new Logistica(t);
+        Logistica l = (Logistica) Trabajador.filtrarTrabajador2(idT);
+
+        // Logistica l = new Logistica(t);
         //traigo el parte abierto del trabajador
         Parte p = Parte.parte(idT);
         l.agregarParte(p);

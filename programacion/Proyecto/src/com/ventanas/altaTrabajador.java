@@ -225,7 +225,7 @@ public class altaTrabajador extends javax.swing.JFrame {
             usuario.setTrabajador(t);
             String lolo=usuario.getPassword();
             System.out.println(lolo);
-            boolean guardado = t.altaTrabajador11g();
+            boolean guardado = t.altaTrabajador12c();
             boolean guardad = usuario.altaUsuario(uDni.getText(), user, password);
             if (guardad == guardado) {
                 //todo intentar poner este mensaje mas guapo             
@@ -246,7 +246,7 @@ public class altaTrabajador extends javax.swing.JFrame {
             usuario.setTrabajador(t);
             String lolo=usuario.getPassword();
             System.out.println(lolo);
-            boolean guardado = t.altaTrabajador11g();
+            boolean guardado = t.altaTrabajador12c();
             boolean guardad = usuario.altaUsuario(uDni.getText(), user, password);
              if (guardad == guardado) {
                 //todo intentar poner este mensaje mas guapo             

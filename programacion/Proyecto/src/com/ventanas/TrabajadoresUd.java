@@ -74,7 +74,6 @@ public class TrabajadoresUd extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        uId = new javax.swing.JTextField();
         uNombre = new javax.swing.JTextField();
         uPrimerApellido = new javax.swing.JTextField();
         uSegundoApellido = new javax.swing.JTextField();
@@ -121,8 +120,6 @@ public class TrabajadoresUd extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
-
-        uId.setPreferredSize(new java.awt.Dimension(50, 20));
 
         uNombre.setPreferredSize(new java.awt.Dimension(110, 20));
 
@@ -216,28 +213,25 @@ public class TrabajadoresUd extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(uIdcent, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(uId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(uNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(uPrimerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(uFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(bFiltrar)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(uFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bFiltrar)
+                                .addGap(93, 93, 93)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(listado)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(uSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(uDni, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(modificar)
-                                            .addComponent(uFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addGap(232, 232, 232)
+                                        .addComponent(modificar))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(uNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(uPrimerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(uSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(uDni, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(uFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -253,7 +247,6 @@ public class TrabajadoresUd extends javax.swing.JFrame {
                     .addComponent(listado))
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(uId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(uNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(uPrimerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(uSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -322,8 +315,20 @@ public class TrabajadoresUd extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
       int index = jTable1.getSelectedRow();
       
-      uId.setText(trabajador.get(index).getId().toString());
-     
+      uDni.setText(trabajador.get(index).getDni());
+      uNombre.setText(trabajador.get(index).getNombre());
+      uPrimerApellido.setText(trabajador.get(index).getPrimerApellido());
+      uSegundoApellido.setText(trabajador.get(index).getSegundoApellido());
+      uCalle.setText(trabajador.get(index).getCalle());
+      uNumero.setText(trabajador.get(index).getNumero().toString());
+      uPiso.setText(trabajador.get(index).getPiso().toString());
+      uMano.setText(trabajador.get(index).getMano());
+      uCiudad.setText(trabajador.get(index).getCiudad());
+      uCodigoPostal.setText(trabajador.get(index).getCodigoPostal().toString());
+      uProvincia.setText(trabajador.get(index).getProvincia());
+      uMovilEmpresa.setText(trabajador.get(index).getMovilEmpresa().toString());
+      uMovilPersonal.setText(trabajador.get(index).getMovilPersonal().toString());
+      uFechaNacimiento.setText(trabajador.get(index).getFechaNacimiento());    
       uIdcent.setText(trabajador.get(index).getIdCent().toString());
     }//GEN-LAST:event_jTable1MouseClicked
     public void limpiarFormulario(){
@@ -392,7 +397,6 @@ public class TrabajadoresUd extends javax.swing.JFrame {
     private javax.swing.JTextField uDni;
     private javax.swing.JTextField uFechaNacimiento;
     javax.swing.JTextField uFiltro;
-    private javax.swing.JTextField uId;
     private javax.swing.JTextField uIdcent;
     private javax.swing.JTextField uMano;
     private javax.swing.JTextField uMovilEmpresa;
