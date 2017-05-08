@@ -239,7 +239,7 @@ public class CentrosUd extends javax.swing.JFrame {
         idCent = new BigDecimal(centros.getValueAt(index, 0).toString());
 
         //mapeo y translado de los valores a los diferentes campos del formulario
-        uNombre.setText(centros.getValueAt(index, 1).toString());
+        uNombre.setText(centro.get(index).getNombre());
         uCalle.setText(centros.getValueAt(index, 2).toString());
         uNumero.setText(centros.getValueAt(index, 3).toString());
         uCiudad.setText(centros.getValueAt(index, 4).toString());

@@ -144,7 +144,6 @@ public class Login extends javax.swing.JFrame {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date dia = new Date();
         String fecha = dateFormat.format(dia);
-       
         String usuario = user.getText();
         String pass = new String(password.getPassword());
         
@@ -169,6 +168,10 @@ public class Login extends javax.swing.JFrame {
         if (categoria.equalsIgnoreCase("logistica")) {
             Trabajador.filtrarTrabajador2(u.getIdt());
             Aviso a = Aviso.aviso(u.getIdt());
+            //construyo objeto parte
+            Parte p = Parte.parte(idt);
+            String fechaParte= p.getFecha();
+            
             if (a != null) {
                 String avis = Aviso.aviso(u.getIdt()).getDescripcion();
                 a = Aviso.aviso(u.getIdt());
@@ -177,24 +180,16 @@ public class Login extends javax.swing.JFrame {
 
                 finJornada = new vFinJornada();
                 finJornada.setVisible(true);
-
-            }
-
-            //construyo objeto parte
-            Parte p = Parte.parte(idt);
-            String fechaParte = Parte.parte(idt).getFecha();
-            
-            if (p != null && !fechaParte.equalsIgnoreCase(fecha)) {//parte distinto a null y la fecha != a ka del parte
-
+            }else if(p.getIdTrabajador() != null && !fechaParte.equalsIgnoreCase(fecha)){
                 finJornada = new vFinJornada();
                 finJornada.setVisible(true);
-
-            } else if (p != null && fechaParte.equalsIgnoreCase(fecha)) { //parte distinto a null y la fechas == abro viajes
+            }else if (p.getIdTrabajador() != null && fechaParte.equalsIgnoreCase(fecha)) { //parte distinto a null y la fechas == abro viajes
                 
                 viajes=new Viajes();
                 viajes.setVisible(true);
                 
-            } else {
+            }
+            else {
                 logistica = new Logistica();
                 logistica.setVisible(true);
                 System.out.println(fecha);

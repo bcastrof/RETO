@@ -433,7 +433,7 @@ public class Trabajador {
            cs.close();
            
            if(cat.equalsIgnoreCase("administracion")){
-             trabajador =  new Administracion(idt, doc, no, pa, sa, cat, ca, nu, pi, ma, ci, cd, pro, mve, mvp, sal, fe, idc);  
+             trabajador =  new Administracion(idt, doc, no, pa, sa, cat, ca, nu, pi, ma, ci, cd, pro, mve, mvp, sal, fe, idc);
            }else{
             trabajador =  new Logistica (idt, doc, no, pa, sa, cat, ca, nu, pi, ma, ci, cd, pro, mve, mvp, sal, fe, idc);   
            }

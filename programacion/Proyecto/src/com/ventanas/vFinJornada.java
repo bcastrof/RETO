@@ -27,8 +27,11 @@ private static BigDecimal id;
     public vFinJornada() {
         initComponents();
         Trabajador t = Trabajador.filtrarTrabajador2(idT);
+        Logistica l = new Logistica(t);
         //traigo el parte abierto del trabajador
         Parte p = Parte.parte(idT);
+        l.agregarParte(p);
+        p.setLogistica(l);
         jLabel2.setText(p.getFecha()); 
         fecha=p.getFecha();
         id=p.getIdTrabajador();
@@ -230,11 +233,11 @@ private static BigDecimal id;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       Parte p = new Parte(new BigDecimal(kmI.getText()),new BigDecimal(kmF.getText()), 
+       Parte p = new Parte(id,new BigDecimal(kmI.getText()),new BigDecimal(kmF.getText()), 
                new BigDecimal(peaje.getText()), new BigDecimal(dietas.getText()), 
                new BigDecimal(combustible.getText()),new BigDecimal(otros.getText()), incidencias.getText());
        
-       boolean cerrarParte=Logistica.cerrarParte(idT, fecha);
+       boolean cerrarParte=Logistica.cerrarParte(p);
        
         if (cerrarParte==true) {
             System.out.println("yuju");

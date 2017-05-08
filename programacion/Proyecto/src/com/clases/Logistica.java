@@ -37,23 +37,25 @@ public class Logistica extends Trabajador {
         super(id, dni, nombre, primerApellido, segundoApellido, categoria, calle, numero, piso, mano, ciudad, codigoPostal, provincia, movilEmpresa, movilPersonal, salario, fechaNacimiento, idCent);
     }
 
-    public static boolean cerrarParte(BigDecimal idT, String fecha) {
-        Conexion.conectar();
+    public static boolean cerrarParte(Parte parte) {
+        Parte p = parte;
+        BigDecimal idT =p.getIdTrabajador();
         
-        Parte p = Parte.parte(idT);
+         Conexion.conectar();
         
         BigDecimal kmi = p.getKmInicial();
+        BigDecimal kmf = p.getKmFinal();
         
         String sql = "update partes set kmInicial=?, kmFinal=?, gastosPeaje=?, "
                 + "gastosDietas=?, gastosCombustible=?,otrosGastos=?, incidencias=?, "
                 + "estado=?"
-                + "where TRABAJADORES_ID=? AND fecha=?";
+                + "where TRABAJADORES_ID=? AND estado='ABIERTO'";
         
         try {
             PreparedStatement ps = Conexion.getConexion().prepareStatement(sql);
             
             ps.setBigDecimal(1, kmi);
-            ps.setBigDecimal(2, p.getKmFinal());
+            ps.setBigDecimal(2, kmf);
             ps.setBigDecimal(3, p.getGastoPeaje());
             ps.setBigDecimal(4, p.getGastoDietas());
             ps.setBigDecimal(5, p.getGastoCombustible());
@@ -61,7 +63,7 @@ public class Logistica extends Trabajador {
             ps.setString(7, p.getIncidencias());
             ps.setString(8, "CERRADO");
             ps.setBigDecimal(9, idT);
-            ps.setString(10, fecha);
+           // ps.setString(10, fecha);
             
             ps.executeUpdate();
             ps.close();
@@ -75,8 +77,24 @@ public class Logistica extends Trabajador {
         return false;
     }
 
+    public Logistica(Trabajador t) {
+       
+    }
+
+   
+
+    public void agregarParte(Parte p){
+        parte.add(p);
+        
+    }
+    
     public List<Parte> getParte() {
         return parte;
     }
+
+    public void setParte(List<Parte> parte) {
+        this.parte = parte;
+    }
+    
 
 }

@@ -31,7 +31,7 @@ public class TrabajadoresUd extends javax.swing.JFrame {
             trabajadores.insertRow(trabajadores.getRowCount(), new Object[]{t.getId(), t.getNombre(),
                 t.getPrimerApellido(),t.getDni(), t.getCategoria(),
                 t.getMovilEmpresa(),
-                t.getIdCent()});
+                t.getIdCent(),t.getFechaNacimiento(), t.getCalle()});
         });
     }
 
@@ -284,31 +284,6 @@ public class TrabajadoresUd extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int index = jTable1.getSelectedRow();
-   
-        //mapeo y translado de los valores a los diferentes campos del formulario
-        uId.setText(trabajador.get(index).getId().toString());
-        uDni.setText(trabajador.get(index).getDni());
-        uNombre.setText(trabajador.get(index).getNombre());
-        uPrimerApellido.setText(trabajador.get(index).getPrimerApellido());
-        uSegundoApellido.setText(trabajador.get(index).getSegundoApellido());
-        uCategoria.setText(trabajador.get(index).getCategoria());
-        uCalle.setText(trabajador.get(index).getCalle());
-        uNumero.setText(trabajador.get(index).getNumero().toString());
-        uPiso.setText(trabajador.get(index).getPiso().toString());
-        uMano.setText(trabajador.get(index).getMano());
-        uCiudad.setText(trabajador.get(index).getCiudad());
-        uCodigoPostal.setText(trabajador.get(index).getCodigoPostal().toString());
-        uProvincia.setText(trabajador.get(index).getProvincia());
-        uMovilEmpresa.setText(trabajador.get(index).getMovilEmpresa().toString());
-        uMovilPersonal.setText(trabajador.get(index).getMovilPersonal().toString());
-        uSalario.setText(trabajador.get(index).getSalario().toString());
-        uFechaNacimiento.setText(trabajador.get(index).getFechaNacimiento());
-        uIdcent.setText(trabajador.get(index).getIdCent().toString());
-        id=new BigDecimal(uId.getText());
-    }//GEN-LAST:event_jTable1MouseClicked
       
     private void bFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFiltrarActionPerformed
         docI = uFiltro.getText();
@@ -343,6 +318,14 @@ public class TrabajadoresUd extends javax.swing.JFrame {
         limpiarFormulario();
         
     }//GEN-LAST:event_modificarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+      int index = jTable1.getSelectedRow();
+      
+      uId.setText(trabajador.get(index).getId().toString());
+     
+      uIdcent.setText(trabajador.get(index).getIdCent().toString());
+    }//GEN-LAST:event_jTable1MouseClicked
     public void limpiarFormulario(){
         uDni.setText("");
         uNombre.setText("");

@@ -51,7 +51,8 @@ public class Parte {
     public Parte() {
     }
 
-    public Parte(BigDecimal kmInicial, BigDecimal kmFinal, BigDecimal gastoPeaje, BigDecimal gastoDietas, BigDecimal gastoCombustible, BigDecimal gastoVarios, String incidencias) {
+    public Parte(BigDecimal idTrabajador,  BigDecimal kmInicial, BigDecimal kmFinal, BigDecimal gastoPeaje, BigDecimal gastoDietas, BigDecimal gastoCombustible, BigDecimal gastoVarios, String incidencias) {
+        this.idTrabajador=idTrabajador;
         this.kmInicial = kmInicial;
         this.kmFinal = kmFinal;
         this.gastoPeaje = gastoPeaje;
@@ -93,7 +94,7 @@ public class Parte {
     //metodo para recuperar un parte de un trabajador
     
     public static Parte parte(BigDecimal idt){
-        
+        Parte p = new Parte();
         Conexion.conectar();
         
             try {
@@ -131,17 +132,27 @@ public class Parte {
                 String no = cs.getString(14);
                 cs.close();
                 
-               Parte p = new Parte(fecha, kmi, kmf, gp, gd, gc, og, in, es, va, ho, ift, no);
-                Conexion.desconectar();
+               p = new Parte(fecha, kmi, kmf, gp, gd, gc, og, in, es, va, ho, ift, no);
+               
+              
+                  
+              
+                   
+             
+               Conexion.desconectar();
                 
-                return p;
+             
+                 return p;
+             
+               
                
             } catch (SQLException ex) {
-                Logger.getLogger(Parte.class.getName()).log(Level.SEVERE, null, ex);
+               
+               
             }
         
         
-        return null;//este va al final del try catch
+      return null;
     }
     
     public boolean iniciarParte(){
@@ -271,5 +282,14 @@ public class Parte {
     public void setNotasAdministrativas(String notasAdministrativas) {
         this.notasAdministrativas = notasAdministrativas;
     }
+
+    public Logistica getLogistica() {
+        return logistica;
+    }
+
+    public void setLogistica(Logistica logistica) {
+        this.logistica = logistica;
+    }
+    
    
 }
