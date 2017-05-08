@@ -8,7 +8,7 @@ package com.ventanas;
 import com.clases.Logistica;
 import com.clases.Parte;
 import com.clases.Trabajador;
-import static com.ventanas.Login.idt;
+
 import java.math.BigDecimal;
 
 

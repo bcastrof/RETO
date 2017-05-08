@@ -158,7 +158,7 @@ public class Parte {
     public boolean iniciarParte(){
         Conexion.conectar();
         
-        String sql = "insert into parte (fecha, trabajadores_id) values (?,?)";
+        String sql = "insert into partes (fecha, trabajadores_id) values (?,?)";
         
             try {
                 PreparedStatement smt = Conexion.getConexion().prepareStatement(sql);

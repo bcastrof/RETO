@@ -5,19 +5,30 @@
  */
 package com.ventanas;
 
+import com.clases.Parte;
+import com.clases.Trabajador;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 /**
  *
  * @author BE
  */
 public class Logistica extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Logistica
-     */
+//para cargar ventana viajes
+    private Viajes viajes;
+    
+private static BigDecimal idT = Login.idt;
     
     public Logistica() {
         initComponents();
-       
+        Trabajador t = Trabajador.filtrarTrabajador2(idT);
+        String nombre = t.getNombre();
+        String apellido = t.getPrimerApellido();
+        String etiqueta = nombre.toUpperCase().concat(" ").concat(apellido.toUpperCase());
+        jLabel2.setText(etiqueta);   
     }
 
     /**
@@ -38,6 +49,11 @@ public class Logistica extends javax.swing.JFrame {
         jLabel1.setText("BIEN VENIDO:");
 
         uInicioJornada.setText("INICIO JORNADA");
+        uInicioJornada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uInicioJornadaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -45,13 +61,14 @@ public class Logistica extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jLabel1)
+                            .addGap(182, 182, 182)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
+                        .addGap(140, 140, 140)
                         .addComponent(uInicioJornada)))
                 .addContainerGap(130, Short.MAX_VALUE))
         );
@@ -62,13 +79,24 @@ public class Logistica extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84)
+                .addGap(86, 86, 86)
                 .addComponent(uInicioJornada)
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void uInicioJornadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uInicioJornadaActionPerformed
+       Trabajador t = Trabajador.filtrarTrabajador2(idT);
+       SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+       Date fecha = new Date();
+       String fechaParte = dateFormat.format(fecha);
+       Parte p = new Parte(fechaParte, idT);
+       p.iniciarParte();
+       viajes=new Viajes();
+       viajes.setVisible(true);
+    }//GEN-LAST:event_uInicioJornadaActionPerformed
 
     /**
      * @param args the command line arguments
