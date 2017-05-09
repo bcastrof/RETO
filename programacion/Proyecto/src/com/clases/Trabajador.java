@@ -316,7 +316,6 @@ public class Trabajador {
                 t.setFechaNacimiento(rs.getString("fechaNacimiento"));
                 t.setIdCent(rs.getBigDecimal("CENTROS_ID"));
                 trabajador.add(t);
-                System.out.println(t);
             }
             rs.close();
             Conexion.desconectar();

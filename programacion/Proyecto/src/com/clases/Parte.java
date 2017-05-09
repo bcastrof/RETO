@@ -11,8 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import oracle.jdbc.OracleTypes;
 
@@ -291,5 +289,8 @@ public class Parte {
         this.logistica = logistica;
     }
     
-   
+    public void añadirViaje(Viaje v){    
+        viaje.add(v);
+       v.setParte(this);
+    } 
 }
