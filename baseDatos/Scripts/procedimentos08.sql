@@ -195,3 +195,13 @@ select SQTRABAJADORES.NEXTVAL into idc from dual;
 end incrementTrabajadores;
 
 
+create or replace procedure logisticaViajes
+(idt in VIAJES.TRABAJADORES_ID%type, fecha in VIAJES.FECHA_ID%type, c out SYS_REFCURSOR)
+as 
+begin 
+OPEN C FOR 
+SELECT albaran, horaInicial, horaFinal
+from viajes where trabajadores_id=idt and fecha_id=fecha;
+end logisticaViajes;
+
+
