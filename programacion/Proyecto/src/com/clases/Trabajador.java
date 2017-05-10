@@ -276,6 +276,7 @@ public class Trabajador {
                 System.out.println(t);  
             }
             rs.close();
+            cs.close();
             Conexion.desconectar();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema" + ex.getMessage());
@@ -377,7 +378,7 @@ public class Trabajador {
             trabajador =  new Logistica (id, dni, no, pa, sa, cat, ca, nu, pi, ma, ci, cd, pro, mve, mvp, sal, fe, idc);   
            }
             
-            
+            cs.close();
             Conexion.desconectar();
         } catch (SQLException ex) {
             Logger.getLogger(Trabajador.class.getName()).log(Level.SEVERE, null, ex);

@@ -5,12 +5,15 @@
  */
 package com.clases;
 
+import com.sun.org.apache.bcel.internal.classfile.Code;
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import oracle.jdbc.OracleTypes;
 
@@ -19,11 +22,12 @@ import oracle.jdbc.OracleTypes;
  * @author 7fprog03
  */
 public class Vehiculo {
+
     private BigDecimal idVehiculo;
     private String matricula;
     private String marca;
     private String modelo;
-    
+
     //asociacion con parte
     private Parte parte;
     //asociacion con administracion
@@ -38,7 +42,6 @@ public class Vehiculo {
         this.marca = marca;
         this.modelo = modelo;
     }
-   
 
     public BigDecimal getIdVehiculo() {
         return idVehiculo;
@@ -71,26 +74,24 @@ public class Vehiculo {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
-    
-    
+
     //26/04 Miriam FUNCIONA!!!!
-    
-    public static List<Vehiculo> listarVehiculos(){
-        List<Vehiculo>vehiculos = new ArrayList<>();
+    public static List<Vehiculo> listarVehiculos() {
+        List<Vehiculo> vehiculos = new ArrayList<>();
         Conexion.conectar();
-        
-        try{
-            
-        CallableStatement cs = Conexion.getConexion().prepareCall("{call listarVehiculos(?)}");
-        
-        cs.registerOutParameter(1, OracleTypes.CURSOR);
-        cs.execute();
-        
+
+        try {
+
+            CallableStatement cs = Conexion.getConexion().prepareCall("{call pvehiculos.listarVehiculos(?)}");
+
+            cs.registerOutParameter(1, OracleTypes.CURSOR);
+            cs.execute();
+
             ResultSet rs = (ResultSet) cs.getObject(1);
-            
+
             while (rs.next()) {
                 Vehiculo v = new Vehiculo();
-                
+
                 v.setIdVehiculo(rs.getBigDecimal("id"));
                 v.setMarca(rs.getString("marca"));
                 v.setModelo(rs.getString("modelo"));
@@ -100,40 +101,42 @@ public class Vehiculo {
             }
             rs.close();
             Conexion.desconectar();
-            
-        }catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema" + ex.getMessage());
-        }
-     return vehiculos;
-    }
-    
-    //26/06 FILTRAR POR MATRICULA, MIRIAM
-    
-    public static  List<Vehiculo>filtrarvehiculo(String matricula){
-        List<Vehiculo> vehiculo =new ArrayList<>();
-        Conexion.conectar();
-        try {
-            CallableStatement cs = Conexion.getConexion().prepareCall("{call filtrarVehiculo(?,?)}");
-            cs.setString(1, matricula);
-            cs.registerOutParameter(2, OracleTypes.CURSOR);
-            cs.execute();
-            
-            ResultSet rs = (ResultSet) cs.getObject(2);
-           
-            while(rs.next()){
-                Vehiculo v = new Vehiculo();
-                v.setIdVehiculo(rs.getBigDecimal("Idvehiculo"));
-                v.setMarca(rs.getString("marca"));
-                v.setModelo(rs.getString("modelo"));
-                v.setMatricula(rs.getString("matricula"));
-                vehiculo.add(v);
-                System.out.println(v);
-            }
-            rs.close();
-            Conexion.desconectar();
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema" + ex.getMessage());
         }
-        return vehiculo;
+        return vehiculos;
+    }
+
+
+    public static Vehiculo filtrarvehiculo(String matricula) {
+        Vehiculo v = new Vehiculo();
+
+        Conexion.conectar();
+        String sql = "call pvehiculos.filtrarVehiculo(?,?,?,?,?)";
+
+        try {
+            CallableStatement cs = Conexion.getConexion().prepareCall(sql);
+            cs.setString(1, matricula);
+            cs.registerOutParameter(2, OracleTypes.INTEGER);
+            cs.registerOutParameter(3, OracleTypes.VARCHAR);
+            cs.registerOutParameter(4, OracleTypes.VARCHAR);
+            cs.registerOutParameter(5, OracleTypes.VARCHAR);
+            cs.execute();
+            
+            /*v.setIdVehiculo(cs.getBigDecimal(2));
+            v.setMarca(cs.getString(3));
+            v.setModelo(cs.getString(4));
+            v.setMatricula(cs.getString(5));*/
+            v = new Vehiculo (cs.getBigDecimal(2),cs.getString(3),cs.getString(4),cs.getString(5));
+            
+            cs.close();
+            Conexion.desconectar();
+            return v;
+        } catch (SQLException ex) {
+            Logger.getLogger(Vehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
     }
 }

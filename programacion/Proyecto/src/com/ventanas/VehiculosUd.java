@@ -17,6 +17,7 @@ public class VehiculosUd extends javax.swing.JFrame {
     
     private DefaultTableModel vehiculos;
     private List<Vehiculo> vehiculo;
+    private Vehiculo v;
     
     //para filtrar
     private static String docI;
@@ -35,11 +36,11 @@ public class VehiculosUd extends javax.swing.JFrame {
       private void filtrarVehiculo() {
         vehiculos.setRowCount(0);
         vehiculos = (DefaultTableModel) jTable1.getModel();
-        vehiculo= Vehiculo.filtrarvehiculo(docI);
-        for (Vehiculo v : vehiculo) {
+        v= Vehiculo.filtrarvehiculo(docI);
+      
             vehiculos.insertRow(vehiculos.getRowCount(), new Object[]{v.getIdVehiculo(), 
                 v.getMarca(), v.getModelo(), v.getMatricula()});
-        }
+        
     }
     public VehiculosUd() {
         initComponents();
@@ -96,23 +97,24 @@ public class VehiculosUd extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(uFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
-                        .addComponent(bFiltrar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(bFiltrar)
+                        .addGap(0, 387, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(uFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bFiltrar))
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addContainerGap(247, Short.MAX_VALUE))
         );
 
         pack();

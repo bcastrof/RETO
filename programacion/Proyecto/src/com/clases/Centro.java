@@ -222,6 +222,7 @@ public class Centro {
                 System.out.println(c);
             }
              rs.close();
+             cs.close();
             Conexion.desconectar();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema" + ex.getMessage());

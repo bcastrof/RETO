@@ -18,6 +18,34 @@ where id = idu;
 
 end centrosFi;
 
+create or replace procedure centrosFn
+(nomu in CENTROS.NOMBRE%type,
+ido out CENTROS.ID%type,
+nom out CENTROS.NOMBRE%type,
+cal out CENTROS.CALLE%type,
+nu out CENTROS.NUMERO%type,
+ci out CENTROS.CIUDAD%type,
+co out CENTROS.CODIGOPOSTAL%type,
+pro out CENTROS.PROVINCIA%type,
+tel out CENTROS.TELEFONO%type
+)
+as
+begin
+
+select id, nombre, calle, numero, ciudad, codigoPostal, provincia, telefono into ido, nom, cal, nu, ci, co, pro, tel
+from centros 
+where nombre = nomu;
+
+end centrosFn;
+
+create or replace procedure centrosList
+(c out SYS_REFCURSOR)
+as
+begin
+open c for
+select * from centros
+end centrosList;
+
 
 create or replace procedure recuperarParte
 (idt in TRABAJADORES.ID%type, 
@@ -90,12 +118,6 @@ as
 begin
 open c for
 select * from trabajadores;
---if (C%rowcount=0)then
---raise NO_DATA_FOUND;
---end if;
-exception 
-WHEN NO_DATA_FOUND THEN
-   RAISE_APPLICATION_ERROR(-20002,'NO SE ENCUENTRAN REGISTROS.');
 end listartrabajadores;
 
 

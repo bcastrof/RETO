@@ -146,6 +146,7 @@ public class Viaje {
             }
 
             rs.close();
+            cs.close();
             Conexion.desconectar();
 
         } catch (SQLException ex) {
