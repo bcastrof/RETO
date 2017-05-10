@@ -184,8 +184,7 @@ public class Login extends javax.swing.JFrame {
             }else if (p.getIdTrabajador() != null && fechaParte.equalsIgnoreCase(fecha)) { //parte distinto a null y la fechas == abro viajes
                 
                 viajes=new Viajes();
-                viajes.setVisible(true);
-                
+                viajes.setVisible(true);  
             }
             else {
                 logistica = new Logistica();

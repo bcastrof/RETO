@@ -200,11 +200,11 @@ public class altaTrabajador extends javax.swing.JFrame {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String fecha = dateFormat.format(jDateChooser1.getDate());
         
-        BigDecimal id = Trabajador.autoincremente();
+        
         // todo esto tiene que funcionar en las dos versiones el unico cambio que hay que hacer es en los dos constructores
         //quitar el id de trabajador 
         if (ad.equalsIgnoreCase("administracion")) {
-            Trabajador t = new com.clases.Administracion(id,uDni.getText(), uNombre.getText(), uPrimerApellido.getText(), uSegundoApellido.getText(), ad,
+            Trabajador t = new com.clases.Administracion(uDni.getText(), uNombre.getText(), uPrimerApellido.getText(), uSegundoApellido.getText(), ad,
                     uCalle.getText(), new BigDecimal(uNumero.getText()), new BigDecimal(uPiso.getText()),
                     uMano.getText(), uCiudad.getText(), new BigDecimal(uCodigoPostal.getText()), uProvincia.getText(),
                     new BigDecimal(uMovilEmpresa.getText()), new BigDecimal(uMovilPersonal.getText()), new BigDecimal(uSalario.getText()),
@@ -225,7 +225,7 @@ public class altaTrabajador extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Usuario dado de alta correctamente\nUsuario: "+user+"\nContraseña: "+password, "Alta", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
-            Trabajador t = new Logistica(id, uDni.getText(), uNombre.getText(), uPrimerApellido.getText(), uSegundoApellido.getText(), ad,
+            Trabajador t = new Logistica(uDni.getText(), uNombre.getText(), uPrimerApellido.getText(), uSegundoApellido.getText(), ad,
                     uCalle.getText(), new BigDecimal(uNumero.getText()), new BigDecimal(uPiso.getText()),
                     uMano.getText(), uCiudad.getText(), new BigDecimal(uCodigoPostal.getText()), uProvincia.getText(),
                     new BigDecimal(uMovilEmpresa.getText()), new BigDecimal(uMovilPersonal.getText()), new BigDecimal(uSalario.getText()),

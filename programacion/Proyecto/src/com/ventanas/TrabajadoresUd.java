@@ -297,7 +297,7 @@ public class TrabajadoresUd extends javax.swing.JFrame {
                 new BigDecimal(uSalario.getText()), uFechaNacimiento.getText(),new BigDecimal(uIdcent.getText()));
         
         boolean modificar = trabajadorM.modificarTrabajador(id);
-        if (modificar){
+        if (modificar==true){
             JOptionPane.showMessageDialog(null, "Trabajador modificado correctamente", "Modificado", JOptionPane.INFORMATION_MESSAGE);
         }
         

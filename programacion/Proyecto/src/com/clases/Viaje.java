@@ -119,6 +119,28 @@ public class Viaje {
             return false;
         }
     }
+    
+    public boolean modificarviaje(BigDecimal idt, String fecha){
+        Conexion.conectar();
+        String sql ="update partes set albaran=?, horaInicio=?, horaFin=? where TRABAJADORES_ID=? AND FECHA=?";
+        
+        try {
+            PreparedStatement ps = Conexion.getConexion().prepareStatement(sql);
+            ps.setBigDecimal(1, albaran);
+            ps.setString(2, horaInicio);
+            ps.setString(3, horaFin);
+            ps.setBigDecimal(4, idt);
+            ps.setString(5, fecha);
+            
+            ps.executeUpdate();
+            ps.close();
+            Conexion.desconectar();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(Viaje.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }   
+    }
 
     public static List<Viaje> logisticaViajes(BigDecimal idt, String fecha) {
         List<Viaje> viajes = new ArrayList<>();
