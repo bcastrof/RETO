@@ -255,10 +255,8 @@ end logisticaViajes;
 create or replace package ppartes
 as
 procedure partesList (c out SYS_REFCURSOR);
-procedure partesTFAI (idt in partes.trabajadores_id%type, fechain in partes.fecha%type, fechafi in partes.fecha%type,est in partes.estado%type, c out SYS_REFCURSOR);
-procedure partesTFAF (fechain in partes.fecha%type, fechafi in partes.fecha%type,est in partes.estado%type, c out SYS_REFCURSOR);
-procedure partesTFCI (idt in partes.trabajadores_id%type, fechain in partes.fecha%type, fechafi in partes.fecha%type,est in partes.estado%type, c out SYS_REFCURSOR);
-procedure partesTFCF (fechain in partes.fecha%type, fechafi in partes.fecha%type,est in partes.estado%type, c out SYS_REFCURSOR);
+procedure partesTFAI (idt in partes.trabajadores_id%type, fechain in partes.fecha%type, fechafi in partes.fecha%type, c out SYS_REFCURSOR);
+procedure partesTFAF (fechain in partes.fecha%type, fechafi in partes.fecha%type, c out SYS_REFCURSOR);
 end ppartes;
 
 create or replace package body ppartes
@@ -269,40 +267,25 @@ begin
 open c for
 select * from partes;
 end partesList;
-procedure partesTFAI (idt in partes.trabajadores_id%type, fechain in partes.fecha%type, fechafi in partes.fecha%type,est in partes.estado%type, c out SYS_REFCURSOR)
+
+procedure partesTFAI (idt in partes.trabajadores_id%type, fechain in partes.fecha%type, fechafi in partes.fecha%type, c out SYS_REFCURSOR)
 as
 begin
 
 open c for
 select * from partes
-where fecha BETWEEN (fechain) and  (fechafi) and trabajadores_id=idt and estado=est;
+where fecha BETWEEN (fechain) and  (fechafi) and trabajadores_id=idt;
 end partesTFAI;
 
-procedure partesTFAF (fechain in partes.fecha%type, fechafi in partes.fecha%type,est in partes.estado%type, c out SYS_REFCURSOR)
+procedure partesTFAF (fechain in partes.fecha%type, fechafi in partes.fecha%type, c out SYS_REFCURSOR)
 as
 begin
 open c for
 select * from partes
-where fecha BETWEEN (fechain) and  (fechafi) and estado= est;
+where fecha BETWEEN (fechain) and  (fechafi);
 end partesTFAF;
-
-procedure partesTFCI (idt in partes.trabajadores_id%type, fechain in partes.fecha%type, fechafi in partes.fecha%type,est in partes.estado%type, c out SYS_REFCURSOR)
-as
-begin
-
-open c for
-select * from partes
-where fecha BETWEEN (fechain) and  (fechafi) and trabajadores_id=idt and estado=est;
-end partesTFCI;
-
-procedure partesTFCF (fechain in partes.fecha%type, fechafi in partes.fecha%type,est in partes.estado%type, c out SYS_REFCURSOR)
-as
-begin
-open c for
-select * from partes
-where fecha BETWEEN (fechain) and  (fechafi) and estado = est;
-end partesTFCF;
 end ppartes;
+
 --procedimento de login
 create or replace PROCEDURE LOGIN
 (USER IN USUARIOS.USUARIO%TYPE, PASS IN USUARIOS.PASSWORD%TYPE, idu out usuarios.usuario%type, idt out usuarios.TRABAJADORES_ID%type)
