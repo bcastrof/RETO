@@ -22,6 +22,8 @@ public class Logistica extends Trabajador {
     //asociacion con parte
     private List<Parte> parte = new ArrayList<>();
 
+    private List<Conducen> conducen =new ArrayList<>();
+    
     public Logistica() {
     }
     
@@ -80,12 +82,12 @@ public class Logistica extends Trabajador {
     public Logistica(Trabajador t) {
        
     }
-
-   
-
     public void agregarParte(Parte p){
-        parte.add(p);
-        
+        parte.add(p);    
+    }
+    
+    public void añadirVehiculo(Conducen c){
+        conducen.add(c);
     }
     
     public List<Parte> getParte() {
@@ -94,6 +96,14 @@ public class Logistica extends Trabajador {
 
     public void setParte(List<Parte> parte) {
         this.parte = parte;
+    }
+
+    public List<Conducen> getConducen() {
+        return conducen;
+    }
+
+    public void setConducen(List<Conducen> conducen) {
+        this.conducen = conducen;
     }
     
 

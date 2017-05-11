@@ -128,28 +128,13 @@ public class Parte {
                 BigDecimal ho = cs.getBigDecimal(12);
                 BigDecimal ift = cs.getBigDecimal(13);
                 String no = cs.getString(14);
-                cs.close();
-                
-               p = new Parte(fecha, kmi, kmf, gp, gd, gc, og, in, es, va, ho, ift, no);
-               
-              
-                  
-              
-                   
-             
+               p = new Parte(fecha, kmi, kmf, gp, gd, gc, og, in, es, va, ho, ift, no);    
+              cs.close();
                Conexion.desconectar();
-                
-             
                  return p;
-             
-               
-               
             } catch (SQLException ex) {
-               
-               
-            }
-        
-        
+                    
+            }    
       return null;
     }
     

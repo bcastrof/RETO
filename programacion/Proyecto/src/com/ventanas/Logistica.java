@@ -18,7 +18,7 @@ import java.util.Date;
  */
 public class Logistica extends javax.swing.JFrame {
 //para cargar ventana viajes
-    private Viajes viajes;
+    private SeleccionarVehiculo vehiculo;
     
 private static BigDecimal idT = Login.idt;
     
@@ -88,14 +88,9 @@ private static BigDecimal idT = Login.idt;
     }// </editor-fold>//GEN-END:initComponents
 
     private void uInicioJornadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uInicioJornadaActionPerformed
-       Trabajador t = Trabajador.filtrarTrabajador2(idT);
-       SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-       Date fecha = new Date();
-       String fechaParte = dateFormat.format(fecha);
-       Parte p = new Parte(fechaParte, idT);
-       p.iniciarParte();
-       viajes=new Viajes();
-       viajes.setVisible(true);
+
+       vehiculo=new SeleccionarVehiculo();
+       vehiculo.setVisible(true);
     }//GEN-LAST:event_uInicioJornadaActionPerformed
 
     /**

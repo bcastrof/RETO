@@ -5,7 +5,6 @@
  */
 package com.clases;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -27,7 +26,7 @@ public class Vehiculo {
     private String matricula;
     private String marca;
     private String modelo;
-
+    
     //asociacion con parte
     private Parte parte;
     //asociacion con administracion
@@ -110,7 +109,7 @@ public class Vehiculo {
 
 
     public static Vehiculo filtrarvehiculo(String matricula) {
-        Vehiculo v = new Vehiculo();
+        Vehiculo v;
 
         Conexion.conectar();
         String sql = "call pvehiculos.filtrarVehiculo(?,?,?,?,?)";
@@ -123,11 +122,6 @@ public class Vehiculo {
             cs.registerOutParameter(4, OracleTypes.VARCHAR);
             cs.registerOutParameter(5, OracleTypes.VARCHAR);
             cs.execute();
-            
-            /*v.setIdVehiculo(cs.getBigDecimal(2));
-            v.setMarca(cs.getString(3));
-            v.setModelo(cs.getString(4));
-            v.setMatricula(cs.getString(5));*/
             v = new Vehiculo (cs.getBigDecimal(2),cs.getString(3),cs.getString(4),cs.getString(5));
             
             cs.close();
@@ -139,4 +133,5 @@ public class Vehiculo {
         }
 
     }
+    
 }

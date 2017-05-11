@@ -21,11 +21,15 @@ public class vFinJornada extends javax.swing.JFrame {
 private static BigDecimal idT = Login.idt;
 private static String fecha;
 private static BigDecimal id;
+private Viajes v;
+
 /**
      * Creates new form vFinJornada
      */
     public vFinJornada() {
         initComponents();
+      
+        
         Logistica l = (Logistica) Trabajador.filtrarTrabajador2(idT);
 
         // Logistica l = new Logistica(t);
@@ -127,6 +131,11 @@ private static BigDecimal id;
         });
 
         jButton2.setText("CANCELAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("GASTOS");
 
@@ -246,6 +255,13 @@ private static BigDecimal id;
             System.out.println(":(");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        v = new Viajes();
+        v.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

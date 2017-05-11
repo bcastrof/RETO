@@ -115,19 +115,16 @@ public class AltaCentros extends javax.swing.JFrame {
     private void altaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaActionPerformed
 
         //esto funciona en 12c
-        /*
+       
         String name = nombre.getText();
         String street = calle.getText();
-        // int number = Integer.parseInt(numero.getText());
         BigDecimal number = new BigDecimal(numero.getText());
         String city = ciudad.getText();
-        // int postalCode = Integer.parseInt(codigoPostal.getText());
         BigDecimal postalCode=new BigDecimal(codigoPostal.getText());
         String province = provincia.getText();
-        // int phone = Integer.parseInt(telefono.getText());
         BigDecimal phone = new BigDecimal(telefono.getText());
         Centro c = new Centro (name, street, number, city, postalCode, province, phone);
-          */
+        /*
         //esto funciona en 11g
         Centro c = new Centro();
         //int id = c.autoincremente();
@@ -151,10 +148,10 @@ public class AltaCentros extends javax.swing.JFrame {
         d.setCodigoPostal(postalCode);
         d.setProvincia(province);
         d.setTelefonos(phone);
-          
+          */
         //esta parte es comun para 12c y 11g solo hay que cambiar  
         // d.gestionCentros1(); por c.gestionCentros();
-        boolean guardado = d.gestionCentros1();
+        boolean guardado = c.gestionCentros();
 
         if (guardado) {
             //todo intentar poner este mensaje mas guapo

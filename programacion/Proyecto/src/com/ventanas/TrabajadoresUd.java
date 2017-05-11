@@ -22,40 +22,44 @@ public class TrabajadoresUd extends javax.swing.JFrame {
     private Trabajador trabajador1;
     private static String docI;
     private static BigDecimal id;
+
     //listar trabajadores
     private void listarTrabajadores() {
-        trabajadores = (DefaultTableModel) jTable1.getModel();
+        trabajadores = (DefaultTableModel) tTrabajadores.getModel();
         trabajador = Trabajador.listarTrabajadores();
 
-        trabajador.forEach((t) -> {
-            trabajadores.insertRow(trabajadores.getRowCount(), new Object[]{t.getId(), t.getNombre(),
-                t.getPrimerApellido(),t.getDni(), t.getCategoria(),
-                t.getMovilEmpresa(),
-                t.getIdCent(),t.getFechaNacimiento(), t.getCalle()});
+           trabajador.forEach((t) -> {
+            trabajadores.insertRow(trabajadores.getRowCount(), new Object[]{t.getId(),t.getDni(),t.getNombre(), t.getPrimerApellido(),
+            t.getSegundoApellido(),t.getCategoria(),t.getCalle(),t.getNumero(),t.getPiso(),t.getCentro(),t.getMano(),
+            t.getCiudad(),t.getCodigoPostal(),t.getProvincia(),t.getMovilEmpresa(),t.getMovilPersonal(),t.getSalario(),t.getFechaNacimiento(),
+            t.getCentro()
+            });
         });
     }
 
     private void filtrarTrabajador() {
         trabajadores.setRowCount(0);
-        trabajadores = (DefaultTableModel) jTable1.getModel();
+        trabajadores = (DefaultTableModel) tTrabajadores.getModel();
         trabajador = Trabajador.filtrarTrabajador(docI);
-         
+
         trabajador.forEach((t) -> {
-            trabajadores.insertRow(trabajadores.getRowCount(), new Object[]{t.getId(), t.getNombre(),
-                t.getPrimerApellido(),t.getDni(), t.getCategoria(),
-                t.getMovilEmpresa(),
-                t.getIdCent()});
+            trabajadores.insertRow(trabajadores.getRowCount(), new Object[]{t.getId(),t.getDni(),t.getNombre(), t.getPrimerApellido(),
+            t.getSegundoApellido(),t.getCategoria(),t.getCalle(),t.getNumero(),t.getPiso(),t.getCentro(),t.getMano(),
+            t.getCiudad(),t.getCodigoPostal(),t.getProvincia(),t.getMovilEmpresa(),t.getMovilPersonal(),t.getSalario(),t.getFechaNacimiento(),
+            t.getCentro()
+            });
         });
     }
-    private void filtrarTrabajador1(){
-       
+
+    private void filtrarTrabajador1() {
+
         trabajadores.setRowCount(0);
-        trabajadores = (DefaultTableModel) jTable1.getModel();
-        trabajador1=Trabajador.filtrarTrabajador1(docI);
+        trabajadores = (DefaultTableModel) tTrabajadores.getModel();
+        trabajador1 = Trabajador.filtrarTrabajador1(docI);
         trabajadores.insertRow(trabajadores.getRowCount(), new Object[]{trabajador1.getId(), trabajador1.getNombre(),
-                trabajador1.getPrimerApellido(),trabajador1.getDni(), trabajador1.getCategoria(),
-                trabajador1.getMovilEmpresa(),
-                trabajador1.getIdCent()});
+            trabajador1.getPrimerApellido(), trabajador1.getDni(), trabajador1.getCategoria(),
+            trabajador1.getMovilEmpresa(),
+            trabajador1.getIdCent()});
     }
 
     public TrabajadoresUd() {
@@ -73,7 +77,7 @@ public class TrabajadoresUd extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tTrabajadores = new javax.swing.JTable();
         uNombre = new javax.swing.JTextField();
         uPrimerApellido = new javax.swing.JTextField();
         uSegundoApellido = new javax.swing.JTextField();
@@ -98,7 +102,7 @@ public class TrabajadoresUd extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tTrabajadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -114,12 +118,13 @@ public class TrabajadoresUd extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tTrabajadores.getTableHeader().setReorderingAllowed(false);
+        tTrabajadores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                tTrabajadoresMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tTrabajadores);
 
         uNombre.setPreferredSize(new java.awt.Dimension(110, 20));
 
@@ -277,7 +282,7 @@ public class TrabajadoresUd extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-      
+
     private void bFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFiltrarActionPerformed
         docI = uFiltro.getText();
         filtrarTrabajador1();
@@ -290,48 +295,32 @@ public class TrabajadoresUd extends javax.swing.JFrame {
     }//GEN-LAST:event_listadoActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-        Trabajador trabajadorM = new Trabajador(uDni.getText(), uNombre.getText(), uPrimerApellido.getText(), 
-                uSegundoApellido.getText(), uCategoria.getText(), uCalle.getText(), new BigDecimal(uNumero.getText()), 
-                new BigDecimal(uPiso.getText()), uMano.getText(), uCiudad.getText(),new BigDecimal(uCodigoPostal.getText()), 
-                uProvincia.getText(),new BigDecimal(uMovilEmpresa.getText()),new BigDecimal(uMovilPersonal.getText()), 
-                new BigDecimal(uSalario.getText()), uFechaNacimiento.getText(),new BigDecimal(uIdcent.getText()));
-        
-        boolean modificar = trabajadorM.modificarTrabajador(id);
-        if (modificar==true){
+        Trabajador trabajadorM = new Trabajador(uDni.getText(), uNombre.getText(), uPrimerApellido.getText(),
+                uSegundoApellido.getText(), uCategoria.getText(), uCalle.getText(), new BigDecimal(uNumero.getText()),
+                new BigDecimal(uPiso.getText()), uMano.getText(), uCiudad.getText(), new BigDecimal(uCodigoPostal.getText()),
+                uProvincia.getText(), new BigDecimal(uMovilEmpresa.getText()), new BigDecimal(uMovilPersonal.getText()),
+                new BigDecimal(uSalario.getText()), uFechaNacimiento.getText(), new BigDecimal(uIdcent.getText()));
+
+        boolean modify = trabajadorM.modificarTrabajador(id);
+        if (modify == true) {
             JOptionPane.showMessageDialog(null, "Trabajador modificado correctamente", "Modificado", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+
         //limpiar tabla
         trabajadores.setRowCount(0);
-        
+
         //listar
         listarTrabajadores();
-        
+
         //limpiar formulario
         limpiarFormulario();
-        
+
     }//GEN-LAST:event_modificarActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-      int index = jTable1.getSelectedRow();
-      
-      uDni.setText(trabajador.get(index).getDni());
-      uNombre.setText(trabajador.get(index).getNombre());
-      uPrimerApellido.setText(trabajador.get(index).getPrimerApellido());
-      uSegundoApellido.setText(trabajador.get(index).getSegundoApellido());
-      uCalle.setText(trabajador.get(index).getCalle());
-      uNumero.setText(trabajador.get(index).getNumero().toString());
-      uPiso.setText(trabajador.get(index).getPiso().toString());
-      uMano.setText(trabajador.get(index).getMano());
-      uCiudad.setText(trabajador.get(index).getCiudad());
-      uCodigoPostal.setText(trabajador.get(index).getCodigoPostal().toString());
-      uProvincia.setText(trabajador.get(index).getProvincia());
-      uMovilEmpresa.setText(trabajador.get(index).getMovilEmpresa().toString());
-      uMovilPersonal.setText(trabajador.get(index).getMovilPersonal().toString());
-      uFechaNacimiento.setText(trabajador.get(index).getFechaNacimiento());    
-      uIdcent.setText(trabajador.get(index).getIdCent().toString());
-    }//GEN-LAST:event_jTable1MouseClicked
-    public void limpiarFormulario(){
+    private void tTrabajadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tTrabajadoresMouseClicked
+
+    }//GEN-LAST:event_tTrabajadoresMouseClicked
+    public void limpiarFormulario() {
         uDni.setText("");
         uNombre.setText("");
         uPrimerApellido.setText("");
@@ -348,7 +337,9 @@ public class TrabajadoresUd extends javax.swing.JFrame {
         uSalario.setText("");
         uFechaNacimiento.setText("");
         uIdcent.setText("");
+        uCategoria.setText("");
     }
+
     /**
      * @param args the command line arguments
      */
@@ -387,9 +378,9 @@ public class TrabajadoresUd extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bFiltrar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton listado;
     private javax.swing.JButton modificar;
+    private javax.swing.JTable tTrabajadores;
     private javax.swing.JTextField uCalle;
     private javax.swing.JTextField uCategoria;
     private javax.swing.JTextField uCiudad;

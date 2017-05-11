@@ -247,7 +247,7 @@ public class Trabajador {
         
         Conexion.conectar();
         try {
-            CallableStatement cs = Conexion.getConexion().prepareCall("{call listartrabajadores(?)}");
+            CallableStatement cs = Conexion.getConexion().prepareCall("{call ptrabajadores.listartrabajadores (?)}");
             cs.registerOutParameter(1, OracleTypes.CURSOR);
             cs.execute();
             
@@ -278,11 +278,13 @@ public class Trabajador {
             rs.close();
             cs.close();
             Conexion.desconectar();
+              return trabajadores;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema" + ex.getMessage());
+            return null;
         }
         
-        return trabajadores;
+      
     }
     
     public static  List<Trabajador>filtrarTrabajador(String dni){

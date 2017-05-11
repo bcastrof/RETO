@@ -175,21 +175,24 @@ public class Login extends javax.swing.JFrame {
                 a = Aviso.aviso(u.getIdt());
                 JOptionPane.showMessageDialog(null, "Aviso: \n " + avis, "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 a.confirmarAviso(Aviso.aviso(u.getIdt()).getIdAviso());
-
+             
                 finJornada = new vFinJornada();
                 finJornada.setVisible(true);
+                this.setVisible(false);
             }else if(p.getIdTrabajador() != null && !fechaParte.equalsIgnoreCase(fecha)){
                 finJornada = new vFinJornada();
                 finJornada.setVisible(true);
+                this.setVisible(false);
             }else if (p.getIdTrabajador() != null && fechaParte.equalsIgnoreCase(fecha)) { //parte distinto a null y la fechas == abro viajes
                 
                 viajes=new Viajes();
-                viajes.setVisible(true);  
+                viajes.setVisible(true);
+                this.setVisible(false);
             }
             else {
                 logistica = new Logistica();
                 logistica.setVisible(true);
-                System.out.println(fecha);
+                this.setVisible(false);
             }
 
         }

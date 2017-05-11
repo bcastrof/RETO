@@ -27,13 +27,7 @@ public class CentrosUd extends javax.swing.JFrame {
         centros = (DefaultTableModel) jTable1.getModel();
         centro = Centro.listarCentros();
           
-        //esto lo hacemos nosotros 
-        /*for (Centro c : centro) {
-            centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(), c.getNombre(),
-                c.getCalle(), c.getNumero(), c.getCiudad(), c.getCodigoPostal(), c.getProvincia(), c.getTelefonos()});
-        }*/ 
-        
-        //esto es lo que el netbeans considera gonito
+      
         centro.forEach((c) -> {
             centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(), c.getNombre(),
                 c.getCalle(), c.getNumero(), c.getCiudad(), c.getCodigoPostal(), c.getProvincia(), c.getTelefonos()});
@@ -45,14 +39,8 @@ public class CentrosUd extends javax.swing.JFrame {
         centros.setRowCount(0);
         centros = (DefaultTableModel) jTable1.getModel();
         centro = Centro.filtrarcentCentros(name);
-        //esto lo hacemos nosotros      
-           /* for(Centro c : centro) {
-            centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(), c.getNombre(),
-                c.getCalle(), c.getNumero(), c.getCiudad(), 
-                c.getCodigoPostal(), c.getProvincia(), c.getTelefonos()});
-        }*/
+           
        
-        //esto es lo que el netbeans considera gonito   
         centro.forEach((c) -> {
             centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(), c.getNombre(),
                 c.getCalle(), c.getNumero(), c.getCiudad(), c.getCodigoPostal(), c.getProvincia(), c.getTelefonos()});
@@ -235,7 +223,7 @@ public class CentrosUd extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // mapeo los campos de la fila seleccionada
         int index = jTable1.getSelectedRow();
-        centros = (DefaultTableModel) jTable1.getModel();
+       // centros = (DefaultTableModel) jTable1.getModel();
         idCent = new BigDecimal(centros.getValueAt(index, 0).toString());
 
         //mapeo y translado de los valores a los diferentes campos del formulario

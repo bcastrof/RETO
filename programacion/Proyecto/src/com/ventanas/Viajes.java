@@ -24,16 +24,15 @@ import javax.swing.table.DefaultTableModel;
  * @author BE
  */
 public class Viajes extends javax.swing.JFrame {
-
+    private vFinJornada finJornada;
     private Object JSpinner3;
     private SpinnerDateModel sm;
     private SpinnerDateModel sm3;
-
+     
     private DefaultTableModel tViajes;
     private List<Viaje> viaje;
     private final BigDecimal idT = Login.idt;
     private int index;
-
     /**
      * Creates new form Viajes
      */
@@ -160,6 +159,11 @@ public class Viajes extends javax.swing.JFrame {
         fin.setMaximumSize(new java.awt.Dimension(91, 23));
         fin.setMinimumSize(new java.awt.Dimension(91, 23));
         fin.setPreferredSize(new java.awt.Dimension(91, 23));
+        fin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -259,11 +263,11 @@ public class Viajes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void viajesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viajesMouseClicked
-         index = viajes.getSelectedRow();
-       
+        index = viajes.getSelectedRow();
+
         uAlbaran.setText(Integer.toString(viaje.get(index).getAlabaran()));
-        
-     
+
+
     }//GEN-LAST:event_viajesMouseClicked
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
@@ -284,17 +288,26 @@ public class Viajes extends javax.swing.JFrame {
     }//GEN-LAST:event_modificarActionPerformed
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
-      
-      int albaranb =  viaje.get(index).getAlabaran();
-     String fechab = Parte.parte(idT).getFecha();
-        System.out.println("");
-        Viaje.borrarViaje(fechab, albaranb, idT);
-        System.out.println("");
-      if (viaje.size() > 0) {
+
+        int albaranb = viaje.get(index).getAlabaran();
+        String fechab = Parte.parte(idT).getFecha();
+
+        if (JOptionPane.showConfirmDialog(null, "Este viaje va a ser eliminado. \n¿Esta seguro?", "Atención",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            Viaje.borrarViaje(fechab, albaranb, idT);
+            if (viaje.size() > 0) {
                 tViajes.setRowCount(0);
             }
             listarViajes();
+        } 
     }//GEN-LAST:event_borrarActionPerformed
+
+    private void finActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finActionPerformed
+        // TODO add your handling code here: 
+        finJornada = new vFinJornada();
+        finJornada.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_finActionPerformed
 
     /**
      * @param args the command line arguments
