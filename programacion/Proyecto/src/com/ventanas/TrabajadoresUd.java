@@ -37,19 +37,6 @@ public class TrabajadoresUd extends javax.swing.JFrame {
         });
     }
 
-    private void filtrarTrabajador() {
-        trabajadores.setRowCount(0);
-        trabajadores = (DefaultTableModel) tTrabajadores.getModel();
-        trabajador = Trabajador.filtrarTrabajador(docI);
-
-        trabajador.forEach((t) -> {
-            trabajadores.insertRow(trabajadores.getRowCount(), new Object[]{t.getId(),t.getDni(),t.getNombre(), t.getPrimerApellido(),
-            t.getSegundoApellido(),t.getCategoria(),t.getCalle(),t.getNumero(),t.getPiso(),t.getCentro(),t.getMano(),
-            t.getCiudad(),t.getCodigoPostal(),t.getProvincia(),t.getMovilEmpresa(),t.getMovilPersonal(),t.getSalario(),t.getFechaNacimiento(),
-            t.getCentro()
-            });
-        });
-    }
 
     private void filtrarTrabajador1() {
 
@@ -318,7 +305,27 @@ public class TrabajadoresUd extends javax.swing.JFrame {
     }//GEN-LAST:event_modificarActionPerformed
 
     private void tTrabajadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tTrabajadoresMouseClicked
-
+        
+         trabajadores= (DefaultTableModel) tTrabajadores.getModel();
+        int index = tTrabajadores.getSelectedRow();
+        uDni.setText(trabajador.get(index).getDni());
+        uNombre.setText(trabajador.get(index).getNombre());
+        uPrimerApellido.setText(trabajador.get(index).getPrimerApellido());
+        uSegundoApellido.setText(trabajador.get(index).getSegundoApellido());
+        uCalle.setText(trabajador.get(index).getCalle());
+        uNumero.setText(trabajador.get(index).getNumero().toString());
+        uPiso.setText(trabajador.get(index).getPiso().toString());
+        uMano.setText(trabajador.get(index).getMano());
+        uCiudad.setText(trabajador.get(index).getCiudad());
+        uCodigoPostal.setText(trabajador.get(index).getCodigoPostal().toString());
+        uProvincia.setText(trabajador.get(index).getProvincia());
+        uMovilEmpresa.setText(trabajador.get(index).getMovilEmpresa().toString());
+        uMovilPersonal.setText(trabajador.get(index).getMovilPersonal().toString());
+        uSalario.setText(trabajador.get(index).getSalario().toString());
+        uIdcent.setText(trabajador.get(index).getIdCent().toString());
+        uCategoria.setText(trabajador.get(index).getCategoria());
+        uFechaNacimiento.setText(trabajador.get(index).getFechaNacimiento());
+        
     }//GEN-LAST:event_tTrabajadoresMouseClicked
     public void limpiarFormulario() {
         uDni.setText("");

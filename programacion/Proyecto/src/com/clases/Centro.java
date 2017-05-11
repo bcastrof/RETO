@@ -202,7 +202,7 @@ public class Centro {
         List<Centro> centro = new ArrayList<>();
         try {
             Conexion.conectar();
-            CallableStatement cs = Conexion.getConexion().prepareCall("{call complejos.CONSULTACENTROS(?)}");
+            CallableStatement cs = Conexion.getConexion().prepareCall("{call pcentros.centrosList(?)}");
             cs.registerOutParameter(1, OracleTypes.CURSOR);
             cs.execute();
 
@@ -230,34 +230,28 @@ public class Centro {
         return centro;
     }
 
-    public static List<Centro> filtrarcentCentros(String name) {
-        List<Centro> c = new ArrayList<>();
+    public static Centro filtrarcentCentros(String name) {
+        Centro c = new Centro();
 
         Conexion.conectar();
 
         try {
-            CallableStatement cs = Conexion.getConexion().prepareCall("{call COMPLEJOS.CONSULTACENTRO(?,?)}");
+            CallableStatement cs = Conexion.getConexion().prepareCall("{call pcentros.centrosFn(?,?,?,?,?,?,?,?,?)}");
             cs.setString(1, name);
-            cs.registerOutParameter(2, OracleTypes.CURSOR);
+            cs.registerOutParameter(2, OracleTypes.INTEGER);
+            cs.registerOutParameter(3, OracleTypes.VARCHAR);
+            cs.registerOutParameter(4, OracleTypes.VARCHAR);
+            cs.registerOutParameter(5, OracleTypes.INTEGER);
+            cs.registerOutParameter(6, OracleTypes.VARCHAR);
+            cs.registerOutParameter(7, OracleTypes.INTEGER);
+            cs.registerOutParameter(8, OracleTypes.VARCHAR);
+            cs.registerOutParameter(9, OracleTypes.INTEGER);
             cs.execute();
-
-            ResultSet rs = (ResultSet) cs.getObject(2);
-
-            while (rs.next()) {
-                Centro d = new Centro();
-                d.setIDcent(rs.getBigDecimal("ID"));
-                d.setNombre(rs.getString("nombre"));
-                d.setCalle(rs.getString("calle"));
-                d.setNumero(rs.getBigDecimal("numero"));
-                d.setCiudad(rs.getString("ciudad"));
-                d.setCodigoPostal(rs.getBigDecimal("codigoPostal"));
-                d.setProvincia(rs.getString("provincia"));
-                d.setTelefonos(rs.getBigDecimal("telefono"));
-                c.add(d);
-
-                System.out.println(c);
-            }
-            rs.close();
+            
+            c= new Centro(cs.getBigDecimal(2),cs.getString(3),cs.getString(4),cs.getBigDecimal(5),
+            cs.getString(6),cs.getBigDecimal(7),cs.getString(8),cs.getBigDecimal(9));
+            
+            cs.close();
             Conexion.desconectar();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede efectuar la conexión, hable con el administrador del sistema \n" + ex.getMessage());

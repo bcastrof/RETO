@@ -6,7 +6,9 @@
 package com.ventanas;
 
 import com.clases.Vehiculo;
+import java.math.BigDecimal;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,34 +16,41 @@ import javax.swing.table.DefaultTableModel;
  * @author Miriam
  */
 public class VehiculosUd extends javax.swing.JFrame {
-    
+
     private DefaultTableModel vehiculos;
     private List<Vehiculo> vehiculo;
     private Vehiculo v;
-    
+    private BigDecimal idv;
     //para filtrar
     private static String docI;
 
     private void listarVehiculos() {
-       vehiculos= (DefaultTableModel) jTable1.getModel();
-       vehiculo = Vehiculo.listarVehiculos();
+        vehiculos = (DefaultTableModel) jTable1.getModel();
+        vehiculo = Vehiculo.listarVehiculos();
 
         for (Vehiculo v : vehiculo) {
             vehiculos.insertRow(vehiculos.getRowCount(), new Object[]{v.getIdVehiculo(), v.getMarca(),
-               v.getModelo(), v.getMatricula()});
+                v.getModelo(), v.getMatricula()});
         }
     }
-    
-   //filtrar vehiculos prueba 
-      private void filtrarVehiculo() {
+
+    //filtrar vehiculos prueba 
+    private void filtrarVehiculo() {
         vehiculos.setRowCount(0);
         vehiculos = (DefaultTableModel) jTable1.getModel();
-        v= Vehiculo.filtrarvehiculo(docI);
-      
-            vehiculos.insertRow(vehiculos.getRowCount(), new Object[]{v.getIdVehiculo(), 
-                v.getMarca(), v.getModelo(), v.getMatricula()});
+        v = Vehiculo.filtrarvehiculo(docI);
+       
         
+        if (v == null) {
+            JOptionPane.showMessageDialog(null, "No se han encontrado vehiculos");
+            listarVehiculos();
+        } else {
+
+            vehiculos.insertRow(vehiculos.getRowCount(), new Object[]{v.getIdVehiculo(),
+                v.getMarca(), v.getModelo(), v.getMatricula()});
+        }
     }
+
     public VehiculosUd() {
         initComponents();
         listarVehiculos();
@@ -60,6 +69,11 @@ public class VehiculosUd extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         uFiltro = new javax.swing.JTextField();
         bFiltrar = new javax.swing.JButton();
+        uMarca = new javax.swing.JTextField();
+        uModelo = new javax.swing.JTextField();
+        uMatricula = new javax.swing.JTextField();
+        modificar = new javax.swing.JButton();
+        eliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +93,11 @@ public class VehiculosUd extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         uFiltro.setPreferredSize(new java.awt.Dimension(110, 20));
@@ -90,6 +109,18 @@ public class VehiculosUd extends javax.swing.JFrame {
             }
         });
 
+        uMarca.setMinimumSize(new java.awt.Dimension(95, 25));
+        uMarca.setPreferredSize(new java.awt.Dimension(95, 25));
+
+        modificar.setText("MODIFICAR");
+        modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarActionPerformed(evt);
+            }
+        });
+
+        eliminar.setText("ELIMINAR");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,12 +128,25 @@ public class VehiculosUd extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(uFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(bFiltrar)
-                        .addGap(0, 387, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(uFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(uMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bFiltrar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(uModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(uMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(eliminar)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -114,7 +158,14 @@ public class VehiculosUd extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(uFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bFiltrar))
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(uMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(uModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(uMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(modificar)
+                    .addComponent(eliminar))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         pack();
@@ -122,9 +173,23 @@ public class VehiculosUd extends javax.swing.JFrame {
 
     private void bFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFiltrarActionPerformed
         docI = uFiltro.getText();
-
         filtrarVehiculo();
+
     }//GEN-LAST:event_bFiltrarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int index = jTable1.getSelectedRow();
+        uMarca.setText(vehiculo.get(index).getMarca());
+        uModelo.setText(vehiculo.get(index).getModelo());
+        uMatricula.setText(vehiculo.get(index).getMatricula());
+
+        idv = vehiculo.get(index).getIdVehiculo();
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+
+
+    }//GEN-LAST:event_modificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,9 +228,13 @@ public class VehiculosUd extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bFiltrar;
+    private javax.swing.JButton eliminar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton modificar;
     javax.swing.JTextField uFiltro;
+    private javax.swing.JTextField uMarca;
+    private javax.swing.JTextField uMatricula;
+    private javax.swing.JTextField uModelo;
     // End of variables declaration//GEN-END:variables
 }
-

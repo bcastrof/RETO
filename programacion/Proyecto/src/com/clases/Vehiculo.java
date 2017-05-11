@@ -7,6 +7,7 @@ package com.clases;
 
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -126,12 +127,34 @@ public class Vehiculo {
             
             cs.close();
             Conexion.desconectar();
-            return v;
+           return v;
         } catch (SQLException ex) {
-            Logger.getLogger(Vehiculo.class.getName()).log(Level.SEVERE, null, ex);
+                 //JOptionPane.showMessageDialog(null, "No se han encontrado vehiculos" + ex.getMessage());
             return null;
         }
 
+    }
+    
+    public boolean modificarVehiculo(BigDecimal idv){
+        Conexion.conectar();
+        String sql = "update vehiculos set marca=?, modelo=?, matricula=? where id=?";
+        try {
+            PreparedStatement ps = Conexion.getConexion().prepareStatement(sql);
+            ps.setString(1, marca);
+            ps.setString(2, modelo);
+            ps.setString(3, matricula);
+            ps.setBigDecimal(4, idv);
+            ps.executeUpdate();
+            ps.close();
+            Conexion.desconectar();
+            return true;
+        } catch (SQLException ex) {
+       
+        }
+        
+        
+        
+        return false;
     }
     
 }

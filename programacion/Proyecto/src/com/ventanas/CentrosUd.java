@@ -22,6 +22,7 @@ public class CentrosUd extends javax.swing.JFrame {
     private DefaultTableModel centros;
   
     private List<Centro> centro;
+    private Centro c;
 
     private void listarCentros() {
         centros = (DefaultTableModel) jTable1.getModel();
@@ -38,13 +39,10 @@ public class CentrosUd extends javax.swing.JFrame {
     private void filtrarCentos() {
         centros.setRowCount(0);
         centros = (DefaultTableModel) jTable1.getModel();
-        centro = Centro.filtrarcentCentros(name);
+        c = Centro.filtrarcentCentros(name);
            
-       
-        centro.forEach((c) -> {
             centros.insertRow(centros.getRowCount(), new Object[]{c.getIDcent(), c.getNombre(),
                 c.getCalle(), c.getNumero(), c.getCiudad(), c.getCodigoPostal(), c.getProvincia(), c.getTelefonos()});
-        });
     }
 
     public CentrosUd() {

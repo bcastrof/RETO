@@ -224,6 +224,7 @@ RAISE_APPLICATION_ERROR(-20001,'No se han encontrado registros de Trabajadores')
 WHEN TOO_MANY_ROWS THEN 
 RAISE_APPLICATION_ERROR(-20002,'Se ha encontrado más de un registro por favor hable con el Administrador'); 
 end ifTrabajador;
+end ptrabajadores;
 
 procedure idTrabajador
 (doc in trabajadores.dni%type, idi out trabajadores.id%type)
