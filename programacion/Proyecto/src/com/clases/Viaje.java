@@ -27,7 +27,7 @@ public class Viaje {
     private String horaFin;
     private BigDecimal idt;
     private String fecha;
-    private BigDecimal albaran;
+    private int albaran;
 
     //asociacion con parte
     private Parte parte;
@@ -35,7 +35,7 @@ public class Viaje {
     public Viaje() {
     }
 
-    public Viaje(BigDecimal idt, String fecha, BigDecimal albaran, String horaInicio, String horaFin) {
+    public Viaje(BigDecimal idt, String fecha, int albaran, String horaInicio, String horaFin) {
         this.idt = idt;
         this.fecha = fecha;
         this.albaran = albaran;
@@ -43,7 +43,7 @@ public class Viaje {
         this.horaFin = horaFin;
     }
 
-    public Viaje(String horaInicio, String horaFin, BigDecimal albaran) {
+    public Viaje(String horaInicio, String horaFin,int albaran) {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.albaran = albaran;
@@ -65,11 +65,11 @@ public class Viaje {
         this.fecha = fecha;
     }
 
-    public BigDecimal getAlabaran() {
+    public int getAlabaran() {
         return albaran;
     }
 
-    public void setAlabaran(BigDecimal alabaran) {
+    public void setAlabaran(int alabaran) {
         this.albaran = alabaran;
     }
 
@@ -107,7 +107,7 @@ public class Viaje {
             smt.setString(2, horaFin);
             smt.setBigDecimal(3, idt);
             smt.setString(4, fecha);
-            smt.setBigDecimal(5, albaran);
+            smt.setInt(5, albaran);
 
             smt.executeUpdate();
             smt.close();
@@ -122,13 +122,13 @@ public class Viaje {
     
     public boolean modificarviaje(BigDecimal idt, String fecha){
         Conexion.conectar();
-        String sql ="update partes set albaran=?, horaInicio=?, horaFin=? where TRABAJADORES_ID=? AND FECHA=?";
+        String sql ="update viajes set horaInicial=?, horaFinal=?, albaran=? where TRABAJADORES_ID=? AND FECHA_ID=?";
         
         try {
             PreparedStatement ps = Conexion.getConexion().prepareStatement(sql);
-            ps.setBigDecimal(1, albaran);
-            ps.setString(2, horaInicio);
-            ps.setString(3, horaFin);
+            ps.setString(1, horaInicio);
+            ps.setString(2, horaFin);
+            ps.setInt(3, albaran);
             ps.setBigDecimal(4, idt);
             ps.setString(5, fecha);
             
@@ -142,6 +142,27 @@ public class Viaje {
         }   
     }
 
+    public static boolean borrarViaje(String fecha, int albaran, BigDecimal idt){
+        
+        Conexion.conectar();
+        String sql = "delete from viajes where fecha_id=? and albaran =? and trabajadores_id=?";
+        try {
+            PreparedStatement ps =Conexion.getConexion().prepareStatement(sql);
+            
+            ps.setString(1, fecha);
+            ps.setInt(2, albaran);
+            ps.setBigDecimal(3, idt);
+            ps.execute();
+            ps.close();
+            Conexion.desconectar();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Viaje.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return true;
+    }
+    
     public static List<Viaje> logisticaViajes(BigDecimal idt, String fecha) {
         List<Viaje> viajes = new ArrayList<>();
 
@@ -160,7 +181,7 @@ public class Viaje {
             while (rs.next()) {
                 Viaje v = new Viaje();
 
-                v.setAlabaran(rs.getBigDecimal("albaran"));
+                v.setAlabaran(rs.getInt("albaran"));
                 v.setHoraInicio(rs.getString("horaInicial"));
                 v.setHoraFin(rs.getString("horaFinal"));
 

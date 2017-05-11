@@ -25,49 +25,46 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Viajes extends javax.swing.JFrame {
 
-    public static BigDecimal id = Login.idt;
     private Object JSpinner3;
     private SpinnerDateModel sm;
     private SpinnerDateModel sm3;
 
     private DefaultTableModel tViajes;
     private List<Viaje> viaje;
-    private Date date = new Date();
     private final BigDecimal idT = Login.idt;
-    private DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+    private int index;
+
     /**
      * Creates new form Viajes
      */
     public Viajes() {
         initComponents();
         {
-            
-            dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String fecha = dateFormat.format(date);
             jLabel3.setText(fecha);
             Trabajador t = Trabajador.filtrarTrabajador2(idT);
             jLabel4.setText(t.getNombre());
-            
+
             listarViajes();
-       
+
         }
 
     }
 
     private void listarViajes() {
-        
-        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String fecha = dateFormat.format(date);
-        
 
         tViajes = (DefaultTableModel) viajes.getModel();
         viaje = Viaje.logisticaViajes(idT, fecha);
 
         for (Viaje v : viaje) {
-            tViajes.insertRow(tViajes.getRowCount(), new Object[]{v.getAlabaran(), v.getHoraInicio(), v.getHoraInicio()
+            tViajes.insertRow(tViajes.getRowCount(), new Object[]{v.getAlabaran(), v.getHoraInicio(), v.getHoraFin()
             });
         }
-
     }
 
     @SuppressWarnings("unchecked")
@@ -91,6 +88,8 @@ public class Viajes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         modificar = new javax.swing.JButton();
+        borrar = new javax.swing.JButton();
+        fin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,6 +146,21 @@ public class Viajes extends javax.swing.JFrame {
             }
         });
 
+        borrar.setText("BORRAR");
+        borrar.setMaximumSize(new java.awt.Dimension(91, 23));
+        borrar.setMinimumSize(new java.awt.Dimension(91, 23));
+        borrar.setPreferredSize(new java.awt.Dimension(91, 23));
+        borrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrarActionPerformed(evt);
+            }
+        });
+
+        fin.setText("TERMINAR");
+        fin.setMaximumSize(new java.awt.Dimension(91, 23));
+        fin.setMinimumSize(new java.awt.Dimension(91, 23));
+        fin.setPreferredSize(new java.awt.Dimension(91, 23));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,9 +176,9 @@ public class Viajes extends javax.swing.JFrame {
                                     .addComponent(jsinicio, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
                                     .addComponent(jsfin))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(modificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(modificar)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +191,13 @@ public class Viajes extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 15, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(117, 117, 117)
+                                .addComponent(fin, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -187,63 +207,94 @@ public class Viajes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
                         .addComponent(jsinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jsfin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(uAlbaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(modificar)
+                            .addComponent(uAlbaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(modificar)))
+                        .addGap(44, 44, 44)
+                        .addComponent(jButton1)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fin, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        BigDecimal albaran;
-       
+
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Parte p = Parte.parte(idT);
-        String horaini = dateFormat.format(sm.getDate());
-        String horafin = dateFormat.format(sm3.getDate());
-        albaran = new BigDecimal(uAlbaran.getText());
-        //(BigDecimal idt, String fecha, BigDecimal albaran, String horaInicio, String horaFin)
-        Viaje v = new Viaje(idT, p.getFecha(), albaran, horaini,horafin);  
+        Viaje v = new Viaje(idT, p.getFecha(), Integer.parseInt(uAlbaran.getText()), dateFormat.format(sm.getDate()), dateFormat.format(sm3.getDate()));
         p.añadirViaje(v);
-        v.setParte(p);   
-      
-          Viaje i = new Viaje();
-        i.setHoraInicio(horaini);
-        i.setHoraFin(horafin);
-        i.setAlabaran(albaran);  
-        i.insertarViaje(idT, p.getFecha()); 
-        if(viaje.size()>0){
-                tViajes.setRowCount(0); 
+        v.setParte(p);
+        if (uAlbaran.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos para insertar el viaje", "Atención", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            Viaje i = new Viaje();
+            i.setHoraInicio(dateFormat.format(sm.getDate()));
+            i.setHoraFin(dateFormat.format(sm3.getDate()));
+            i.setAlabaran(Integer.parseInt(uAlbaran.getText()));
+            i.insertarViaje(idT, p.getFecha());
+            if (viaje.size() > 0) {
+                tViajes.setRowCount(0);
             }
-        listarViajes();
+            listarViajes();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void viajesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viajesMouseClicked
-      int index = viajes.getSelectedRow();
-      uAlbaran.setText(viaje.get(index).getAlabaran().toString());
+         index = viajes.getSelectedRow();
+       
+        uAlbaran.setText(Integer.toString(viaje.get(index).getAlabaran()));
+        
+     
     }//GEN-LAST:event_viajesMouseClicked
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-      Viaje v = new Viaje(idT, date.toString(), new BigDecimal(uAlbaran.getText()), dateFormat.format(sm.getDate()), dateFormat.format(sm3.getDate()));
-      v.modificarviaje(idT, date.toString());
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        Date fech = new Date();
+        DateFormat fechaFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String fecha = fechaFormat.format(fech);
+        if (uAlbaran.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos para modificar el viaje", "Atención", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            Viaje v = new Viaje(dateFormat.format(sm.getDate()), dateFormat.format(sm3.getDate()), Integer.parseInt(uAlbaran.getText()));
+            v.modificarviaje(idT, fecha);
+            if (viaje.size() > 0) {
+                tViajes.setRowCount(0);
+            }
+            listarViajes();
+        }
     }//GEN-LAST:event_modificarActionPerformed
+
+    private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
+      
+      int albaranb =  viaje.get(index).getAlabaran();
+     String fechab = Parte.parte(idT).getFecha();
+        System.out.println("");
+        Viaje.borrarViaje(fechab, albaranb, idT);
+        System.out.println("");
+      if (viaje.size() > 0) {
+                tViajes.setRowCount(0);
+            }
+            listarViajes();
+    }//GEN-LAST:event_borrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,6 +332,8 @@ public class Viajes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton borrar;
+    private javax.swing.JButton fin;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
